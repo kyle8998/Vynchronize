@@ -20,7 +20,7 @@
         }
 
         #videoArea{
-            /* display:none; */
+            display:none;
         }
         #userFormArea{
             /*display:none;*/
@@ -31,32 +31,60 @@
   <body>
       <div class="container">
           <!-- User Form (First Page) -->
+          <div id="userFormArea" class="row">
+              <div class="col-md-12">
+                  <form id="userForm">
+                      <div class="form-group">
+                          <label>Enter Name</label>
+                          <input class="form-control" id="username" />
+                          <br />
+
+                          <input type="submit" class="btn btn-primary"
+                          value="Enter" />
+                      </div>
+                  </form>
+              </div>
+          </div>
+
           <!-- Chat Box -->
-          <!-- <div id="videoArea" class="row">
-                  <iframe src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"></iframe>
-          </div> -->
+          <div id="videoArea" class="row">
+                  <iframe style= "height:700px; width: 1200px;" src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"></iframe>
 
-          <iframe id="player"
-        width="640" height="360"
-        src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
-        frameborder="0"
-        style="border: solid 4px #37474F"
-></iframe>
+                  <video id="video" loop>
+			<source src="http://pov-tc.pbs.org/pov/flv/2014/koch-mid.mp4" type="video/mp4"/>
+			<source src="http://pov-tc.pbs.org/pov/flv/2014/koch-mid.webm" type="video/webm"/>
+		      </video>
 
-<div>
-    <button onclick="play()" style="margin-top:.5rem"class="btn btn-primary">Play</button>
-</div>
+                <div>Server Time: <span id="clock"></span></div>
+		          <div>Video Time: <span id="video-time"></span></div>
 
+              <!-- </div> -->
+              <!-- <div class="col-md-4">
+                  <div class="well">
+                      <h3>Online Users</h3>
+                      <ul class="list-group" id="users"></ul>
+                  </div>
+
+              </div>
+              <div class="col-md-8">
+                  <div class="chat" id="chat"></div>
+
+                  <form id="messageForm">
+                      <div class="form-group">
+                          <label>Enter Message...</label>
+                          <textarea class="form-control" id="message"></textarea>
+                          <br />
+
+                          <input type="submit" class="btn btn-primary"
+                          value="Send Message" />
+                      </div>
+                  </form>
+              </div> -->
+          </div>
       </div>
 
       <script>
       var socket = io.connect();
-
-      // socket.on('broadcast',function(data) {
-      //    document.body.innerHTML = '';
-      //    document.write(data.description);
-      // });
-
       var $userForm = $('#userForm');
       var $username = $('#username');
       var $videoArea = $('#videoArea');
@@ -134,6 +162,3 @@
 
   </body>
 </html>
-
-<script src="js/sync.js"></script>
-<script src="js/player.js"></script>

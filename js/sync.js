@@ -1,0 +1,3 @@
+// function play(){
+// 	player.playVideo();
+// }

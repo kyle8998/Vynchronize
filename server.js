@@ -5,6 +5,8 @@ var io = require('socket.io').listen(server);
 users = [];
 connections = [];
 
+app.use(express.static(__dirname + '/'));
+
 server.listen(process.env.PORT || 3000);
 console.log('Server Started . . .');
 
@@ -16,6 +18,8 @@ io.sockets.on('connection', function(socket){
     // Connect Socket
     connections.push(socket);
     console.log('Connected: %s sockets connected', connections.length);
+    // io.sockets.emit('broadcast',{ description: connections.length + ' clients connected!'});
+
 
     // Disconnect
     socket.on('disconnect', function(data){
@@ -40,7 +44,16 @@ io.sockets.on('connection', function(socket){
         updateUsernames();
     });
 
+    // Emits the player status
+    socket.on('player status', function(data){
+        // console.log(data);
+        console.log(data)
+    });
+
     function updateUsernames(){
         io.sockets.emit('get users', users);
     }
+
+    ////////
+
 });
