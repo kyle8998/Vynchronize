@@ -1,3 +1,3 @@
-// function play(){
-// 	player.playVideo();
-// }
+function playVideo(){
+	socket.emit('play video');
+}

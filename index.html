@@ -10,69 +10,169 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <!-- Socket.io -->
     <script src="/socket.io/socket.io.js"></script>
-    <!-- Video stuff -->
-    <!-- <link href="assets/css/video-default.css" rel="stylesheet">
-    <script type="text/javascript" src="assets/js/jquery.video-ui.js"></script> -->
 
      <style>
         body{
             margin-top:30px;
         }
-
-        #videoArea{
-            /* display:none; */
-        }
-        #userFormArea{
-            /*display:none;*/
+        #roomArea{
+            display:none;
         }
      </style>
 
   </head>
   <body>
       <div class="container">
+          <label>Vynchronize</label>
+
           <!-- User Form (First Page) -->
-          <!-- Chat Box -->
-          <!-- <div id="videoArea" class="row">
-                  <iframe src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"></iframe>
-          </div> -->
+          <div id="userFormArea" class="row">
+              <div class="col-md-12">
+                  <form id="userForm">
+                      <div class="form-group">
+                          <label>Enter Name</label>
+                          <input class="form-control" id="username" />
+                          <br />
+                          <label>Enter Room Number</label>
+                          <input class="form-control" id="roomnum" />
 
-          <iframe id="player"
-        width="640" height="360"
-        src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
-        frameborder="0"
-        style="border: solid 4px #37474F"
-></iframe>
+                          <input type="submit" class="btn btn-primary"
+                          value="Enter" />
+                      </div>
+                  </form>
+              </div>
+          </div>
 
-<div>
-    <button onclick="play()" style="margin-top:.5rem"class="btn btn-primary">Play</button>
-</div>
+          <div id="roomArea">
+
+              <iframe id="player"
+              width="640" height="360"
+              src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
+              frameborder="0"
+              style="border: solid 4px #37474F"
+              ></iframe>
+
+              <div>
+                    <button onclick="playVideo()" style="margin-top:.5rem"class="btn btn-primary">Play</button>
+              </div>
+
+              <br/>
+              *The synchronization is only limited to the start at the moment. It will be updated
+
+
+              <!-- Chat Room Area! -->
+              <div id="messageArea" class="row">
+                  <div class="col-md-4">
+                      <div class="well">
+                          <h3>Online Users</h3>
+                          <ul class="list-group" id="users"></ul>
+                      </div>
+
+                  </div>
+                  <div class="col-md-8">
+                      <div class="chat" id="chat"></div>
+
+                      <!-- Message Form (Enter Message) -->
+                      <form id="messageForm">
+                          <div class="form-group">
+                              <label>Enter Message...</label>
+                              <textarea class="form-control" id="message"></textarea>
+                              <br />
+
+                              <input type="submit" class="btn btn-primary"
+                              value="Send Message" />
+                          </div>
+                      </form>
+                  </div>
+              </div>
+
+          </div>
 
       </div>
 
       <script>
       var socket = io.connect();
+      // socket.on('connectToRoom',function(data) {
+      //    document.body.innerHTML = '';
+      //    document.write(data);
+      // });
+
+      // Calls the play function
+      socket.on('playVideo',function(data) {
+         play()
+      });
 
       // socket.on('broadcast',function(data) {
       //    document.body.innerHTML = '';
       //    document.write(data.description);
       // });
 
-      var $userForm = $('#userForm');
-      var $username = $('#username');
-      var $videoArea = $('#videoArea');
-      var $userFormArea = $('#userFormArea');
+      // var $userForm = $('#userForm');
+      // var $username = $('#username');
+      // var $videoArea = $('#videoArea');
+      // var $userFormArea = $('#userFormArea');
+      //
+      // $userForm.submit(function(e){
+      //     e.preventDefault();
+      //     console.log("Submitted");
+      //     socket.emit('new user', $username.val(), function(data){
+      //         if(data){
+      //             $userFormArea.hide();
+      //             $videoArea.show();
+      //             console.log("here!");
+      //         }
+      //     });
+      //     $username.val('');
+      // });
 
-      $userForm.submit(function(e){
-          e.preventDefault();
-          console.log("Submitted");
-          socket.emit('new user', $username.val(), function(data){
-              if(data){
-                  $userFormArea.hide();
-                  $videoArea.show();
-                  console.log("here!");
-              }
+
+      // Chat stuff
+      $(function(){
+          //var socket = io.connect();
+          var $messageForm = $('#messageForm');
+          var $message = $('#message');
+          var $chat = $('#chat');
+          var $roomArea = $('#roomArea');
+          var $userFormArea = $('#userFormArea');
+          var $userForm = $('#userForm');
+          var $users = $('#users');
+          var $username = $('#username');
+          var $roomnum = $('#roomnum');
+
+          $messageForm.submit(function(e){
+              e.preventDefault();
+              // console.log("Submitted");
+              socket.emit('send message', $message.val());
+              $message.val('');
           });
-          $username.val('');
+
+          socket.on('new message', function(data){
+              $chat.append('<div class="well"><strong>'+data.user+'</strong>: '+data.msg+'</div>');
+          });
+
+          // Submit user form
+          $userForm.submit(function(e){
+              e.preventDefault();
+              // console.log("Submitted");
+              socket.emit('new user', $username.val(), function(data){
+                  if(data){
+                      $userFormArea.hide();
+                      $roomArea.show();
+                  }
+              });
+              socket.emit('new room', $roomnum.val());
+
+              $username.val('');
+          });
+
+          socket.on('get users', function(data){
+              var html = '';
+              for(i = 0; i < data.length; i++){
+                  html += '<li class="list-group-item">'+data[i]+'</li>';
+              }
+
+              $users.html(html);
+          });
       });
 
       </script>
@@ -127,10 +227,6 @@
 
           });
       </script> -->
-
-      <!-- <script src="assets/sockjs-0.3.min.js"></script>
-		<script src="assets/remote-clock.js"></script>
-		<script src="assets/main.js"></script> -->
 
   </body>
 </html>
