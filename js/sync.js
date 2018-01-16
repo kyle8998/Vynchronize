@@ -1,3 +1,3 @@
-function playVideo(){
-	socket.emit('play video');
+function playVideo(roomnum){
+	socket.emit('play video', roomnum);
 }

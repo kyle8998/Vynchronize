@@ -42,7 +42,7 @@ function changeBorderColor(playerStatus) {
 
 function onPlayerStateChange(event) {
   changeBorderColor(event.data);
-  socket.emit('player status', event.data);
+  //socket.emit('player status', event.data);
   playerStatus = event.data;
 
 }

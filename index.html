@@ -53,7 +53,7 @@
               ></iframe>
 
               <div>
-                    <button onclick="playVideo()" style="margin-top:.5rem"class="btn btn-primary">Play</button>
+                    <button onclick="playVideo(roomnum)" style="margin-top:.5rem"class="btn btn-primary">Play</button>
               </div>
 
               <br/>
@@ -92,39 +92,16 @@
 
       <script>
       var socket = io.connect();
+      var roomnum = 1
       // socket.on('connectToRoom',function(data) {
       //    document.body.innerHTML = '';
       //    document.write(data);
       // });
 
       // Calls the play function
-      socket.on('playVideo',function(data) {
+      socket.on('playVideo', function(data) {
          play()
       });
-
-      // socket.on('broadcast',function(data) {
-      //    document.body.innerHTML = '';
-      //    document.write(data.description);
-      // });
-
-      // var $userForm = $('#userForm');
-      // var $username = $('#username');
-      // var $videoArea = $('#videoArea');
-      // var $userFormArea = $('#userFormArea');
-      //
-      // $userForm.submit(function(e){
-      //     e.preventDefault();
-      //     console.log("Submitted");
-      //     socket.emit('new user', $username.val(), function(data){
-      //         if(data){
-      //             $userFormArea.hide();
-      //             $videoArea.show();
-      //             console.log("here!");
-      //         }
-      //     });
-      //     $username.val('');
-      // });
-
 
       // Chat stuff
       $(function(){
@@ -154,13 +131,22 @@
           $userForm.submit(function(e){
               e.preventDefault();
               // console.log("Submitted");
+              // New User
               socket.emit('new user', $username.val(), function(data){
                   if(data){
                       $userFormArea.hide();
                       $roomArea.show();
                   }
               });
-              socket.emit('new room', $roomnum.val());
+              // Join room
+              socket.emit('new room', $roomnum.val(), function(data){
+                  if(data){
+                      if ($roomnum.val() != ""){
+                          roomnum = $roomnum.val()
+                      }
+                      console.log("uhtheroomnumis "+roomnum)
+                  }
+              });
 
               $username.val('');
           });

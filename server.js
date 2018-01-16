@@ -4,6 +4,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 users = [];
 connections = [];
+rooms = [];
 
 app.use(express.static(__dirname + '/'));
 
@@ -37,7 +38,7 @@ io.sockets.on('connection', function(socket){
     // io.sockets.emit('broadcast',{ description: connections.length + ' clients connected!'});
 
     // For now have it be the same room for everyone!
-    socket.join("room-"+roomno);
+    //socket.join("room-"+roomno);
 
     //Send this event to everyone in the room.
     //io.sockets.in("room-"+roomno).emit('connectToRoom', "You are in room no. "+roomno);
@@ -45,8 +46,9 @@ io.sockets.on('connection', function(socket){
 
     // Play video
     socket.on('play video', function(data){
-        // console.log(data);
-        io.sockets.emit('playVideo', {});
+        var roomnum = data
+        //console.log("The data"+data)
+        io.sockets.in("room-"+data).emit('playVideo');
     });
 
 
@@ -70,20 +72,27 @@ io.sockets.on('connection', function(socket){
     socket.on('new user', function(data, callback){
         callback(true);
         socket.username = data;
-        console.log(socket.username)
+        //console.log(socket.username)
         users.push(socket.username);
         updateUsernames();
     });
 
     // New room
-    socket.on('new room', function(data){
+    socket.on('new room', function(data, callback){
+        callback(true);
         socket.roomnum = data;
-        console.log(socket.roomnum)
+
+        // Adds the room to a global array
+        if (!rooms.includes(socket.roomnum)){
+            rooms.push(socket.roomnum);
+        }
+
+        //console.log(socket.roomnum)
+        // Sets default room value to 1
         if (socket.roomnum == null || socket.roomnum == "") {
             socket.roomnum = 1
         }
-        console.log(socket.roomnum)
-        //users.push(socket.username);
+        console.log(socket.username+" connected to room-"+socket.roomnum)
         socket.join("room-"+socket.roomnum);
     });
 
