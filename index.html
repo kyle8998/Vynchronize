@@ -54,6 +54,8 @@
 
               <div>
                     <button onclick="playVideo(roomnum)" style="margin-top:.5rem"class="btn btn-primary">Play</button>
+
+                    <button onclick="syncVideo(roomnum)" style="margin-top:.5rem"class="btn btn-primary">Sync</button>
               </div>
 
               <br/>
@@ -99,8 +101,16 @@
       // });
 
       // Calls the play function
-      socket.on('playVideo', function(data) {
+      socket.on('playVideoClient', function(data) {
          play()
+      });
+
+      // Syncs the video client
+      socket.on('syncVideoClient', function(data) {
+         var currTime = data.time;
+         console.log("current time is: "+currTime)
+         // This brings everyone else in the same room to your time!
+         player.seekTo(currTime);
       });
 
       // Chat stuff

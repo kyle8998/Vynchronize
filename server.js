@@ -48,7 +48,15 @@ io.sockets.on('connection', function(socket){
     socket.on('play video', function(data){
         var roomnum = data
         //console.log("The data"+data)
-        io.sockets.in("room-"+data).emit('playVideo');
+        // This calls the playVideo function on the client side
+        io.sockets.in("room-"+roomnum).emit('playVideoClient');
+    });
+
+    // Sync video
+    socket.on('sync video', function(data){
+        var roomnum = data.room
+        var currTime = data.time
+        io.sockets.in("room-"+roomnum).emit('syncVideoClient', { time: currTime });
     });
 
 
