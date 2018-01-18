@@ -46,6 +46,7 @@
           <div id="roomArea">
 
               <iframe id="player"
+              allowfullscreen="0"
               width="640" height="360"
               src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
               frameborder="0"
@@ -53,12 +54,16 @@
               ></iframe>
 
               <div>
-                    <button onclick="playVideo(roomnum)" style="margin-top:.5rem"class="btn btn-primary">Play</button>
+                    <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Play</button>
 
-                    <button onclick="syncVideo(roomnum)" style="margin-top:.5rem"class="btn btn-primary">Sync</button>
+                    <button onclick="syncVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Sync</button>
 
-                    <button onclick="changeVideo(roomnum)" style="margin-top:.5rem"class="btn btn-primary">Love live noises</button>
+                    <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Love live noises</button>
               </div>
+              <br/>
+              <div>
+                    <input type="Video" style="max-width: 200px; margin-right: 0rem;" class="form-control" id="inputVideoId" placeholder="YouTube Video ID">
+                    <button onclick="changeVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Change Video</button>
 
               <br/>
               *The synchronization is only limited to the start at the moment. It will be updated
@@ -97,12 +102,13 @@
       <script>
       var socket = io.connect();
       var roomnum = 1
+      var id = "M7lc1UVf-VE"
       // socket.on('connectToRoom',function(data) {
       //    document.body.innerHTML = '';
       //    document.write(data);
       // });
 
-      // Calls the play function
+      // Calls the play/pause function
       socket.on('playVideoClient', function(data) {
          play()
       });
@@ -110,10 +116,36 @@
       // Syncs the video client
       socket.on('syncVideoClient', function(data) {
          var currTime = data.time;
+         var state = data.state
+         var videoId = data.videoId
          console.log("current time is: "+currTime)
+         console.log("currvidid: "+id+" "+videoId)
+         if (id != videoId){
+             console.log(id == videoId)
+             changeVideoId(roomnum, videoId)
+         }
          // This brings everyone else in the same room to your time!
          player.seekTo(currTime);
+
+         // Sync player state
+         // IF parent player was paused
+         if (state == -1 || state == 2)
+     		player.pauseVideo();
+     	// If not paused
+     	else
+     		player.playVideo();
       });
+
+      // Change video
+      socket.on('changeVideoClient', function(data) {
+         var videoId = data.videoId;
+         console.log("youtube video id is: "+videoId)
+
+         // This changes the video
+         player.loadVideoById(videoId);
+         id = videoId
+      });
+
 
       // Chat stuff
       $(function(){
@@ -175,56 +207,6 @@
 
       </script>
 
-      <!-- <script>
-
-          $(function(){
-              var socket = io.connect();
-              var $messageForm = $('#messageForm');
-              var $message = $('#message');
-              var $chat = $('#chat');
-              var $messageArea = $('#messageArea');
-              var $userFormArea = $('#userFormArea');
-              var $userForm = $('#userForm');
-              var $users = $('#users');
-              var $username = $('#username');
-
-
-
-              $messageForm.submit(function(e){
-                  e.preventDefault();
-                  // console.log("Submitted");
-                  socket.emit('send message', $message.val());
-                  $message.val('');
-              });
-
-              socket.on('new message', function(data){
-                  $chat.append('<div class="well"><strong>'+data.user+'</strong>: '+data.msg+'</div>');
-              });
-
-              $userForm.submit(function(e){
-                  e.preventDefault();
-                  // console.log("Submitted");
-                  socket.emit('new user', $username.val(), function(data){
-                      if(data){
-                          $userFormArea.hide();
-                          $messageArea.show();
-                      }
-                  });
-                  $username.val('');
-              });
-
-              socket.on('get users', function(data){
-                  var html = '';
-                  for(i = 0; i < data.length; i++){
-                      html += '<li class="list-group-item">'+data[i]+'</li>';
-                  }
-
-                  $users.html(html);
-              });
-
-
-          });
-      </script> -->
 
   </body>
 </html>
