@@ -72,8 +72,9 @@ io.sockets.on('connection', function(socket){
 
     // Send Message in chat
     socket.on('send message', function(data){
+        var encodedMsg = data.replace(/</g, "&lt;").replace(/>/g, "&gt;");
         // console.log(data);
-        io.sockets.emit('new message', {msg: data, user: socket.username});
+        io.sockets.emit('new message', {msg: encodedMsg, user: socket.username});
     });
 
     // New User
