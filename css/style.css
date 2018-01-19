@@ -1,0 +1,300 @@
+ body{
+     margin-top:30px;
+ }
+ #roomArea{
+     display:none;
+     margin-bottom: 5em;
+ }
+
+ html, body {
+     max-width: 100%;
+     overflow-x: hidden;
+ }
+
+ .headsize {
+     padding-top: 7em;
+     padding-bottom: 1em;
+ }
+
+.optprice {
+    font-weight: 700;
+    font-size: 2rem;
+    /*color: #363636;*/
+    color:white;
+    line-height: 1.125;
+}
+
+.estincome {
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: #363636;
+    /*color:white;*/
+    line-height: 1.000;
+}
+
+ .bg-primary {
+   background-color: #FF5A60 !important;
+ }
+
+ .center {
+     display: block;
+     margin: auto;
+     width: 50%;
+     padding: 10px;
+     text-align: center;
+ }
+
+ .startform {
+     width: 100%;
+     display: block;
+     margin: auto;
+     padding: 5px;
+     text-align: center;
+ }
+
+#opt-button {
+    clear: left;
+    float: left;
+}
+
+.geocodeForm {
+    max-width: 400px;
+    margin-right: .5rem;
+}
+
+.container2 {
+  width: 100%;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-right: auto;
+  margin-left: auto;
+  display:block;
+  overflow: visable;
+  padding-bottom: 300px;
+}
+
+.col-lg-8-2 {
+    -ms-flex: 0 0 66.666667%;
+        flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+}
+
+.graph_area {
+    padding: 0px;
+}
+@media screen and (max-width: 650px) {
+    .radarmedia {
+        max-width:350px;
+        max-height:350px;
+    }
+}
+
+@media screen and (min-width: 650px) {
+
+    .left_graph {
+        position: relative;
+        right: 20em;
+    }
+
+    .right_graph {
+        position: relative;
+        left: 20em;
+    }
+
+
+    .side_buttons {
+        position: absolute;
+        left: -5em;
+        top: 7em;
+    }
+
+    .size_box {
+        background-color: rgb(242, 241, 239);
+        display: block;
+-ms-flex-preferred-size: 0;
+flex-basis: 0;
+-webkit-box-flex: 1;
+-ms-flex-positive: 1;
+flex-grow: 1;
+-ms-flex-negative: 1;
+flex-shrink: 1;
+padding: .75rem;
+    }
+
+    .fixed_graph {
+        width: 60em;
+    }
+
+    .media-stretch {
+        width: 650px;
+    }
+
+    .radarmedia {
+        max-width:500px;
+        max-height:500px
+    }
+
+}
+
+.max_graph {
+    max-width: 500px;
+    max-height: 800px;
+}
+
+#trends {
+    padding: 10px 0;
+}
+
+.trend_head {
+
+}
+
+.force-left {
+    position: absolute;
+    right: 15em;
+    top: 20em;
+    margin-left: 50px;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #ffffff;
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+.form-control-static {
+  min-height: 34px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-bottom: 0;
+}
+.form-control-static.input-lg,
+.form-control-static.input-sm {
+  padding-right: 0;
+  padding-left: 0;
+}
+.input-sm {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+select.input-sm {
+  height: 30px;
+  line-height: 30px;
+}
+textarea.input-sm,
+select[multiple].input-sm {
+  height: auto;
+}
+.form-group-sm .form-control {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.form-group-sm select.form-control {
+  height: 30px;
+  line-height: 30px;
+}
+.form-group-sm textarea.form-control,
+.form-group-sm select[multiple].form-control {
+  height: auto;
+}
+.form-group-sm .form-control-static {
+  height: 30px;
+  min-height: 32px;
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.well {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+.well blockquote {
+  border-color: #ddd;
+  border-color: rgba(0, 0, 0, .15);
+}
+.well-lg {
+  padding: 24px;
+  border-radius: 6px;
+}
+.well-sm {
+  padding: 9px;
+  border-radius: 3px;
+}
+
+.chat {
+    height: 300px;
+    overflow: scroll;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
