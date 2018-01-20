@@ -66,6 +66,10 @@ io.sockets.on('connection', function(socket){
         var roomnum = data.room
         var videoId = data.videoId
         io.sockets.in("room-"+roomnum).emit('changeVideoClient', { videoId: videoId });
+
+        // This changes the room variable to the video id
+        io.sockets.adapter.rooms['room-'+roomnum].currVideo = videoId
+        // console.log(io.sockets.adapter.rooms['room-1'])
     });
 
 
@@ -112,6 +116,15 @@ io.sockets.on('connection', function(socket){
         }
         console.log(socket.username+" connected to room-"+socket.roomnum)
         socket.join("room-"+socket.roomnum);
+
+
+        var currVideo = io.sockets.adapter.rooms['room-'+socket.roomnum].currVideo
+        // Change the video to current One
+        socket.emit('changeVideoClient', { videoId: currVideo });
+
+        // This is all of the rooms
+        // io.sockets.adapter.rooms['room-1'].currVideo = "this is the video"
+        // console.log(io.sockets.adapter.rooms['room-1']);
     });
 
     // Emits the player status
