@@ -34,6 +34,9 @@
        #roomArea{
            display:none;
        }
+       #initArea{
+           display:none;
+       }
     </style>
 
 
@@ -83,6 +86,21 @@
                         <label>Enter Room Number (Default 1)</label>
                         <input class="form-control" id="roomnum" />
                         <br/>
+
+                        <!-- The purpose of the init area is to initialize all of the players at the start. This is currently not necessary -->
+                        <div id='initArea'>
+
+                            <!-- Youtube player -->
+                            <!-- <iframe id="player"
+                            allowfullscreen="0"
+                            width="640" height="360"
+                            src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
+                            frameborder="0"
+                            style="border: solid 4px #37474F"
+                            ></iframe> -->
+
+                        </div>
+
                         <input type="submit" class="btn btn-primary"
                         value="Enter" />
                     </div>
@@ -94,13 +112,37 @@
       <!-- Heading Row -->
       <div class="row my-4">
         <div class="col-lg-8">
-            <iframe id="player"
-            allowfullscreen="0"
-            width="640" height="360"
-            src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
-            frameborder="0"
-            style="border: solid 4px #37474F"
-            ></iframe>
+
+
+            <div class="dropdown">
+              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Player
+              </button>
+              <div class="form-control dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" onclick="changePlayer(roomnum, 0)">YouTube</a>
+                <a class="dropdown-item" onclick="changePlayer(roomnum, 1)">Daily Motion</a>
+              </div>
+            </div>
+
+
+            <br/>
+
+            <div id='playerArea'>
+                <iframe id="player"
+                allowfullscreen="0"
+                width="640" height="360"
+                src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
+                frameborder="0"
+                style="border: solid 4px #37474F"
+                ></iframe>
+
+                <!-- <div id='player'></div> -->
+            </div>
+
+            <!-- Daily motion -->
+            <!-- <iframe frameborder="0" width="480" height="270"
+            src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS"
+            allowfullscreen allow="autoplay"></iframe> -->
 
             <div>
                   <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Play/Pause</button>
@@ -248,17 +290,22 @@
        var state = data.state
        var videoId = data.videoId
        console.log("current time is: "+currTime)
-       console.log("currvidid: "+id+" "+videoId)
-       if (id != videoId){
-           console.log(id == videoId)
-           changeVideoId(roomnum, videoId)
-       }
-       // This brings everyone else in the same room to your time!
-       player.seekTo(currTime);
+       console.log("curr vid id: "+id+" "+videoId)
 
-       // Sync player state
-       // IF parent player was paused
-       if (state == -1 || state == 2)
+       // There should no longer be any need to sync a video change
+       // Video should always be the same
+       // if (id != videoId){
+       //     console.log(id == videoId)
+       //     changeVideoId(roomnum, videoId)
+       // }
+
+
+      // This brings everyone else in the same room to your time!
+      player.seekTo(currTime);
+
+      // Sync player state
+      // IF parent player was paused
+      if (state == -1 || state == 2)
           player.pauseVideo();
       // If not paused
       else
@@ -320,15 +367,22 @@
                 if(data){
                     $userFormArea.hide();
                     $roomArea.show();
+                    var initStuff = document.getElementById("initArea")
+                    initStuff.innerHTML = ""
+
+
+                    // This sets the room number on the client
+                    if ($roomnum.val() != ""){
+                        roomnum = $roomnum.val()
+                    }
                 }
             });
             // Join room
             socket.emit('new room', $roomnum.val(), function(data){
+                // This should only call back if the client is the host
                 if(data){
-                    if ($roomnum.val() != ""){
-                        roomnum = $roomnum.val()
-                    }
-                    console.log("uhtheroomnumis "+roomnum)
+                    console.log("Host is syncing the new socket!")
+                    syncVideo(roomnum)
                 }
             });
 
@@ -348,15 +402,20 @@
     </script>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/scrolling-nav.js"></script>
+    <script src="js/dependencies/jquery.min.js"></script>
+    <script src="js/dependencies/bootstrap.bundle.min.js"></script>
+    <script src="js/dependencies/scrolling-nav.js"></script>
     <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/dependencies/jquery.easing.min.js"></script>
 
 
     <script src="js/sync.js"></script>
     <script src="js/player.js"></script>
+
+    <!-- Youtube -->
+    <script src="js/yt.js"></script>
+    <!-- Daily Motion -->
+    <script src="https://api.dmcdn.net/all.js"></script>
 
 
   </body>

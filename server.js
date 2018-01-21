@@ -58,6 +58,7 @@ io.sockets.on('connection', function(socket){
         var currTime = data.time
         var state = data.state
         var videoId = data.videoId
+        // var videoId = io.sockets.adapter.rooms['room-'+roomnum].currVideo
         io.sockets.in("room-"+roomnum).emit('syncVideoClient', { time: currTime, state: state, videoId: videoId });
     });
 
@@ -70,6 +71,27 @@ io.sockets.on('connection', function(socket){
         // This changes the room variable to the video id
         io.sockets.adapter.rooms['room-'+roomnum].currVideo = videoId
         // console.log(io.sockets.adapter.rooms['room-1'])
+    });
+
+    // Change video player
+    socket.on('change player', function(data){
+        var roomnum = data.room
+        var playerId = data.playerId
+
+        switch(playerId) {
+            case 0:
+                io.sockets.in("room-"+roomnum).emit('createYoutube', {});
+                break;
+            case 1:
+                io.sockets.in("room-"+roomnum).emit('createDaily', {});
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
+
+        // This changes the room variable to the player id
+        io.sockets.adapter.rooms['room-'+roomnum].currPlayer = playerId
+
     });
 
 
@@ -101,7 +123,7 @@ io.sockets.on('connection', function(socket){
 
     // New room
     socket.on('new room', function(data, callback){
-        callback(true);
+        //callback(true);
         socket.roomnum = data;
         var host = null
 
@@ -137,12 +159,17 @@ io.sockets.on('connection', function(socket){
         // Change the video to current One
         socket.emit('changeVideoClient', { videoId: currVideo });
 
-
         // Get time from host which calls change time for that socket
         if (socket.id != host) {
-            //console.log("not equal")
             //socket.broadcast.to(host).emit('getTime', { id: socket.id });
             socket.broadcast.to(host).emit('getData');
+
+            // This calls back the function on the host client
+            //callback(true)
+        } else {
+            console.log("I am the host")
+            //socket.emit('auto sync');
+            socket.broadcast.to(host).emit('auto sync');
         }
 
         // This is all of the rooms
@@ -177,29 +204,33 @@ io.sockets.on('connection', function(socket){
 
 //------------------------------------------------------------------------------
 // Async get current time
-//     var async = require("async");
-//     var http = require("http");
-//
-//     //Delay of 5 seconds
-//     var delay = 5000;
-//
-//     async.forever(
-//
-//         function(next) {
-//             // Continuously update stream with data
-//             var time = io.sockets.in("room-"+1).emit('getTime', {});
-//             //Store data in database
-//             //console.log(time);
-//
-//             //Repeat after the delay
-//             setTimeout(function() {
-//                 next();
-//             }, delay)
-//         },
-//         function(err) {
-//             console.error(err);
-//         }
-//     );
-//
+    socket.on('auto sync', function(data){
+        var async = require("async");
+        var http = require("http");
+
+        //Delay of 5 seconds
+        var delay = 5000;
+
+        async.forever(
+
+            function(next) {
+                // Continuously update stream with data
+                //var time = io.sockets.in("room-"+1).emit('getTime', {});
+                //Store data in database
+                //console.log(time);
+
+                console.log("i am auto syncing")
+                socket.emit('syncHost');
+
+                //Repeat after the delay
+                setTimeout(function() {
+                    next();
+                }, delay)
+            },
+            function(err) {
+                console.error(err);
+            }
+        );
+    });
 
 });

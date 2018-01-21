@@ -47,3 +47,7 @@ socket.on('getData', function(data) {
     socket.emit('sync host', {});
     //socket.emit('change video', { time: time });
 });
+
+function changePlayer(roomnum, playerId) {
+	socket.emit('change player', { room: roomnum, playerId: playerId });
+}

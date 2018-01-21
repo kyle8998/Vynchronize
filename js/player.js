@@ -1,55 +1,26 @@
-var tag = document.createElement('script');
-tag.id = 'iframe-demo';
-tag.src = 'https://www.youtube.com/iframe_api';
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var currPlayer = 0
 
-var player;
+// 0 - YouTube
+// 1 - Daily Motion
 
-var playerStatus = -1;
+// Create Youtube Player
+socket.on('createYoutube', function(data) {
+    if (currPlayer != 0){
+        var playerIn = document.getElementById("playerArea")
+        console.log(playerIn.innerHTML)
+        playerIn.innerHTML = "<iframe id=\"player\"allowfullscreen=\"0\"width=\"640\" height=\"360\"src=\"https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1\"frameborder=\"0\"style=\"border: solid 4px #37474F\"></iframe>"
+        onYouTubeIframeAPIReady()
+        currPlayer = 0
+    }
+});
 
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-	  events: {
-		'onReady': onPlayerReady,
-		'onStateChange': onPlayerStateChange
-	  }
-  });
-}
-function onPlayerReady(event) {
-  document.getElementById('player').style.borderColor = '#FF6D00';
-}
-
-function changeBorderColor(playerStatus) {
-  var color;
-  if (playerStatus == -1) {
-	color = "#37474F"; // unstarted = gray
-  } else if (playerStatus == 0) {
-	color = "#FFFF00"; // ended = yellow
-  } else if (playerStatus == 1) {
-	color = "#33691E"; // playing = green
-  } else if (playerStatus == 2) {
-	color = "#DD2C00"; // paused = red
-  } else if (playerStatus == 3) {
-	color = "#AA00FF"; // buffering = purple
-  } else if (playerStatus == 5) {
-	color = "#FF6DOO"; // video cued = orange
-  }
-  if (color) {
-	document.getElementById('player').style.borderColor = color;
-  }
-}
-
-function onPlayerStateChange(event) {
-  changeBorderColor(event.data);
-  //socket.emit('player status', event.data);
-  playerStatus = event.data;
-
-}
-
-function play(){
-	if (playerStatus == -1 || playerStatus == 2)
-		player.playVideo();
-	else
-		player.pauseVideo();
-}
+// Create Daily Motion Player
+socket.on('createDaily', function(data) {
+    // player.destroy()
+    if (currPlayer != 1) {
+        var playerIn = document.getElementById("playerArea")
+        console.log(playerIn.innerHTML)
+        playerIn.innerHTML = "<iframe id=\"player1\" frameborder=\"0\" width=\"640\" height=\"360\"src=\"//www.dailymotion.com/embed/video/x26m1j4\"allowfullscreen allow=\"autoplay\"></iframe>"
+        currPlayer = 1
+    }
+});
