@@ -103,28 +103,65 @@ io.sockets.on('connection', function(socket){
     socket.on('new room', function(data, callback){
         callback(true);
         socket.roomnum = data;
+        var host = null
+
+        // Sets default room value to 1
+        if (socket.roomnum == null || socket.roomnum == "") {
+            socket.roomnum = 1
+        }
 
         // Adds the room to a global array
         if (!rooms.includes(socket.roomnum)){
             rooms.push(socket.roomnum);
         }
 
-        //console.log(socket.roomnum)
-        // Sets default room value to 1
-        if (socket.roomnum == null || socket.roomnum == "") {
-            socket.roomnum = 1
+        // Checks if the room exists or not
+        console.log(io.sockets.adapter.rooms['room-'+socket.roomnum] !== undefined)
+        if (io.sockets.adapter.rooms['room-'+socket.roomnum] === undefined) {
+            socket.send(socket.id)
+            host = socket.id
+            //console.log(socket.id)
         }
+        else {
+            console.log(socket.roomnum)
+            host = io.sockets.adapter.rooms['room-'+socket.roomnum].host
+        }
+
         console.log(socket.username+" connected to room-"+socket.roomnum)
         socket.join("room-"+socket.roomnum);
 
+        // Sets the host
+        io.sockets.adapter.rooms['room-'+socket.roomnum].host = host
 
         var currVideo = io.sockets.adapter.rooms['room-'+socket.roomnum].currVideo
         // Change the video to current One
         socket.emit('changeVideoClient', { videoId: currVideo });
 
+
+        // Get time from host which calls change time for that socket
+        if (socket.id != host) {
+            //console.log("not equal")
+            //socket.broadcast.to(host).emit('getTime', { id: socket.id });
+            socket.broadcast.to(host).emit('getData');
+        }
+
         // This is all of the rooms
         // io.sockets.adapter.rooms['room-1'].currVideo = "this is the video"
         // console.log(io.sockets.adapter.rooms['room-1']);
+    });
+
+    // Changes time for a specific socket
+    socket.on('change time', function(data){
+        // console.log(data);
+        var caller = data.id
+        var time = data.time
+        socket.broadcast.to(caller).emit('changeTime', { time: time });
+    });
+
+    // This just calls the syncHost function
+    socket.on('sync host', function(data){
+        //socket.broadcast.to(host).emit('syncVideoClient', { time: time, state: state, videoId: videoId });
+        socket.emit('syncHost');
     });
 
     // Emits the player status
@@ -136,5 +173,33 @@ io.sockets.on('connection', function(socket){
     function updateUsernames(){
         io.sockets.emit('get users', users);
     }
+
+
+//------------------------------------------------------------------------------
+// Async get current time
+//     var async = require("async");
+//     var http = require("http");
+//
+//     //Delay of 5 seconds
+//     var delay = 5000;
+//
+//     async.forever(
+//
+//         function(next) {
+//             // Continuously update stream with data
+//             var time = io.sockets.in("room-"+1).emit('getTime', {});
+//             //Store data in database
+//             //console.log(time);
+//
+//             //Repeat after the delay
+//             setTimeout(function() {
+//                 next();
+//             }, delay)
+//         },
+//         function(err) {
+//             console.error(err);
+//         }
+//     );
+//
 
 });

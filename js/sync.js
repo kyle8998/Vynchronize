@@ -32,3 +32,18 @@ function loveLive(roomnum){
 
 	socket.emit('change video', { room: roomnum, videoId: 'sjk7DiH0JhQ' });
 }
+
+// Get time
+socket.on('getTime', function(data) {
+	var caller = data.id
+    var time = player.getCurrentTime()
+    console.log("Syncing new socket to time: "+time)
+    socket.emit('change time', { time: time, id: caller });
+    //socket.emit('change video', { time: time });
+});
+
+// This just calls the sync host function in the server
+socket.on('getData', function(data) {
+    socket.emit('sync host', {});
+    //socket.emit('change video', { time: time });
+});

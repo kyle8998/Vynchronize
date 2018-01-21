@@ -275,6 +275,17 @@
        id = videoId
     });
 
+    // Change time
+    socket.on('changeTime', function(data) {
+       var time = data.time
+       player.seekTo(time);
+    });
+
+    // Change time
+    socket.on('syncHost', function(data) {
+       syncVideo(roomnum)
+    });
+
 
     // Chat stuff
     $(function(){
