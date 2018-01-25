@@ -56,8 +56,9 @@ io.sockets.on('connection', function(socket){
         var currTime = data.time
         var state = data.state
         var videoId = data.videoId
+        var playerId = io.sockets.adapter.rooms['room-'+roomnum].currPlayer
         // var videoId = io.sockets.adapter.rooms['room-'+roomnum].currVideo
-        io.sockets.in("room-"+roomnum).emit('syncVideoClient', { time: currTime, state: state, videoId: videoId });
+        io.sockets.in("room-"+roomnum).emit('syncVideoClient', { time: currTime, state: state, videoId: videoId, playerId:playerId });
     });
 
     // Change video
@@ -92,6 +93,22 @@ io.sockets.on('connection', function(socket){
         // This changes the room variable to the player id
         io.sockets.adapter.rooms['room-'+roomnum].currPlayer = playerId
 
+    });
+
+    // Change video player
+    socket.on('change single player', function(data){
+        var playerId = data.playerId
+
+        switch(playerId) {
+            case 0:
+                io.sockets.emit('createYoutube', {});
+                break;
+            case 1:
+                io.sockets.emit('createDaily', {});
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
     });
 
 

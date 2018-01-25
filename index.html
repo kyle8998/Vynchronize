@@ -325,9 +325,10 @@
 
     // Syncs the video client
     socket.on('syncVideoClient', function(data) {
-       var currTime = data.time;
+       var currTime = data.time
        var state = data.state
        var videoId = data.videoId
+       var playerId = data.playerId
        console.log("current time is: "+currTime)
        console.log("curr vid id: "+id+" "+videoId)
 
@@ -338,8 +339,17 @@
        //     changeVideoId(roomnum, videoId)
        // }
 
-       // This brings everyone else in the same room to your time!
-       switch(currPlayer) {
+       // This switchs you to the correct player
+       // Should only happen when a new socket joins late
+
+       // Current issue: changePlayer is called asynchronously when we need this function to wait for it to finish
+           console.log("currPlayer="+currPlayer)
+           console.log("playerId="+playerId)
+           changeSinglePlayer(playerId)
+           // changeSinglePlayer(roomnum, playerId).then(console.log("currPlayer="+currPlayer))
+
+       // This syncs the time and state
+        switch(currPlayer) {
            case 0:
                player.seekTo(currTime);
                // Sync player state
@@ -354,6 +364,7 @@
            case 1:
                dailyPlayer.seek(currTime);
                if (state) {
+                   console.log("i pausing!")
                    dailyPlayer.pause()
                }
                else {
@@ -363,8 +374,8 @@
 
            default:
                console.log("Error invalid player id")
-       }
-    });
+        }
+        });
 
     // Change video
     socket.on('changeVideoClient', function(data) {
