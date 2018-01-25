@@ -1,6 +1,7 @@
 // Calls the play video function on the server
 function playVideo(roomnum){
-	socket.emit('play video', { room: roomnum });
+	 socket.emit('play video', { room: roomnum });
+
 	// Doesn't work well unless called in server
 	//io.sockets.in("room-"+roomnum).emit('playVideoClient');
 }

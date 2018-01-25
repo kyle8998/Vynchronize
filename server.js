@@ -78,6 +78,8 @@ io.sockets.on('connection', function(socket){
         var roomnum = data.room
         var playerId = data.playerId
 
+        io.sockets.in("room-"+roomnum).emit('pauseVideoClient');
+
         switch(playerId) {
             case 0:
                 io.sockets.in("room-"+roomnum).emit('createYoutube', {});

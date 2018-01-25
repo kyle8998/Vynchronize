@@ -37,6 +37,9 @@
        #initArea{
            display:none;
        }
+       #dailyArea{
+           display:none;
+       }
     </style>
 
 
@@ -99,6 +102,10 @@
                             style="border: solid 4px #37474F"
                             ></iframe> -->
 
+                            <!-- <iframe id="player-daily" frameborder="0" width="480" height="270"
+                            src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS"
+                            allowfullscreen allow="autoplay"></iframe> -->
+
                         </div>
 
                         <input type="submit" class="btn btn-primary"
@@ -136,7 +143,16 @@
                 style="border: solid 4px #37474F"
                 ></iframe>
 
+                <!-- <iframe id="player-daily" frameborder="0" width="480" height="270"
+                src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS"
+                allowfullscreen allow="autoplay"></iframe> -->
+
                 <!-- <div id='player'></div> -->
+            </div>
+            <div id='dailyArea'>
+                <iframe id="player-daily" frameborder="0" width="640" height="360"
+                src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS"
+                allowfullscreen allow="autoplay"></iframe>
             </div>
 
             <!-- Daily motion -->
@@ -145,6 +161,8 @@
             allowfullscreen allow="autoplay"></iframe> -->
 
             <div>
+                <button id="play">Play</button>
+                <button id="pause">Pause</button>
                   <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Play/Pause</button>
 
                   <button onclick="syncVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Sync</button>
@@ -284,6 +302,10 @@
        play()
     });
 
+    socket.on('pauseVideoClient', function(data) {
+       player.pauseVideo();
+    });
+
     // Syncs the video client
     socket.on('syncVideoClient', function(data) {
        var currTime = data.time;
@@ -416,6 +438,7 @@
     <script src="js/yt.js"></script>
     <!-- Daily Motion -->
     <script src="https://api.dmcdn.net/all.js"></script>
+    <script src="js/dm.js"></script>
 
 
   </body>
