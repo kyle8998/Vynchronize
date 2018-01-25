@@ -1,3 +1,5 @@
+var dailyPlayer
+
 setTimeout(function() {
     console.log("whyewwefwwvrgf")
     DM.init({
@@ -6,7 +8,7 @@ setTimeout(function() {
         cookie: true // enable cookies to allow the server to access the session
       });
 
-      var player = DM.player(document.querySelector('#player-daily'), {
+      dailyPlayer = DM.player(document.querySelector('#player-daily'), {
           video: 'x26m1j4',
           width: '640',
           height: '360',
@@ -17,31 +19,31 @@ setTimeout(function() {
         });
 
 
-player.addEventListener('apiready', function(e) {
+dailyPlayer.addEventListener('apiready', function(e) {
   console.log('api ready', e);
 });
 
-player.addEventListener('error', function(e) {
+dailyPlayer.addEventListener('error', function(e) {
   console.log('error', e);
 });
 
-player.addEventListener('canplay', function(e) {
+dailyPlayer.addEventListener('canplay', function(e) {
   console.log('canplay', e);
 });
 
-player.addEventListener('canplaythrough', function(e) {
+dailyPlayer.addEventListener('canplaythrough', function(e) {
   console.log('canplaythrough', e);
 });
 
-player.addEventListener('progress', function(e) {
+dailyPlayer.addEventListener('progress', function(e) {
   console.log('progress', e);
 });
 
-player.addEventListener('ad_play', function(e) {
+dailyPlayer.addEventListener('ad_play', function(e) {
   console.log('ad_play', e);
 });
 
-player.addEventListener('ad_end', function(e) {
+dailyPlayer.addEventListener('ad_end', function(e) {
   console.log('ad_end', e);
 });
 
@@ -56,3 +58,12 @@ document.querySelector('#pause').addEventListener('click', function() {
 });
 
 }, 1000);
+
+// Play/pause function for dailymotion
+function dailyPlay(){
+	if (dailyPlayer.paused){
+        dailyPlayer.play();
+    }
+	else
+		dailyPlayer.pause();
+}

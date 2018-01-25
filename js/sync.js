@@ -1,5 +1,6 @@
 // Calls the play video function on the server
 function playVideo(roomnum){
+	 // dailyPlayer.play();
 	 socket.emit('play video', { room: roomnum });
 
 	// Doesn't work well unless called in server
@@ -8,9 +9,24 @@ function playVideo(roomnum){
 
 // Calls the sync function on the server
 function syncVideo(roomnum){
-	var currTime = player.getCurrentTime();
+	var currTime = 0
+	var state
+
+	switch(currPlayer) {
+		case 0:
+			currTime = player.getCurrentTime();
+			state = playerStatus
+			break;
+		case 1:
+			currTime = dailyPlayer.currentTime;
+			state = dailyPlayer.paused;
+			break;
+		default:
+			console.log("Error invalid player id")
+	}
+
 	var videoId = id
-	socket.emit('sync video', { room: roomnum, time: currTime, state: playerStatus, videoId: videoId });
+	socket.emit('sync video', { room: roomnum, time: currTime, state: state, videoId: videoId });
 }
 
 // Change playVideo
@@ -29,9 +45,10 @@ function changeVideoId(roomnum, id){
 }
 
 function loveLive(roomnum){
-	document.getElementById("inputVideoId").innerHTML = "sjk7DiH0JhQ";
+	var test = document.getElementById("inputVideoId").innerHTML = "sjk7DiH0JhQ";
 
-	socket.emit('change video', { room: roomnum, videoId: 'sjk7DiH0JhQ' });
+	// Only for YouTube testing
+		socket.emit('change video', { room: roomnum, videoId: 'sjk7DiH0JhQ' });
 }
 
 // Get time

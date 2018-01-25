@@ -161,8 +161,6 @@
             allowfullscreen allow="autoplay"></iframe> -->
 
             <div>
-                <button id="play">Play</button>
-                <button id="pause">Pause</button>
                   <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Play/Pause</button>
 
                   <button onclick="syncVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Sync</button>
@@ -299,11 +297,30 @@
 
     // Calls the play/pause function
     socket.on('playVideoClient', function(data) {
-       play()
+        // Calls the proper play function for the player
+        switch(currPlayer) {
+            case 0:
+                play()
+                break;
+            case 1:
+                dailyPlay()
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
     });
 
     socket.on('pauseVideoClient', function(data) {
-       player.pauseVideo();
+       switch(currPlayer) {
+           case 0:
+               player.pauseVideo();
+               break;
+           case 1:
+               dailyPlayer.pause();
+               break;
+           default:
+               console.log("Error invalid player id")
+       }
     });
 
     // Syncs the video client
@@ -321,27 +338,55 @@
        //     changeVideoId(roomnum, videoId)
        // }
 
+       // This brings everyone else in the same room to your time!
+       switch(currPlayer) {
+           case 0:
+               player.seekTo(currTime);
+               // Sync player state
+               // IF parent player was paused
+               if (state == -1 || state == 2)
+                   player.pauseVideo();
+               // If not paused
+               else
+                   player.playVideo();
+               break;
 
-      // This brings everyone else in the same room to your time!
-      player.seekTo(currTime);
+           case 1:
+               dailyPlayer.seek(currTime);
+               if (state) {
+                   dailyPlayer.pause()
+               }
+               else {
+                   dailyPlayer.play()
+               }
+               break;
 
-      // Sync player state
-      // IF parent player was paused
-      if (state == -1 || state == 2)
-          player.pauseVideo();
-      // If not paused
-      else
-          player.playVideo();
+           default:
+               console.log("Error invalid player id")
+       }
     });
 
     // Change video
     socket.on('changeVideoClient', function(data) {
        var videoId = data.videoId;
-       console.log("youtube video id is: "+videoId)
+       console.log("video id is: "+videoId)
 
        // This changes the video
-       player.loadVideoById(videoId);
        id = videoId
+
+       switch(currPlayer) {
+           case 0:
+               player.loadVideoById(videoId);
+               break;
+           case 1:
+               dailyPlayer.load(videoId, {
+                    autoplay: true
+                });
+               break;
+           default:
+               console.log("Error invalid player id")
+       }
+
     });
 
     // Change time

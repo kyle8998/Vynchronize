@@ -47,8 +47,6 @@ io.sockets.on('connection', function(socket){
     // Play video
     socket.on('play video', function(data){
         var roomnum = data.room
-        //console.log("The data"+data)
-        // This calls the playVideo function on the client side
         io.sockets.in("room-"+roomnum).emit('playVideoClient');
     });
 
@@ -171,7 +169,9 @@ io.sockets.on('connection', function(socket){
         } else {
             console.log("I am the host")
             //socket.emit('auto sync');
-            socket.broadcast.to(host).emit('auto sync');
+
+            // Auto syncing is not working atm
+            // socket.broadcast.to(host).emit('auto sync');
         }
 
         // This is all of the rooms
