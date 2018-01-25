@@ -67,5 +67,8 @@ socket.on('getData', function(data) {
 });
 
 function changePlayer(roomnum, playerId) {
-	socket.emit('change player', { room: roomnum, playerId: playerId });
+	if (playerId != currPlayer) {
+		console.log("I changed!")
+		socket.emit('change player', { room: roomnum, playerId: playerId });
+	}
 }
