@@ -344,7 +344,8 @@
 
        // Current issue: changePlayer is called asynchronously when we need this function to wait for it to finish
            console.log("currPlayer="+currPlayer)
-           changePlayer(roomnum, playerId)
+           console.log("playerId="+playerId)
+           changeSinglePlayer(playerId)
            // changeSinglePlayer(roomnum, playerId).then(console.log("currPlayer="+currPlayer))
 
        // This syncs the time and state

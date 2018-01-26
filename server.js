@@ -95,6 +95,22 @@ io.sockets.on('connection', function(socket){
 
     });
 
+    // Change video player
+    socket.on('change single player', function(data){
+        var playerId = data.playerId
+
+        switch(playerId) {
+            case 0:
+                io.sockets.emit('createYoutube', {});
+                break;
+            case 1:
+                io.sockets.emit('createDaily', {});
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
+    });
+
 
 
     // Disconnect
