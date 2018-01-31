@@ -343,39 +343,46 @@
        // Should only happen when a new socket joins late
 
        // Current issue: changePlayer is called asynchronously when we need this function to wait for it to finish
-           console.log("currPlayer="+currPlayer)
-           console.log("playerId="+playerId)
+       console.log("currPlayer="+currPlayer)
+       console.log("playerId="+playerId)
+       // changeSinglePlayer(playerId)
+       // currPlayer = playerId
+
+       // Change the player if necessary
+       if (currPlayer != playerId){
+           // This changes the player then recalls sync afterwards on the host
            changeSinglePlayer(playerId)
-           // changeSinglePlayer(roomnum, playerId).then(console.log("currPlayer="+currPlayer))
-
+       }
+       else{
        // This syncs the time and state
-        switch(currPlayer) {
-           case 0:
-               player.seekTo(currTime);
-               // Sync player state
-               // IF parent player was paused
-               if (state == -1 || state == 2)
-                   player.pauseVideo();
-               // If not paused
-               else
-                   player.playVideo();
-               break;
+           switch(currPlayer) {
+               case 0:
+                   player.seekTo(currTime);
+                   // Sync player state
+                   // IF parent player was paused
+                   if (state == -1 || state == 2)
+                       player.pauseVideo();
+                   // If not paused
+                   else
+                       player.playVideo();
+                   break;
 
-           case 1:
-               dailyPlayer.seek(currTime);
-               if (state) {
-                   console.log("i pausing!")
-                   dailyPlayer.pause()
-               }
-               else {
-                   dailyPlayer.play()
-               }
-               break;
+               case 1:
+                   dailyPlayer.seek(currTime);
+                   if (state) {
+                       console.log("i pausing!")
+                       dailyPlayer.pause()
+                   }
+                   else {
+                       dailyPlayer.play()
+                   }
+                   break;
 
-           default:
-               console.log("Error invalid player id")
+               default:
+                   console.log("Error invalid player id")
+            }
         }
-        });
+    });
 
     // Change video
     socket.on('changeVideoClient', function(data) {

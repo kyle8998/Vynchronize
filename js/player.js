@@ -23,6 +23,7 @@ socket.on('createYoutube', function(data) {
 
 // Create Daily Motion Player
 socket.on('createDaily', function(data) {
+    console.log("i am in create daily")
     // player.destroy()
     if (currPlayer != 1) {
     //     var playerIn = document.getElementById("playerArea")

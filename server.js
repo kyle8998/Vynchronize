@@ -92,6 +92,7 @@ io.sockets.on('connection', function(socket){
 
         // This changes the room variable to the player id
         io.sockets.adapter.rooms['room-'+roomnum].currPlayer = playerId
+        console.log(io.sockets.adapter.rooms['room-'+socket.roomnum].currPlayer)
 
     });
 
@@ -101,14 +102,17 @@ io.sockets.on('connection', function(socket){
 
         switch(playerId) {
             case 0:
-                io.sockets.emit('createYoutube', {});
+                socket.emit('createYoutube', {});
                 break;
             case 1:
-                io.sockets.emit('createDaily', {});
+                socket.emit('createDaily', {});
                 break;
             default:
                 console.log("Error invalid player id")
         }
+        // After changing the player, resync with the host
+        host = io.sockets.adapter.rooms['room-'+socket.roomnum].host
+        socket.broadcast.to(host).emit('getData');
     });
 
 
@@ -143,6 +147,7 @@ io.sockets.on('connection', function(socket){
         //callback(true);
         socket.roomnum = data;
         var host = null
+        var init = false
 
         // Sets default room value to 1
         if (socket.roomnum == null || socket.roomnum == "") {
@@ -159,6 +164,7 @@ io.sockets.on('connection', function(socket){
         if (io.sockets.adapter.rooms['room-'+socket.roomnum] === undefined) {
             socket.send(socket.id)
             host = socket.id
+            init = true
             //console.log(socket.id)
         }
         else {
@@ -166,12 +172,19 @@ io.sockets.on('connection', function(socket){
             host = io.sockets.adapter.rooms['room-'+socket.roomnum].host
         }
 
+        // Actually join the room
         console.log(socket.username+" connected to room-"+socket.roomnum)
         socket.join("room-"+socket.roomnum);
 
         // Sets the host
         io.sockets.adapter.rooms['room-'+socket.roomnum].host = host
+        // Sets the default values when first initializing
+        if (init){
+            io.sockets.adapter.rooms['room-'+socket.roomnum].currPlayer = 0
+            io.sockets.adapter.rooms['room-'+socket.roomnum].currVideo = 'M7lc1UVf-VE'
+        }
 
+        // Gets current video from room variable
         var currVideo = io.sockets.adapter.rooms['room-'+socket.roomnum].currVideo
         // Change the video to current One
         socket.emit('changeVideoClient', { videoId: currVideo });

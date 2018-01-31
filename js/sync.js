@@ -73,9 +73,13 @@ function changePlayer(roomnum, playerId) {
 	}
 }
 
+// Change a single player
 function changeSinglePlayer(playerId) {
-	if (playerId != currPlayer) {
-		console.log("I changed!")
-		socket.emit('change single player', { playerId: playerId });
-	}
+	return new Promise((resolve, reject) => {
+		if (playerId != currPlayer) {
+			console.log("I changed!")
+			socket.emit('change single player', { playerId: playerId });
+		}
+		resolve("socket entered change single player function")
+	})
 }
