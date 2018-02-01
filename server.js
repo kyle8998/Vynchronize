@@ -94,6 +94,10 @@ io.sockets.on('connection', function(socket){
         io.sockets.adapter.rooms['room-'+roomnum].currPlayer = playerId
         console.log(io.sockets.adapter.rooms['room-'+socket.roomnum].currPlayer)
 
+        // This syncs the host whenever the player changes
+        host = io.sockets.adapter.rooms['room-'+socket.roomnum].host
+        socket.broadcast.to(host).emit('getData');
+
     });
 
     // Change video player
@@ -181,7 +185,7 @@ io.sockets.on('connection', function(socket){
         // Sets the default values when first initializing
         if (init){
             io.sockets.adapter.rooms['room-'+socket.roomnum].currPlayer = 0
-            io.sockets.adapter.rooms['room-'+socket.roomnum].currVideo = 'M7lc1UVf-VE'
+            io.sockets.adapter.rooms['room-'+socket.roomnum].currVideo = ''
         }
 
         // Gets current video from room variable
