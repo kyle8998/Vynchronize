@@ -181,7 +181,7 @@ io.sockets.on('connection', function(socket){
         // Sets the default values when first initializing
         if (init){
             io.sockets.adapter.rooms['room-'+socket.roomnum].currPlayer = 0
-            io.sockets.adapter.rooms['room-'+socket.roomnum].currVideo = 'M7lc1UVf-VE'
+            io.sockets.adapter.rooms['room-'+socket.roomnum].currVideo = ''
         }
 
         // Gets current video from room variable

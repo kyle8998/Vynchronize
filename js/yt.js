@@ -10,6 +10,9 @@ var playerStatus = -1;
 
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
+      playerVars: {
+            autoplay: 0
+        },
 	  events: {
 		'onReady': onPlayerReady,
 		'onStateChange': onPlayerStateChange

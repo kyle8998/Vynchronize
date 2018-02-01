@@ -36,7 +36,10 @@ socket.on('createDaily', function(data) {
         var daily = document.getElementById('dailyArea');
         daily.style.display='block';
         currPlayer = 1
-        console.log("hey i am number 1")
+
+        // Special call to pause youtube player
+        // Only have to do on youtube player as it is the default player that autoplays
+        player.pauseVideo();
     }
 });
 
