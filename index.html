@@ -135,7 +135,7 @@
             <br/>
 
             <div id='playerArea'>
-                <iframe id="player"
+                <iframe class="video" id="player"
                 allowfullscreen="0"
                 width="640" height="360"
                 src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
@@ -150,7 +150,7 @@
                 <!-- <div id='player'></div> -->
             </div>
             <div id='dailyArea'>
-                <iframe id="player-daily" frameborder="0" width="640" height="360"
+                <iframe class="video" id="player-daily" frameborder="0" width="640" height="360"
                 src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS"
                 allowfullscreen allow="autoplay"></iframe>
             </div>
@@ -166,7 +166,14 @@
                   <button onclick="syncVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Sync</button>
 
                   <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Love live noises</button>
+
+                  <button style="margin-top:.5rem" class="btn btn-primary switch">Turn off the Lights!</button>
+
             </div>
+
+            <!-- Div for lights off! -->
+            <div id='persoff'></div>
+
             <br/>
             <div>
                   <input type="Video" style="max-width: 200px; margin-right: 0rem;" class="form-control" id="inputVideoId" placeholder="YouTube Video ID">
@@ -482,6 +489,26 @@
 
             $users.html(html);
         });
+    });
+
+
+    // Turn off the lights!
+    var per = 0;
+    $(document).ready(function(){
+      $("#persoff").css("height", $(document).height()).hide();
+      $(document).click(function(e) {
+    	if(!$(e.target).hasClass('switch') && per == 1) {
+    	  $("#persoff").toggle();
+    	  per = 0;
+    	}
+      });
+      $(".switch").click(function(){
+        $("#persoff").toggle();
+    	per += 1;
+        if (per == 2) {
+    	  per = 0;
+    	}
+      });
     });
 
     </script>
