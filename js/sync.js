@@ -12,6 +12,10 @@ function syncVideo(roomnum){
 	var currTime = 0
 	var state
 
+	// var syncText = document.getElementById("syncbutton")
+	// console.log(syncText.innerHTML)
+	// syncText.innerHTML = "<i class=\"fas fa-sync fa-spin\"></i> Sync"
+
 	switch(currPlayer) {
 		case 0:
 			currTime = player.getCurrentTime();
