@@ -18,6 +18,9 @@
     <!-- Socket.io -->
     <script src="/socket.io/socket.io.js"></script>
 
+    <!-- Font awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
     <!-- Custom styles for this template -->
     <link href="css/small-business.css" rel="stylesheet">
 
@@ -123,10 +126,10 @@
 
             <div class="dropdown">
               <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Player
+                <i class="fas fa-video"></i> Player
               </button>
               <div class="form-control dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" onclick="changePlayer(roomnum, 0)">YouTube</a>
+                <a class="dropdown-item" onclick="changePlayer(roomnum, 0)"><i class="fab fa-youtube"></i> YouTube</a>
                 <a class="dropdown-item" onclick="changePlayer(roomnum, 1)">Daily Motion</a>
               </div>
             </div>
@@ -161,13 +164,13 @@
             allowfullscreen allow="autoplay"></iframe> -->
 
             <div>
-                  <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Play/Pause</button>
+                  <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
 
-                  <button onclick="syncVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Sync</button>
+                  <button id="syncbutton" onclick="syncVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-sync"></i> Sync</button>
 
-                  <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Love live noises</button>
+                  <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Love live noises</button>
 
-                  <button style="margin-top:.5rem" class="btn btn-primary switch">Turn off the Lights!</button>
+                  <button style="margin-top:.5rem" class="btn btn-primary switch"><i class="fas fa-lightbulb"></i> Turn off the Lights!</button>
 
             </div>
 
@@ -177,7 +180,7 @@
             <br/>
             <div>
                   <input type="Video" style="max-width: 200px; margin-right: 0rem;" class="form-control" id="inputVideoId" placeholder="YouTube Video ID">
-                  <button onclick="changeVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary">Change Video</button>
+                  <button onclick="changeVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
 
             <br/>
             </div>
