@@ -4,7 +4,7 @@
   "description": "Video synchronization app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jshint test.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/kyle8998/Vynchronize/issues"
   },
-  "homepage": "https://github.com/kyle8998/Vynchronize#readme"
+  "homepage": "https://github.com/kyle8998/Vynchronize#readme",
+  "devDependencies": {
+    "jshint": "^2.9.5"
+  }
 }
