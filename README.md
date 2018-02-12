@@ -5,6 +5,8 @@ Vynchronize is a online video synchronization platform where you can watch video
 
 This is a work in progress, and it is only in the beta stages. Don't expect it to be perfect!
 
+Vynchronize currently supports YouTube, Daily Motion, and Vimeo!
+
 [![forthebadge](https://forthebadge.com/badges/60-percent-of-the-time-works-every-time.svg)](http://forthebadge.com)
 
 [![Build Status](https://travis-ci.org/kyle8998/Vynchronize.svg?branch=master)](https://travis-ci.org/kyle8998/Vynchronize)

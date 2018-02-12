@@ -86,6 +86,9 @@ io.sockets.on('connection', function(socket){
             case 1:
                 io.sockets.in("room-"+roomnum).emit('createDaily', {});
                 break;
+            case 2:
+                io.sockets.in("room-"+roomnum).emit('createVimeo', {});
+                break;
             default:
                 console.log("Error invalid player id")
         }
@@ -110,6 +113,9 @@ io.sockets.on('connection', function(socket){
                 break;
             case 1:
                 socket.emit('createDaily', {});
+                break;
+            case 2:
+                socket.emit('createVimeo', {});
                 break;
             default:
                 console.log("Error invalid player id")

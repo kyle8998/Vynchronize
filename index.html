@@ -43,6 +43,9 @@
        #dailyArea{
            display:none;
        }
+       #vimeoArea{
+           display:none;
+       }
     </style>
 
 
@@ -130,7 +133,8 @@
               </button>
               <div class="form-control dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" onclick="changePlayer(roomnum, 0)"><i class="fab fa-youtube"></i> YouTube</a>
-                <a class="dropdown-item" onclick="changePlayer(roomnum, 1)">Daily Motion</a>
+                <a class="dropdown-item" onclick="changePlayer(roomnum, 1)"><img width="16px" height="16px" src="http://static1.dmcdn.net/images/dailymotion-logo-ogtag.png.v2779e025da411e7f2" alt="Daily Motion Logo"> Daily Motion</a>
+                <a class="dropdown-item" onclick="changePlayer(roomnum, 2)"><i class="fab fa-vimeo"></i> Vimeo (Beta)</a>
               </div>
             </div>
 
@@ -156,6 +160,9 @@
                 <iframe class="video" id="player-daily" frameborder="0" width="640" height="360"
                 src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS"
                 allowfullscreen allow="autoplay"></iframe>
+            </div>
+            <div id='vimeoArea'>
+                <iframe id="player-vimeo" src="https://player.vimeo.com/video/76979871" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             </div>
 
             <!-- Daily motion -->
@@ -315,6 +322,9 @@
             case 1:
                 dailyPlay()
                 break;
+            case 2:
+                vimeoPlay()
+                break;
             default:
                 console.log("Error invalid player id")
         }
@@ -327,6 +337,9 @@
                break;
            case 1:
                dailyPlayer.pause();
+               break;
+           case 2:
+               vimeoPlayer.pause();
                break;
            default:
                console.log("Error invalid player id")
@@ -388,6 +401,31 @@
                    }
                    break;
 
+               case 2:
+                    vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
+                        // seconds = the actual time that the player seeked to
+                        if (state) {
+                            vimeoPlayer.pause()
+                        }
+                        else {
+                            vimeoPlayer.play()
+                        }
+
+                    }).catch(function(error) {
+                        switch (error.name) {
+                            case 'RangeError':
+                                // the time was less than 0 or greater than the video’s duration
+                                console.log("the time was less than 0 or greater than the video’s duration")
+                                break;
+
+                            default:
+                                // some other error occurred
+                                break;
+                        }
+                    });
+
+                   break;
+
                default:
                    console.log("Error invalid player id")
             }
@@ -409,6 +447,30 @@
            case 1:
                dailyPlayer.load(videoId, {
                     autoplay: true
+                });
+               break;
+           case 2:
+               vimeoPlayer.loadVideo(videoId).then(function(id) {
+                    // the video successfully loaded
+                }).catch(function(error) {
+                    switch (error.name) {
+                        case 'TypeError':
+                            // the id was not a number
+                            break;
+
+                        case 'PasswordError':
+                            // the video is password-protected and the viewer needs to enter the
+                            // password first
+                            break;
+
+                        case 'PrivacyError':
+                            // the video is password-protected or private
+                            break;
+
+                        default:
+                            // some other error occurred
+                            break;
+                    }
                 });
                break;
            default:
@@ -532,7 +594,9 @@
     <!-- Daily Motion -->
     <script src="https://api.dmcdn.net/all.js"></script>
     <script src="js/dm.js"></script>
-
+    <!-- Vimeo -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script src="js/vimeo.js"></script>
 
   </body>
 

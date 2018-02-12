@@ -2,6 +2,7 @@ var currPlayer = 0
 
 // 0 - YouTube
 // 1 - Daily Motion
+// 2 - Vimeo
 
 // Create Youtube Player
 socket.on('createYoutube', function(data) {
@@ -13,6 +14,9 @@ socket.on('createYoutube', function(data) {
 
         var daily = document.getElementById('dailyArea');
         daily.style.display='none';
+
+        var vimeo = document.getElementById('vimeoArea');
+        vimeo.style.display='none';
 
         var you = document.getElementById('playerArea');
         you.style.display='block';
@@ -33,9 +37,35 @@ socket.on('createDaily', function(data) {
         var you = document.getElementById('playerArea');
         you.style.display='none';
 
+        var vimeo = document.getElementById('vimeoArea');
+        vimeo.style.display='none';
+
         var daily = document.getElementById('dailyArea');
         daily.style.display='block';
         currPlayer = 1
+
+        // Special call to pause youtube player
+        // Only have to do on youtube player as it is the default player that autoplays
+        player.pauseVideo();
+    }
+});
+
+// Create Vimeo Player
+socket.on('createVimeo', function(data) {
+    if (currPlayer != 2) {
+    //     var playerIn = document.getElementById("playerArea")
+    //     console.log(playerIn.innerHTML)
+    //     playerIn.innerHTML = "<iframe id=\"player-daily\" frameborder=\"0\" width=\"640\" height=\"360\"src=\"//www.dailymotion.com/embed/video/x26m1j4\"allowfullscreen allow=\"autoplay\"></iframe>"
+
+        var you = document.getElementById('playerArea');
+        you.style.display='none';
+
+        var daily = document.getElementById('dailyArea');
+        daily.style.display='none';
+
+        var vimeo = document.getElementById('vimeoArea');
+        vimeo.style.display='block';
+        currPlayer = 2
 
         // Special call to pause youtube player
         // Only have to do on youtube player as it is the default player that autoplays

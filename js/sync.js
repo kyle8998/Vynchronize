@@ -1,6 +1,7 @@
 // Calls the play video function on the server
 function playVideo(roomnum){
 	 // dailyPlayer.play();
+	 //vimeoPlayer.play()
 	 socket.emit('play video', { room: roomnum });
 
 	// Doesn't work well unless called in server
@@ -11,6 +12,7 @@ function playVideo(roomnum){
 function syncVideo(roomnum){
 	var currTime = 0
 	var state
+	var videoId = id
 
 	// var syncText = document.getElementById("syncbutton")
 	// console.log(syncText.innerHTML)
@@ -25,12 +27,35 @@ function syncVideo(roomnum){
 			currTime = dailyPlayer.currentTime;
 			state = dailyPlayer.paused;
 			break;
+		case 2:
+			vimeoPlayer.getCurrentTime().then(function(seconds) {
+				// seconds = the current playback position
+				currTime = seconds
+
+				// Need to nest async functions
+				vimeoPlayer.getPaused().then(function(paused) {
+					// paused = whether or not the player is paused
+					state = paused
+					console.log("state="+state)
+					socket.emit('sync video', { room: roomnum, time: currTime, state: state, videoId: videoId });
+				}).catch(function(error) {
+					// an error occurred
+					console.log("Error: Could not retrieve Vimeo Player state")
+				});
+
+			}).catch(function(error) {
+				// an error occurred
+				console.log("Error: Could not retrieve Vimeo player current time")
+			});
+			break;
 		default:
 			console.log("Error invalid player id")
 	}
 
-	var videoId = id
-	socket.emit('sync video', { room: roomnum, time: currTime, state: state, videoId: videoId });
+	// Required due to vimeo asyncronous functionality
+	if (currPlayer != 2) {
+		socket.emit('sync video', { room: roomnum, time: currTime, state: state, videoId: videoId });
+	}
 }
 
 // Change playVideo
