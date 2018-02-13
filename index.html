@@ -133,7 +133,7 @@
               </button>
               <div class="form-control dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" onclick="changePlayer(roomnum, 0)"><i class="fab fa-youtube"></i> YouTube</a>
-                <a class="dropdown-item" onclick="changePlayer(roomnum, 1)"><img width="16px" height="16px" src="http://static1.dmcdn.net/images/dailymotion-logo-ogtag.png.v2779e025da411e7f2" alt="Daily Motion Logo"> Daily Motion</a>
+                <a class="dropdown-item" onclick="changePlayer(roomnum, 1)"><img width="14px" height="14px" src="img/dailymotion-logo.svg" alt="Daily Motion Logo"> Daily Motion</a>
                 <a class="dropdown-item" onclick="changePlayer(roomnum, 2)"><i class="fab fa-vimeo"></i> Vimeo (Beta)</a>
               </div>
             </div>
@@ -161,8 +161,11 @@
                 src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS"
                 allowfullscreen allow="autoplay"></iframe>
             </div>
-            <div id='vimeoArea'>
-                <iframe id="player-vimeo" src="https://player.vimeo.com/video/76979871" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <div style="z-index: 100" id='vimeoArea'>
+                <iframe class="video" id="player-vimeo"
+                src="https://player.vimeo.com/video/76979871"
+                width="640" height="360" frameborder="0"
+                webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             </div>
 
             <!-- Daily motion -->
