@@ -112,3 +112,24 @@ function changeSinglePlayer(playerId) {
 		resolve("socket entered change single player function")
 	})
 }
+
+
+// These functions just simply play or pause the player
+// Created for event listeners
+function playOther(roomnum){
+	 socket.emit('play other', { room: roomnum });
+	 //socket.broadcast.to("room-"+roomnum).emit('justPlay');
+}
+
+socket.on('justPlay', function(data) {
+	player.playVideo()
+});
+
+function pauseOther(roomnum){
+	 socket.emit('pause other', { room: roomnum });
+	 //socket.broadcast.to("room-"+roomnum).emit('justPlay');
+}
+
+socket.on('justPause', function(data) {
+	player.pauseVideo()
+});

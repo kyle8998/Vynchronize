@@ -50,6 +50,16 @@ io.sockets.on('connection', function(socket){
         io.sockets.in("room-"+roomnum).emit('playVideoClient');
     });
 
+    socket.on('play other', function(data){
+        var roomnum = data.room
+        io.sockets.in("room-"+roomnum).emit('justPlay');
+    });
+
+    socket.on('pause other', function(data){
+        var roomnum = data.room
+        io.sockets.in("room-"+roomnum).emit('justPause');
+    });
+
     // Sync video
     socket.on('sync video', function(data){
         var roomnum = data.room

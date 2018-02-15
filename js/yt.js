@@ -45,9 +45,23 @@ function changeBorderColor(playerStatus) {
 }
 
 function onPlayerStateChange(event) {
-  changeBorderColor(event.data);
+  //changeBorderColor(event.data);
   //socket.emit('player status', event.data);
   playerStatus = event.data;
+
+// Event Listeners
+  switch(playerStatus) {
+          case 0:
+            record('video ended');
+            break;
+          case 1:
+            //record('video playing from '+player.getCurrentTime());
+            playOther(roomnum)
+            break;
+          case 2:
+            //record('video paused at '+player.getCurrentTime());
+            pauseOther(roomnum)
+    }
 
 }
 
