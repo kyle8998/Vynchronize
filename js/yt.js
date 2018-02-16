@@ -11,7 +11,8 @@ var playerStatus = -1;
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
       playerVars: {
-            autoplay: 0
+            autoplay: 0,
+            rel: 0
         },
 	  events: {
 		'onReady': onPlayerReady,
@@ -21,7 +22,8 @@ function onYouTubeIframeAPIReady() {
 
 }
 function onPlayerReady(event) {
-  document.getElementById('player').style.borderColor = '#FF6D00';
+  //document.getElementById('player').style.borderColor = '#FF6D00';
+  document.getElementById('player').style.borderColor = '#00000000';
 }
 
 function changeBorderColor(playerStatus) {
@@ -52,7 +54,7 @@ function onPlayerStateChange(event) {
 // Event Listeners
   switch(playerStatus) {
           case 0:
-            record('video ended');
+            //record('video ended');
             break;
           case 1:
             //record('video playing from '+player.getCurrentTime());
@@ -61,6 +63,11 @@ function onPlayerStateChange(event) {
           case 2:
             //record('video paused at '+player.getCurrentTime());
             pauseOther(roomnum)
+            break;
+          case 3:
+            console.log("hi im case 3 how r u")
+            syncVideo(roomnum)
+            break;
     }
 
 }
