@@ -11,7 +11,7 @@ app.use(express.static(__dirname + '/'));
 server.listen(process.env.PORT || 3000);
 console.log('Server Started . . .');
 
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
@@ -31,7 +31,7 @@ io.on('connection', function(socket) {
 
 var roomno = 1;
 
-io.sockets.on('connection', function(socket){
+io.sockets.on('connection', function(socket) {
     // Connect Socket
     connections.push(socket);
     console.log('Connected: %s sockets connected', connections.length);
@@ -45,79 +45,86 @@ io.sockets.on('connection', function(socket){
 
 
     // Play video
-    socket.on('play video', function(data){
+    socket.on('play video', function(data) {
         var roomnum = data.room
-        io.sockets.in("room-"+roomnum).emit('playVideoClient');
+        io.sockets.in("room-" + roomnum).emit('playVideoClient');
     });
 
-    socket.on('play other', function(data){
+    socket.on('play other', function(data) {
         var roomnum = data.room
-        io.sockets.in("room-"+roomnum).emit('justPlay');
+        io.sockets.in("room-" + roomnum).emit('justPlay');
     });
 
-    socket.on('pause other', function(data){
+    socket.on('pause other', function(data) {
         var roomnum = data.room
-        io.sockets.in("room-"+roomnum).emit('justPause');
+        io.sockets.in("room-" + roomnum).emit('justPause');
     });
 
     // Sync video
-    socket.on('sync video', function(data){
+    socket.on('sync video', function(data) {
         var roomnum = data.room
         var currTime = data.time
         var state = data.state
         var videoId = data.videoId
-        var playerId = io.sockets.adapter.rooms['room-'+roomnum].currPlayer
+        var playerId = io.sockets.adapter.rooms['room-' + roomnum].currPlayer
         // var videoId = io.sockets.adapter.rooms['room-'+roomnum].currVideo
-        io.sockets.in("room-"+roomnum).emit('syncVideoClient', { time: currTime, state: state, videoId: videoId, playerId:playerId });
+        io.sockets.in("room-" + roomnum).emit('syncVideoClient', {
+            time: currTime,
+            state: state,
+            videoId: videoId,
+            playerId: playerId
+        });
     });
 
     // Change video
-    socket.on('change video', function(data){
+    socket.on('change video', function(data) {
         var roomnum = data.room
         var videoId = data.videoId
-        io.sockets.in("room-"+roomnum).emit('changeVideoClient', { videoId: videoId });
+        io.sockets.in("room-" + roomnum).emit('changeVideoClient', {
+            videoId: videoId
+        });
 
         // This changes the room variable to the video id
-        io.sockets.adapter.rooms['room-'+roomnum].currVideo = videoId
+        io.sockets.adapter.rooms['room-' + roomnum].currVideo = videoId
         // console.log(io.sockets.adapter.rooms['room-1'])
     });
 
     // Change video player
-    socket.on('change player', function(data){
+    socket.on('change player', function(data) {
         var roomnum = data.room
         var playerId = data.playerId
 
-        io.sockets.in("room-"+roomnum).emit('pauseVideoClient');
+        io.sockets.in("room-" + roomnum).emit('pauseVideoClient');
 
-        switch(playerId) {
+        switch (playerId) {
             case 0:
-                io.sockets.in("room-"+roomnum).emit('createYoutube', {});
+                io.sockets.in("room-" + roomnum).emit('createYoutube', {});
                 break;
             case 1:
-                io.sockets.in("room-"+roomnum).emit('createDaily', {});
+                io.sockets.in("room-" + roomnum).emit('createDaily', {});
                 break;
             case 2:
-                io.sockets.in("room-"+roomnum).emit('createVimeo', {});
+                io.sockets.in("room-" + roomnum).emit('createVimeo', {});
                 break;
             default:
                 console.log("Error invalid player id")
         }
 
         // This changes the room variable to the player id
-        io.sockets.adapter.rooms['room-'+roomnum].currPlayer = playerId
-        console.log(io.sockets.adapter.rooms['room-'+socket.roomnum].currPlayer)
+        io.sockets.adapter.rooms['room-' + roomnum].currPlayer = playerId
+        console.log(io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer)
 
         // This syncs the host whenever the player changes
-        host = io.sockets.adapter.rooms['room-'+socket.roomnum].host
+        host = io.sockets.adapter.rooms['room-' + socket.roomnum].host
         socket.broadcast.to(host).emit('getData');
 
     });
 
     // Change video player
-    socket.on('change single player', function(data){
+    socket.on('change single player', function(data) {
         var playerId = data.playerId
 
-        switch(playerId) {
+        switch (playerId) {
             case 0:
                 socket.emit('createYoutube', {});
                 break;
@@ -131,14 +138,14 @@ io.sockets.on('connection', function(socket){
                 console.log("Error invalid player id")
         }
         // After changing the player, resync with the host
-        host = io.sockets.adapter.rooms['room-'+socket.roomnum].host
+        host = io.sockets.adapter.rooms['room-' + socket.roomnum].host
         socket.broadcast.to(host).emit('getData');
     });
 
 
 
     // Disconnect
-    socket.on('disconnect', function(data){
+    socket.on('disconnect', function(data) {
         // if(!socket.username) return;
         users.splice(users.indexOf(socket.username), 1);
         updateUsernames();
@@ -147,14 +154,17 @@ io.sockets.on('connection', function(socket){
     });
 
     // Send Message in chat
-    socket.on('send message', function(data){
+    socket.on('send message', function(data) {
         var encodedMsg = data.replace(/</g, "&lt;").replace(/>/g, "&gt;");
         // console.log(data);
-        io.sockets.emit('new message', {msg: encodedMsg, user: socket.username});
+        io.sockets.emit('new message', {
+            msg: encodedMsg,
+            user: socket.username
+        });
     });
 
     // New User
-    socket.on('new user', function(data, callback){
+    socket.on('new user', function(data, callback) {
         callback(true);
         socket.username = data;
         //console.log(socket.username)
@@ -163,7 +173,7 @@ io.sockets.on('connection', function(socket){
     });
 
     // New room
-    socket.on('new room', function(data, callback){
+    socket.on('new room', function(data, callback) {
         //callback(true);
         socket.roomnum = data;
         var host = null
@@ -175,39 +185,40 @@ io.sockets.on('connection', function(socket){
         }
 
         // Adds the room to a global array
-        if (!rooms.includes(socket.roomnum)){
+        if (!rooms.includes(socket.roomnum)) {
             rooms.push(socket.roomnum);
         }
 
         // Checks if the room exists or not
-        console.log(io.sockets.adapter.rooms['room-'+socket.roomnum] !== undefined)
-        if (io.sockets.adapter.rooms['room-'+socket.roomnum] === undefined) {
+        console.log(io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined)
+        if (io.sockets.adapter.rooms['room-' + socket.roomnum] === undefined) {
             socket.send(socket.id)
             host = socket.id
             init = true
             //console.log(socket.id)
-        }
-        else {
+        } else {
             console.log(socket.roomnum)
-            host = io.sockets.adapter.rooms['room-'+socket.roomnum].host
+            host = io.sockets.adapter.rooms['room-' + socket.roomnum].host
         }
 
         // Actually join the room
-        console.log(socket.username+" connected to room-"+socket.roomnum)
-        socket.join("room-"+socket.roomnum);
+        console.log(socket.username + " connected to room-" + socket.roomnum)
+        socket.join("room-" + socket.roomnum);
 
         // Sets the host
-        io.sockets.adapter.rooms['room-'+socket.roomnum].host = host
+        io.sockets.adapter.rooms['room-' + socket.roomnum].host = host
         // Sets the default values when first initializing
-        if (init){
-            io.sockets.adapter.rooms['room-'+socket.roomnum].currPlayer = 0
-            io.sockets.adapter.rooms['room-'+socket.roomnum].currVideo = ''
+        if (init) {
+            io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer = 0
+            io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo = ''
         }
 
         // Gets current video from room variable
-        var currVideo = io.sockets.adapter.rooms['room-'+socket.roomnum].currVideo
+        var currVideo = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo
         // Change the video to current One
-        socket.emit('changeVideoClient', { videoId: currVideo });
+        socket.emit('changeVideoClient', {
+            videoId: currVideo
+        });
 
         // Get time from host which calls change time for that socket
         if (socket.id != host) {
@@ -230,33 +241,35 @@ io.sockets.on('connection', function(socket){
     });
 
     // Changes time for a specific socket
-    socket.on('change time', function(data){
+    socket.on('change time', function(data) {
         // console.log(data);
         var caller = data.id
         var time = data.time
-        socket.broadcast.to(caller).emit('changeTime', { time: time });
+        socket.broadcast.to(caller).emit('changeTime', {
+            time: time
+        });
     });
 
     // This just calls the syncHost function
-    socket.on('sync host', function(data){
+    socket.on('sync host', function(data) {
         //socket.broadcast.to(host).emit('syncVideoClient', { time: time, state: state, videoId: videoId });
         socket.emit('syncHost');
     });
 
     // Emits the player status
-    socket.on('player status', function(data){
+    socket.on('player status', function(data) {
         // console.log(data);
         console.log(data)
     });
 
-    function updateUsernames(){
+    function updateUsernames() {
         io.sockets.emit('get users', users);
     }
 
 
-//------------------------------------------------------------------------------
-// Async get current time
-    socket.on('auto sync', function(data){
+    //------------------------------------------------------------------------------
+    // Async get current time
+    socket.on('auto sync', function(data) {
         var async = require("async");
         var http = require("http");
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,55 +30,36 @@
     <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
 
-    <style>
-       body{
-           margin-top:30px;
-       }
-       #roomArea{
-           display:none;
-       }
-       #initArea{
-           display:none;
-       }
-       #dailyArea{
-           display:none;
-       }
-       #vimeoArea{
-           display:none;
-       }
-    </style>
+</head>
 
-
-  </head>
-
-  <body class="bg-light" id="Home">
+<body class="bg-light" id="Home">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#Home"><img src="img/logo.png" alt="Vynchronize logo" height="40" width="40"> Vynchronize</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#Home"><img src="img/logo.png" alt="Vynchronize logo" height="40" width="40"> Vynchronize</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <!-- <li class="nav-item active">
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <!-- <li class="nav-item active">
               <a class="nav-link js-scroll-trigger" href="#Home">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li> -->
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#messageArea">Chatroom</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="https://github.com/kyle8998/Vynchronize">Source Code</a>
-            </li>
-          </ul>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#messageArea">Chatroom</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="https://github.com/kyle8998/Vynchronize">Source Code</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
     </nav>
 
     <!-- Page Content -->
@@ -114,132 +95,111 @@
 
                         </div>
 
-                        <input type="submit" class="btn btn-primary"
-                        value="Enter" />
+                        <input type="submit" class="btn btn-primary" value="Enter" />
                     </div>
                 </form>
             </div>
         </div>
 
-    <div id="roomArea">
-      <!-- Heading Row -->
-      <div class="row my-4">
-        <div class="col-lg-8">
+        <div id="roomArea">
+            <!-- Heading Row -->
+            <div class="row my-4">
+                <div class="col-lg-8">
 
 
-            <div class="dropdown">
-              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-video"></i> Player
               </button>
-              <div class="form-control dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" onclick="changePlayer(roomnum, 0)"><i class="fab fa-youtube"></i> YouTube</a>
-                <a class="dropdown-item" onclick="changePlayer(roomnum, 1)"><img width="14px" height="14px" src="img/dailymotion-logo.svg" alt="Daily Motion Logo"> Daily Motion</a>
-                <a class="dropdown-item" onclick="changePlayer(roomnum, 2)"><i class="fab fa-vimeo"></i> Vimeo (Beta)</a>
-              </div>
-            </div>
+                        <div class="form-control dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" onclick="changePlayer(roomnum, 0)"><i class="fab fa-youtube"></i> YouTube</a>
+                            <a class="dropdown-item" onclick="changePlayer(roomnum, 1)"><img width="14px" height="14px" src="img/dailymotion-logo.svg" alt="Daily Motion Logo"> Daily Motion</a>
+                            <a class="dropdown-item" onclick="changePlayer(roomnum, 2)"><i class="fab fa-vimeo"></i> Vimeo (Beta)</a>
+                        </div>
+                    </div>
 
 
-            <br/>
+                    <br/>
 
-            <div id='playerArea'>
-                <iframe class="video" id="player"
-                allowfullscreen="0"
-                rel="0"
-                width="640" height="360"
-                src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
-                frameborder="1"
-                style="border: solid 4px #37474F"
-                ></iframe>
+<!----------------------------------- PLAYER AREA ----------------------------------->
 
-                <!-- <iframe id="player-daily" frameborder="0" width="480" height="270"
-                src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS"
-                allowfullscreen allow="autoplay"></iframe> -->
+                    <div id='playerArea'>
+                        <iframe class="video" id="player" allowfullscreen="0" rel="0" width="640" height="360" src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1" frameborder="1" style="border: solid 4px #37474F"></iframe>
+                    </div>
+                    <div id='dailyArea'>
+                        <iframe class="video" id="player-daily" frameborder="0" width="640" height="360" src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS" allowfullscreen allow="autoplay"></iframe>
+                    </div>
+                    <div id='vimeoArea'>
+                        <iframe class="video" id="player-vimeo" src="https://player.vimeo.com/video/76979871" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
 
-                <!-- <div id='player'></div> -->
-            </div>
-            <div id='dailyArea'>
-                <iframe class="video" id="player-daily" frameborder="0" width="640" height="360"
-                src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS"
-                allowfullscreen allow="autoplay"></iframe>
-            </div>
-            <div style="z-index: 100" id='vimeoArea'>
-                <iframe class="video" id="player-vimeo"
-                src="https://player.vimeo.com/video/76979871"
-                width="640" height="360" frameborder="0"
-                webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-            </div>
+<!----------------------------------- PLAYER AREA ----------------------------------->
 
-            <!-- Daily motion -->
-            <!-- <iframe frameborder="0" width="480" height="270"
-            src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS"
-            allowfullscreen allow="autoplay"></iframe> -->
+                    <div>
+                        <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
 
-            <div>
-                  <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
+                        <button id="syncbutton" onclick="syncVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-sync"></i> Sync</button>
 
-                  <button id="syncbutton" onclick="syncVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-sync"></i> Sync</button>
+                        <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Love live noises</button>
 
-                  <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Love live noises</button>
+                        <button style="margin-top:.5rem" class="btn btn-primary switch"><i class="fas fa-lightbulb"></i> Turn off the Lights!</button>
 
-                  <button style="margin-top:.5rem" class="btn btn-primary switch"><i class="fas fa-lightbulb"></i> Turn off the Lights!</button>
+                    </div>
 
-            </div>
+                    <!-- Div for lights off! -->
+                    <div id='persoff'></div>
 
-            <!-- Div for lights off! -->
-            <div id='persoff'></div>
+                    <br/>
+                    <div>
+                        <input type="Video" style="max-width: 200px; margin-right: 0rem;" class="form-control" id="inputVideoId" placeholder="YouTube Video ID">
+                        <button onclick="changeVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
 
-            <br/>
-            <div>
-                  <input type="Video" style="max-width: 200px; margin-right: 0rem;" class="form-control" id="inputVideoId" placeholder="YouTube Video ID">
-                  <button onclick="changeVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
-
-            <br/>
-            </div>
-        </div>
-
-        <!-- /.col-lg-8 -->
-        <div class="col-lg-4">
-            <div style="margin-top: 2em" class="col-md-4">
-                <div style="padding-right: 20em;"class="well">
-                    <h3>Online Users</h3>
-                    <ul class="list-group" id="users"></ul>
+                        <br/>
+                    </div>
                 </div>
 
+                <!-- /.col-lg-8 -->
+                <div class="col-lg-4">
+                    <div style="margin-top: 2em" class="col-md-4">
+                        <div style="padding-right: 20em;" class="well">
+                            <h3>Online Users</h3>
+                            <ul class="list-group" id="users"></ul>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.col-md-4 -->
             </div>
-        </div>
-        <!-- /.col-md-4 -->
-      </div>
 
-      <!-- /.row -->
+            <!-- /.row -->
 
-      <div id="messageArea" class="row">
-          <h2 style="color:gray">Chat</h2>
-      <div class="col-md-8">
-          <div class="chat" id="chat"></div>
+            <div id="messageArea" class="row">
+                <h2 style="color:gray">Chat</h2>
+                <div class="col-md-8">
+                    <div class="chat" id="chat"></div>
 
-          <!-- Message Form (Enter Message) -->
-          <form id="messageForm">
-              <div class="form-group">
-                  <label>Enter Message...</label>
-                  <textarea class="form-control" id="message"></textarea>
-                  <br />
+                    <!-- Message Form (Enter Message) -->
+                    <form id="messageForm">
+                        <div class="form-group">
+                            <label>Enter Message...</label>
+                            <textarea class="form-control" id="message"></textarea>
+                            <br />
 
-                  <input type="submit" class="btn btn-primary"
-                  value="Send Message" />
-              </div>
-          </form>
-      </div>
-  </div>
+                            <input type="submit" class="btn btn-primary" value="Send Message" />
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-      <!-- Call to Action Well -->
-      <div class="card text-white bg-secondary my-4 text-center">
-        <div class="card-body">
-          <p class="text-white m-0">*The synchronization is not perfect at the moment! It's a work in progress</p>
-        </div>
-      </div>
+            <!-- Call to Action Well -->
+            <div class="card text-white bg-secondary my-4 text-center">
+                <div class="card-body">
+                    <p class="text-white m-0">*The synchronization is not perfect at the moment! It's a work in progress</p>
+                </div>
+            </div>
 
-      <!-- Content Row -->
-      <!-- <div class="row">
+            <!-- Content Row -->
+            <!-- <div class="row">
         <div class="col-md-4 mb-4">
           <div class="card h-100">
             <div class="card-body">
@@ -251,8 +211,8 @@
             </div>
           </div>
         </div> -->
-        <!-- /.col-md-4 -->
-        <!-- <div class="col-md-4 mb-4">
+            <!-- /.col-md-4 -->
+            <!-- <div class="col-md-4 mb-4">
           <div class="card h-100">
             <div class="card-body">
               <h2 class="card-title">Card Two</h2>
@@ -263,8 +223,8 @@
             </div>
           </div>
         </div> -->
-        <!-- /.col-md-4 -->
-        <!-- <div class="col-md-4 mb-4">
+            <!-- /.col-md-4 -->
+            <!-- <div class="col-md-4 mb-4">
           <div class="card h-100">
             <div class="card-body">
               <h2 class="card-title">Card Three</h2>
@@ -275,151 +235,199 @@
             </div>
           </div>
         </div> -->
-        <!-- /.col-md-4 -->
+            <!-- /.col-md-4 -->
 
-      <!-- </div> -->
-      <!-- /.row -->
+            <!-- </div> -->
+            <!-- /.row -->
 
-      <hr style="height:120pt; visibility:hidden;" />
-      <section id="about" class="bg-light">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2>About Vynchronize</h2>
-              <p class="lead">Vynchronize is a video synchronization platform created for viewing parties with friends!</p>
-              <p> To use Vynchronize just enter your name and a shared room number with friends. Then all you have to do is enter in a video id which you can get from a specific youtube video link then click on change video. The video will change for everyone connected to your room. You can use the play and sync buttons to control video playback. Play simply plays/pauses the video for everyone. The sync button syncs everyone in the room to your current position in the video. Normal controls on the youtube player still work, but they only affect you! If you want to pause the video only for yourself, then just pause on the player instead of hitting the play button!</p>
-              <p> Have fun watching videos with friends!</p>
-            </div>
-          </div>
+            <hr style="height:120pt; visibility:hidden;" />
+            <section id="about" class="bg-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <h2>About Vynchronize</h2>
+                            <p class="lead">Vynchronize is a video synchronization platform created for viewing parties with friends!</p>
+                            <p> To use Vynchronize just enter your name and a shared room number with friends. Then all you have to do is enter in a video id which you can get from a specific youtube video link then click on change video. The video will change
+                                for everyone connected to your room. You can use the play and sync buttons to control video playback. Play simply plays/pauses the video for everyone. The sync button syncs everyone in the room to your current position
+                                in the video. Normal controls on the youtube player still work, but they only affect you! If you want to pause the video only for yourself, then just pause on the player instead of hitting the play button!</p>
+                            <p> Have fun watching videos with friends!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <hr style="height:120pt; visibility:hidden;" />
+
         </div>
-      </section>
-      <hr style="height:120pt; visibility:hidden;" />
-
     </div>
-</div>
     <!-- /.container -->
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Vynchronize 2018</p>
-      </div>
-      <!-- /.container -->
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Vynchronize 2018</p>
+        </div>
+        <!-- /.container -->
     </footer>
 
     <script>
-    var socket = io.connect();
-    var roomnum = 1
-    var id = "M7lc1UVf-VE"
-    // socket.on('connectToRoom',function(data) {
-    //    document.body.innerHTML = '';
-    //    document.write(data);
-    // });
+        var socket = io.connect();
+        var roomnum = 1
+        var id = "M7lc1UVf-VE"
+        // socket.on('connectToRoom',function(data) {
+        //    document.body.innerHTML = '';
+        //    document.write(data);
+        // });
 
-    // Calls the play/pause function
-    socket.on('playVideoClient', function(data) {
-        // Calls the proper play function for the player
-        switch(currPlayer) {
-            case 0:
-                play()
-                break;
-            case 1:
-                dailyPlay()
-                break;
-            case 2:
-                vimeoPlay()
-                break;
-            default:
-                console.log("Error invalid player id")
-        }
-    });
+        // Calls the play/pause function
+        socket.on('playVideoClient', function(data) {
+            // Calls the proper play function for the player
+            switch (currPlayer) {
+                case 0:
+                    play()
+                    break;
+                case 1:
+                    dailyPlay()
+                    break;
+                case 2:
+                    vimeoPlay()
+                    break;
+                default:
+                    console.log("Error invalid player id")
+            }
+        });
 
-    socket.on('pauseVideoClient', function(data) {
-       switch(currPlayer) {
-           case 0:
-               player.pauseVideo();
-               break;
-           case 1:
-               dailyPlayer.pause();
-               break;
-           case 2:
-               vimeoPlayer.pause();
-               break;
-           default:
-               console.log("Error invalid player id")
-       }
-    });
+        socket.on('pauseVideoClient', function(data) {
+            switch (currPlayer) {
+                case 0:
+                    player.pauseVideo();
+                    break;
+                case 1:
+                    dailyPlayer.pause();
+                    break;
+                case 2:
+                    vimeoPlayer.pause();
+                    break;
+                default:
+                    console.log("Error invalid player id")
+            }
+        });
 
-    // Syncs the video client
-    socket.on('syncVideoClient', function(data) {
-       var currTime = data.time
-       var state = data.state
-       var videoId = data.videoId
-       var playerId = data.playerId
-       console.log("current time is: "+currTime)
-       console.log("curr vid id: "+id+" "+videoId)
+        // Syncs the video client
+        socket.on('syncVideoClient', function(data) {
+            var currTime = data.time
+            var state = data.state
+            var videoId = data.videoId
+            var playerId = data.playerId
+            console.log("current time is: " + currTime)
+            console.log("curr vid id: " + id + " " + videoId)
 
-       // There should no longer be any need to sync a video change
-       // Video should always be the same
-       // if (id != videoId){
-       //     console.log(id == videoId)
-       //     changeVideoId(roomnum, videoId)
-       // }
+            // There should no longer be any need to sync a video change
+            // Video should always be the same
+            // if (id != videoId){
+            //     console.log(id == videoId)
+            //     changeVideoId(roomnum, videoId)
+            // }
 
-       // This switchs you to the correct player
-       // Should only happen when a new socket joins late
+            // This switchs you to the correct player
+            // Should only happen when a new socket joins late
 
-       // Current issue: changePlayer is called asynchronously when we need this function to wait for it to finish
-       console.log("currPlayer="+currPlayer)
-       console.log("playerId="+playerId)
-       // changeSinglePlayer(playerId)
-       // currPlayer = playerId
+            // Current issue: changePlayer is called asynchronously when we need this function to wait for it to finish
+            console.log("currPlayer=" + currPlayer)
+            console.log("playerId=" + playerId)
+            // changeSinglePlayer(playerId)
+            // currPlayer = playerId
 
-       // Change the player if necessary
-       if (currPlayer != playerId){
-           // This changes the player then recalls sync afterwards on the host
-           changeSinglePlayer(playerId)
-       }
-       else{
-       // This syncs the time and state
-           switch(currPlayer) {
-               case 0:
-                   player.seekTo(currTime);
-                   // Sync player state
-                   // IF parent player was paused
-                   if (state == -1 || state == 2)
-                       player.pauseVideo();
-                   // If not paused
-                   else
-                       player.playVideo();
-                   break;
+            // Change the player if necessary
+            if (currPlayer != playerId) {
+                // This changes the player then recalls sync afterwards on the host
+                changeSinglePlayer(playerId)
+            } else {
+                // This syncs the time and state
+                switch (currPlayer) {
+                    case 0:
+                        player.seekTo(currTime);
+                        // Sync player state
+                        // IF parent player was paused
+                        if (state == -1 || state == 2)
+                            player.pauseVideo();
+                        // If not paused
+                        else
+                            player.playVideo();
+                        break;
 
-               case 1:
-                   dailyPlayer.seek(currTime);
-                   if (state) {
-                       console.log("i pausing!")
-                       dailyPlayer.pause()
-                   }
-                   else {
-                       dailyPlayer.play()
-                   }
-                   break;
-
-               case 2:
-                    vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
-                        // seconds = the actual time that the player seeked to
+                    case 1:
+                        dailyPlayer.seek(currTime);
                         if (state) {
-                            vimeoPlayer.pause()
+                            console.log("i pausing!")
+                            dailyPlayer.pause()
+                        } else {
+                            dailyPlayer.play()
                         }
-                        else {
-                            vimeoPlayer.play()
-                        }
+                        break;
 
+                    case 2:
+                        vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
+                            // seconds = the actual time that the player seeked to
+                            if (state) {
+                                vimeoPlayer.pause()
+                            } else {
+                                vimeoPlayer.play()
+                            }
+
+                        }).catch(function(error) {
+                            switch (error.name) {
+                                case 'RangeError':
+                                    // the time was less than 0 or greater than the video’s duration
+                                    console.log("the time was less than 0 or greater than the video’s duration")
+                                    break;
+
+                                default:
+                                    // some other error occurred
+                                    break;
+                            }
+                        });
+
+                        break;
+
+                    default:
+                        console.log("Error invalid player id")
+                }
+            }
+        });
+
+        // Change video
+        socket.on('changeVideoClient', function(data) {
+            var videoId = data.videoId;
+            console.log("video id is: " + videoId)
+
+            // This changes the video
+            id = videoId
+
+            switch (currPlayer) {
+                case 0:
+                    player.loadVideoById(videoId);
+                    break;
+                case 1:
+                    dailyPlayer.load(videoId, {
+                        autoplay: true
+                    });
+                    break;
+                case 2:
+                    vimeoPlayer.loadVideo(videoId).then(function(id) {
+                        // the video successfully loaded
                     }).catch(function(error) {
                         switch (error.name) {
-                            case 'RangeError':
-                                // the time was less than 0 or greater than the video’s duration
-                                console.log("the time was less than 0 or greater than the video’s duration")
+                            case 'TypeError':
+                                // the id was not a number
+                                break;
+
+                            case 'PasswordError':
+                                // the video is password-protected and the viewer needs to enter the
+                                // password first
+                                break;
+
+                            case 'PrivacyError':
+                                // the video is password-protected or private
                                 break;
 
                             default:
@@ -427,159 +435,109 @@
                                 break;
                         }
                     });
-
-                   break;
-
-               default:
-                   console.log("Error invalid player id")
-            }
-        }
-    });
-
-    // Change video
-    socket.on('changeVideoClient', function(data) {
-       var videoId = data.videoId;
-       console.log("video id is: "+videoId)
-
-       // This changes the video
-       id = videoId
-
-       switch(currPlayer) {
-           case 0:
-               player.loadVideoById(videoId);
-               break;
-           case 1:
-               dailyPlayer.load(videoId, {
-                    autoplay: true
-                });
-               break;
-           case 2:
-               vimeoPlayer.loadVideo(videoId).then(function(id) {
-                    // the video successfully loaded
-                }).catch(function(error) {
-                    switch (error.name) {
-                        case 'TypeError':
-                            // the id was not a number
-                            break;
-
-                        case 'PasswordError':
-                            // the video is password-protected and the viewer needs to enter the
-                            // password first
-                            break;
-
-                        case 'PrivacyError':
-                            // the video is password-protected or private
-                            break;
-
-                        default:
-                            // some other error occurred
-                            break;
-                    }
-                });
-               break;
-           default:
-               console.log("Error invalid player id")
-       }
-
-    });
-
-    // Change time
-    socket.on('changeTime', function(data) {
-       var time = data.time
-       player.seekTo(time);
-    });
-
-    // Change time
-    socket.on('syncHost', function(data) {
-       syncVideo(roomnum)
-    });
-
-
-    // Chat stuff
-    $(function(){
-        //var socket = io.connect();
-        var $messageForm = $('#messageForm');
-        var $message = $('#message');
-        var $chat = $('#chat');
-        var $roomArea = $('#roomArea');
-        var $userFormArea = $('#userFormArea');
-        var $userForm = $('#userForm');
-        var $users = $('#users');
-        var $username = $('#username');
-        var $roomnum = $('#roomnum');
-
-        $messageForm.submit(function(e){
-            e.preventDefault();
-            // console.log("Submitted");
-            socket.emit('send message', $message.val());
-            $message.val('');
-        });
-
-        socket.on('new message', function(data){
-            $chat.append('<div class="well"><strong>'+data.user+'</strong>: '+data.msg+'</div>');
-        });
-
-        // Submit user form
-        $userForm.submit(function(e){
-            e.preventDefault();
-            // console.log("Submitted");
-            // New User
-            socket.emit('new user', $username.val(), function(data){
-                if(data){
-                    $userFormArea.hide();
-                    $roomArea.show();
-                    var initStuff = document.getElementById("initArea")
-                    initStuff.innerHTML = ""
-
-
-                    // This sets the room number on the client
-                    if ($roomnum.val() != ""){
-                        roomnum = $roomnum.val()
-                    }
-                }
-            });
-            // Join room
-            socket.emit('new room', $roomnum.val(), function(data){
-                // This should only call back if the client is the host
-                if(data){
-                    console.log("Host is syncing the new socket!")
-                    syncVideo(roomnum)
-                }
-            });
-
-            $username.val('');
-        });
-
-        socket.on('get users', function(data){
-            var html = '';
-            for(i = 0; i < data.length; i++){
-                html += '<li style="padding-right: 10em;" class="list-group-item">'+data[i]+'</li>';
+                    break;
+                default:
+                    console.log("Error invalid player id")
             }
 
-            $users.html(html);
         });
-    });
+
+        // Change time
+        socket.on('changeTime', function(data) {
+            var time = data.time
+            player.seekTo(time);
+        });
+
+        // Change time
+        socket.on('syncHost', function(data) {
+            syncVideo(roomnum)
+        });
 
 
-    // Turn off the lights!
-    var per = 0;
-    $(document).ready(function(){
-      $("#persoff").css("height", $(document).height()).hide();
-      $(document).click(function(e) {
-    	if(!$(e.target).hasClass('switch') && per == 1) {
-    	  $("#persoff").toggle();
-    	  per = 0;
-    	}
-      });
-      $(".switch").click(function(){
-        $("#persoff").toggle();
-    	per += 1;
-        if (per == 2) {
-    	  per = 0;
-    	}
-      });
-    });
+        // Chat stuff
+        $(function() {
+            //var socket = io.connect();
+            var $messageForm = $('#messageForm');
+            var $message = $('#message');
+            var $chat = $('#chat');
+            var $roomArea = $('#roomArea');
+            var $userFormArea = $('#userFormArea');
+            var $userForm = $('#userForm');
+            var $users = $('#users');
+            var $username = $('#username');
+            var $roomnum = $('#roomnum');
 
+            $messageForm.submit(function(e) {
+                e.preventDefault();
+                // console.log("Submitted");
+                socket.emit('send message', $message.val());
+                $message.val('');
+            });
+
+            socket.on('new message', function(data) {
+                $chat.append('<div class="well"><strong>' + data.user + '</strong>: ' + data.msg + '</div>');
+            });
+
+            // Submit user form
+            $userForm.submit(function(e) {
+                e.preventDefault();
+                // console.log("Submitted");
+                // New User
+                socket.emit('new user', $username.val(), function(data) {
+                    if (data) {
+                        $userFormArea.hide();
+                        $roomArea.show();
+                        var initStuff = document.getElementById("initArea")
+                        initStuff.innerHTML = ""
+
+
+                        // This sets the room number on the client
+                        if ($roomnum.val() != "") {
+                            roomnum = $roomnum.val()
+                        }
+                    }
+                });
+                // Join room
+                socket.emit('new room', $roomnum.val(), function(data) {
+                    // This should only call back if the client is the host
+                    if (data) {
+                        console.log("Host is syncing the new socket!")
+                        syncVideo(roomnum)
+                    }
+                });
+
+                $username.val('');
+            });
+
+            socket.on('get users', function(data) {
+                var html = '';
+                for (i = 0; i < data.length; i++) {
+                    html += '<li style="padding-right: 10em;" class="list-group-item">' + data[i] + '</li>';
+                }
+
+                $users.html(html);
+            });
+        });
+
+
+        // Turn off the lights!
+        var per = 0;
+        $(document).ready(function() {
+            $("#persoff").css("height", $(document).height()).hide();
+            $(document).click(function(e) {
+                if (!$(e.target).hasClass('switch') && per == 1) {
+                    $("#persoff").toggle();
+                    per = 0;
+                }
+            });
+            $(".switch").click(function() {
+                $("#persoff").toggle();
+                per += 1;
+                if (per == 2) {
+                    per = 0;
+                }
+            });
+        });
     </script>
 
     <!-- Bootstrap core JavaScript -->
@@ -602,6 +560,6 @@
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script src="js/vimeo.js"></script>
 
-  </body>
+</body>
 
 </html>

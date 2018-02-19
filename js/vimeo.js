@@ -9,13 +9,12 @@ var vimeoPlayer = new Vimeo.Player('player-vimeo');
 //     console.log('title:', title);
 // });
 
-function vimeoPlay(){
+function vimeoPlay() {
     vimeoPlayer.getPaused().then(function(paused) {
         // paused = whether or not the player is paused
-        if (paused){
+        if (paused) {
             vimeoPlayer.play();
-        }
-        else {
+        } else {
             vimeoPlayer.pause();
         }
 
