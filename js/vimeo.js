@@ -1,9 +1,20 @@
 var vimeoPlayer = new Vimeo.Player('player-vimeo');
 
 
-// player.on('play', function() {
-//     console.log('played the video!');
-// });
+vimeoPlayer.on('play', function() {
+    console.log('played the video!');
+    playOther(roomnum)
+});
+
+vimeoPlayer.on('pause', function() {
+    console.log('paused the video!');
+    pauseOther(roomnum)
+});
+
+vimeoPlayer.on('seeked', function(data) {
+    console.log('seeked the video to: '+data.seconds);
+    seekOther(roomnum, data.seconds)
+});
 //
 // player.getVideoTitle().then(function(title) {
 //     console.log('title:', title);

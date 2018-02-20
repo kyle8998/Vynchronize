@@ -60,6 +60,14 @@ io.sockets.on('connection', function(socket) {
         io.sockets.in("room-" + roomnum).emit('justPause');
     });
 
+    socket.on('seek other', function(data) {
+        var roomnum = data.room
+        var currTime = data.time
+        io.sockets.in("room-" + roomnum).emit('justSeek', {
+            time: currTime
+        });
+    });
+
     // Sync video
     socket.on('sync video', function(data) {
         var roomnum = data.room
