@@ -12,8 +12,11 @@ vimeoPlayer.on('pause', function() {
 });
 
 vimeoPlayer.on('seeked', function(data) {
-    console.log('seeked the video to: '+data.seconds);
-    seekOther(roomnum, data.seconds)
+    currTime = data.seconds
+    console.log('seeked the video to: '+currTime);
+    seekOther(roomnum, currTime)
+
+    // seekOther(roomnum, currTime)
 });
 //
 // player.getVideoTitle().then(function(title) {

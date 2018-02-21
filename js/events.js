@@ -12,13 +12,14 @@ socket.on('justPlay', function(data) {
     console.log("currPlayer")
 	switch (currPlayer) {
         case 0:
-            player.playVideo()
+            if (playerStatus == -1 || playerStatus == 2){
+                player.playVideo()
+            }
             break;
         case 1:
             dailyPlayer.play()
             break;
         case 2:
-            console.log("WRGRWGRGEGRG")
 			vimeoPlayer.getPaused().then(function(paused) {
 				// paused = whether or not the player is paused
 				if (paused) {
@@ -85,20 +86,29 @@ socket.on('justSeek', function(data) {
             //TODO
             break;
         case 2:
-            vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
-                // seconds = the actual time that the player seeked to
+            vimeoPlayer.getCurrentTime().then(function(seconds) {
+                // seconds = the current playback position
+                if (seconds < currTime-.1 || seconds > currTime+.1) {
+                    vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
+                        // seconds = the actual time that the player seeked to
 
-            }).catch(function(error) {
-                switch (error.name) {
-                    case 'RangeError':
-                        // the time was less than 0 or greater than the video’s duration
-                        console.log("the time was less than 0 or greater than the video’s duration")
-                        break;
-                    default:
-                        // some other error occurred
-                        break;
+                    }).catch(function(error) {
+                        switch (error.name) {
+                            case 'RangeError':
+                                // the time was less than 0 or greater than the video’s duration
+                                console.log("the time was less than 0 or greater than the video’s duration")
+                                break;
+                            default:
+                                // some other error occurred
+                                break;
+                        }
+                    });
                 }
+            }).catch(function(error) {
+                // an error occurred
+                console.log("Error: Could not retrieve Vimeo player current time")
             });
+
 			break;
     }
 });
