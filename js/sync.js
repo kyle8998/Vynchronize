@@ -24,6 +24,7 @@ function syncVideo(roomnum) {
         case 0:
             currTime = player.getCurrentTime();
             state = playerStatus
+            console.log("I am host and my current time is "+currTime)
             break;
         case 1:
             currTime = dailyPlayer.currentTime;

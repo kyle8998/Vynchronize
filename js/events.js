@@ -80,7 +80,10 @@ socket.on('justSeek', function(data) {
     currTime = data.time
 	switch (currPlayer) {
         case 0:
-            //TODO
+            var clientTime = player.getCurrentTime();
+            if (clientTime < currTime-.1 || clientTime > currTime+.1){
+                player.seekTo(currTime);
+            }
             break;
         case 1:
             //TODO

@@ -66,8 +66,9 @@ function onPlayerStateChange(event) {
             pauseOther(roomnum)
             break;
         case 3:
-            console.log("hi im case 3 how r u")
-            syncVideo(roomnum)
+            // syncVideo(roomnum)
+            var currTime = player.getCurrentTime();
+            seekOther(roomnum, currTime)
             break;
     }
 

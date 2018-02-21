@@ -347,7 +347,8 @@
                     case 0:
                         var clientTime = player.getCurrentTime();
                         // Only seek if off by more than .1 seconds
-                        if (clientTime < currTime-.1 || clientTime > currTime+.1){
+                        // CURRENTLY ALL SET TO TRUE TO TO SYNCING ISSUES
+                        if (true || clientTime < currTime-.1 || clientTime > currTime+.1){
                             player.seekTo(currTime);
                         }
                         // Sync player state
@@ -362,7 +363,7 @@
                     case 1:
                         var clientTime = dailyPlayer.currentTime;
                         // Only seek if off by more than .1 seconds
-                        if (clientTime < currTime-.1 || clientTime > currTime+.1 || true){
+                        if (true || clientTime < currTime-.1 || clientTime > currTime+.1){
                             dailyPlayer.seek(currTime);
                         }
                         if (state) {
@@ -376,7 +377,7 @@
                     case 2:
                         vimeoPlayer.getCurrentTime().then(function(seconds) {
                             // seconds = the current playback position
-                            if (seconds < currTime-.1 || seconds > currTime+.1) {
+                            if (true || seconds < currTime-.1 || seconds > currTime+.1) {
                                 vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
                                     if (state) {
                                         vimeoPlayer.pause()
