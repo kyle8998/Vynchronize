@@ -92,14 +92,25 @@ function changeVideoId(roomnum, id) {
     //player.loadVideoById(videoId);
 }
 
+var noises = false
 function loveLive(roomnum) {
     var test = document.getElementById("inputVideoId").innerHTML = "sjk7DiH0JhQ";
 
     // Only for YouTube testing
-    socket.emit('change video', {
-        room: roomnum,
-        videoId: 'sjk7DiH0JhQ'
-    });
+    if (!noises){
+        socket.emit('change video', {
+            room: roomnum,
+            videoId: 'sjk7DiH0JhQ'
+        });
+        noises = true
+    }
+    else{
+        socket.emit('change video', {
+            room: roomnum,
+            videoId: '97uviVyw0_o'
+        });
+        noises = false
+    }
 }
 
 // Get time

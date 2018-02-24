@@ -2,7 +2,6 @@
 // Created for event listeners
 
 function playOther(roomnum) {
-    console.log("here!")
     socket.emit('play other', {
         room: roomnum
     });
@@ -17,7 +16,9 @@ socket.on('justPlay', function(data) {
             }
             break;
         case 1:
-            dailyPlayer.play()
+            if (dailyPlayer.paused) {
+                dailyPlayer.play();
+            }
             break;
         case 2:
 			vimeoPlayer.getPaused().then(function(paused) {
@@ -76,6 +77,10 @@ function seekOther(roomnum, currTime) {
     });
 }
 
+
+// Weird for YouTube because there is no built in seek event
+// It seeks on an buffer event
+// Only syncs if off by over .1 seconds
 socket.on('justSeek', function(data) {
     currTime = data.time
 	switch (currPlayer) {
@@ -86,7 +91,11 @@ socket.on('justSeek', function(data) {
             }
             break;
         case 1:
-            //TODO
+            var clientTime = dailyPlayer.currentTime;
+            if (clientTime < currTime-.1 || clientTime > currTime+.1){
+                dailyPlayer.seek(currTime);
+            }
+            playOther(roomnum)
             break;
         case 2:
             vimeoPlayer.getCurrentTime().then(function(seconds) {

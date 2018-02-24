@@ -23,6 +23,26 @@ setTimeout(function() {
         console.log('api ready', e);
     });
 
+    // Play Event
+    dailyPlayer.addEventListener('play', function(e) {
+        console.log('dm playing', e);
+        playOther(roomnum)
+    });
+
+    // Pause Event
+    dailyPlayer.addEventListener('pause', function(e) {
+        console.log('dm pausing', e);
+        pauseOther(roomnum)
+    });
+
+    // Seek Event
+    dailyPlayer.addEventListener('seeked', function(e) {
+        console.log('dm seeking', e);
+        currTime = dailyPlayer.currentTime
+        seekOther(roomnum, currTime)
+    });
+
+
     dailyPlayer.addEventListener('error', function(e) {
         console.log('error', e);
     });
