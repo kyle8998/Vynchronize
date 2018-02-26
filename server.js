@@ -217,10 +217,10 @@ io.sockets.on('connection', function(socket) {
         console.log(socket.username + " connected to room-" + socket.roomnum)
         socket.join("room-" + socket.roomnum);
 
-        // Sets the host
-        io.sockets.adapter.rooms['room-' + socket.roomnum].host = host
         // Sets the default values when first initializing
         if (init) {
+            // Sets the host
+            io.sockets.adapter.rooms['room-' + socket.roomnum].host = host
             // Default Player
             io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer = 0
             // Default video
@@ -244,6 +244,7 @@ io.sockets.on('connection', function(socket) {
         // Get time from host which calls change time for that socket
         if (socket.id != host) {
             //socket.broadcast.to(host).emit('getTime', { id: socket.id });
+            console.log("call the damn host " + host)
             socket.broadcast.to(host).emit('getData');
 
             // This calls back the function on the host client

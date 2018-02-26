@@ -24,7 +24,7 @@ function syncVideo(roomnum) {
         case 0:
             currTime = player.getCurrentTime();
             state = playerStatus
-            console.log("I am host and my current time is "+currTime)
+            console.log("I am host and my current time is " + currTime)
             break;
         case 1:
             currTime = dailyPlayer.currentTime;
@@ -93,18 +93,18 @@ function changeVideoId(roomnum, id) {
 }
 
 var noises = false
+
 function loveLive(roomnum) {
     var test = document.getElementById("inputVideoId").innerHTML = "sjk7DiH0JhQ";
 
     // Only for YouTube testing
-    if (!noises){
+    if (!noises) {
         socket.emit('change video', {
             room: roomnum,
             videoId: 'sjk7DiH0JhQ'
         });
         noises = true
-    }
-    else{
+    } else {
         socket.emit('change video', {
             room: roomnum,
             videoId: '97uviVyw0_o'
@@ -127,6 +127,7 @@ socket.on('getTime', function(data) {
 
 // This just calls the sync host function in the server
 socket.on('getData', function(data) {
+    console.log("Hi im the host, you called?")
     socket.emit('sync host', {});
     //socket.emit('change video', { time: time });
 });
@@ -234,7 +235,7 @@ socket.on('syncVideoClient', function(data) {
                 var clientTime = player.getCurrentTime();
                 // Only seek if off by more than .1 seconds
                 // CURRENTLY ALL SET TO TRUE TO TO SYNCING ISSUES
-                if (true || clientTime < currTime-.1 || clientTime > currTime+.1){
+                if (true || clientTime < currTime - .1 || clientTime > currTime + .1) {
                     player.seekTo(currTime);
                 }
                 // Sync player state
@@ -249,7 +250,7 @@ socket.on('syncVideoClient', function(data) {
             case 1:
                 var clientTime = dailyPlayer.currentTime;
                 // Only seek if off by more than .1 seconds
-                if (true || clientTime < currTime-.1 || clientTime > currTime+.1){
+                if (true || clientTime < currTime - .1 || clientTime > currTime + .1) {
                     dailyPlayer.seek(currTime);
                 }
                 if (state) {
@@ -263,7 +264,7 @@ socket.on('syncVideoClient', function(data) {
             case 2:
                 vimeoPlayer.getCurrentTime().then(function(seconds) {
                     // seconds = the current playback position
-                    if (true || seconds < currTime-.1 || seconds > currTime+.1) {
+                    if (true || seconds < currTime - .1 || seconds > currTime + .1) {
                         vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
                             if (state) {
                                 vimeoPlayer.pause()
@@ -341,4 +342,10 @@ socket.on('changeVideoClient', function(data) {
             console.log("Error invalid player id")
     }
 
+});
+
+// Change time
+socket.on('changeTime', function(data) {
+    var time = data.time
+    player.seekTo(time);
 });

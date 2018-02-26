@@ -17,7 +17,7 @@ vimeoPlayer.on('pause', function() {
 
 vimeoPlayer.on('seeked', function(data) {
     currTime = data.seconds
-    console.log('seeked the video to: '+currTime);
+    console.log('seeked the video to: ' + currTime);
     if (host) {
         seekOther(roomnum, currTime)
     }

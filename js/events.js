@@ -2,34 +2,6 @@
 // Created for event listeners
 
 //-----------------------------------------------------------------------------
-// Host stuff
-var host = false
-
-// Sets the host for the room
-socket.on('setHost', function(data) {
-    console.log("You are the new host!")
-    host = true
-});
-
-socket.on('unSetHost', function(data) {
-    console.log("Unsetting host")
-    host = false
-});
-
-function changeHost(roomnum) {
-    socket.emit('change host', {
-        room: roomnum
-    });
-}
-
-socket.on('changeHostLabel', function(data) {
-    var username = data.username
-    // Change label
-    var hostlabel = document.getElementById('hostlabel')
-    hostlabel.innerHTML = "Current Host: " + username
-});
-
-//-----------------------------------------------------------------------------
 
 function playOther(roomnum) {
     socket.emit('play other', {
@@ -39,9 +11,9 @@ function playOther(roomnum) {
 
 socket.on('justPlay', function(data) {
     console.log("currPlayer")
-	switch (currPlayer) {
+    switch (currPlayer) {
         case 0:
-            if (playerStatus == -1 || playerStatus == 2){
+            if (playerStatus == -1 || playerStatus == 2) {
                 player.playVideo()
             }
             break;
@@ -51,19 +23,19 @@ socket.on('justPlay', function(data) {
             }
             break;
         case 2:
-			vimeoPlayer.getPaused().then(function(paused) {
-				// paused = whether or not the player is paused
-				if (paused) {
-					vimeoPlayer.play();
-				} else {
-					console.log("already playing")
-				}
+            vimeoPlayer.getPaused().then(function(paused) {
+                // paused = whether or not the player is paused
+                if (paused) {
+                    vimeoPlayer.play();
+                } else {
+                    console.log("already playing")
+                }
 
-			}).catch(function(error) {
-				// an error occurred
-				console.log("Error: Could not retrieve Vimeo Player state")
-			});
-			break;
+            }).catch(function(error) {
+                // an error occurred
+                console.log("Error: Could not retrieve Vimeo Player state")
+            });
+            break;
     }
 });
 
@@ -76,7 +48,7 @@ function pauseOther(roomnum) {
 
 socket.on('justPause', function(data) {
     console.log("hiIamPausing!")
-	switch (currPlayer) {
+    switch (currPlayer) {
         case 0:
             player.pauseVideo()
             break;
@@ -84,19 +56,19 @@ socket.on('justPause', function(data) {
             dailyPlayer.pause()
             break;
         case 2:
-			vimeoPlayer.getPaused().then(function(paused) {
-				// paused = whether or not the player is paused
-				if (paused) {
-					console.log("already paused")
-				} else {
-					vimeoPlayer.pause();
-				}
+            vimeoPlayer.getPaused().then(function(paused) {
+                // paused = whether or not the player is paused
+                if (paused) {
+                    console.log("already paused")
+                } else {
+                    vimeoPlayer.pause();
+                }
 
-			}).catch(function(error) {
-				// an error occurred
-				console.log("Error: Could not retrieve Vimeo Player state")
-			});
-			break;
+            }).catch(function(error) {
+                // an error occurred
+                console.log("Error: Could not retrieve Vimeo Player state")
+            });
+            break;
     }
     player.pauseVideo()
 });
@@ -115,16 +87,16 @@ function seekOther(roomnum, currTime) {
 socket.on('justSeek', function(data) {
     console.log("Seeking Event!")
     currTime = data.time
-	switch (currPlayer) {
+    switch (currPlayer) {
         case 0:
             var clientTime = player.getCurrentTime();
-            if (clientTime < currTime-.1 || clientTime > currTime+.1){
+            if (clientTime < currTime - .1 || clientTime > currTime + .1) {
                 player.seekTo(currTime);
             }
             break;
         case 1:
             var clientTime = dailyPlayer.currentTime;
-            if (clientTime < currTime-.1 || clientTime > currTime+.1){
+            if (clientTime < currTime - .1 || clientTime > currTime + .1) {
                 dailyPlayer.seek(currTime);
             }
             playOther(roomnum)
@@ -132,7 +104,7 @@ socket.on('justSeek', function(data) {
         case 2:
             vimeoPlayer.getCurrentTime().then(function(seconds) {
                 // seconds = the current playback position
-                if (seconds < currTime-.1 || seconds > currTime+.1) {
+                if (seconds < currTime - .1 || seconds > currTime + .1) {
                     vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
                         // seconds = the actual time that the player seeked to
 
@@ -153,6 +125,6 @@ socket.on('justSeek', function(data) {
                 console.log("Error: Could not retrieve Vimeo player current time")
             });
 
-			break;
+            break;
     }
 });

@@ -73,6 +73,11 @@
         <div id="userFormArea" class="row">
             <div class="col-md-12">
                 <!-- ADD DESCRIPTION HERE -->
+                <h2>Welcome to Vynchronize</h2>
+                <p class="lead">The hot new video synchronization platform used to watch videos in realtime with friends!</p>
+                <hr style="height:20pt; visibility:hidden;" />
+
+                <h2> Join a Room! </h2>
                 <form id="userForm">
                     <div class="form-group">
                         <label>Enter Name</label>
@@ -82,25 +87,8 @@
                         <input class="form-control" id="roomnum" />
                         <br/>
 
-                        <!-- The purpose of the init area is to initialize all of the players at the start. This is currently not necessary -->
-                        <div id='initArea'>
-
-                            <!-- Youtube player -->
-                            <!-- <iframe id="player"
-                            allowfullscreen="0"
-                            width="640" height="360"
-                            src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
-                            frameborder="0"
-                            style="border: solid 4px #37474F"
-                            ></iframe> -->
-
-                            <!-- <iframe id="player-daily" frameborder="0" width="480" height="270"
-                            src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS"
-                            allowfullscreen allow="autoplay"></iframe> -->
-
-                        </div>
-
                         <input type="submit" class="btn btn-primary" value="Enter" />
+                        <hr style="height:65pt; visibility:hidden;" />
                     </div>
                 </form>
             </div>
@@ -161,7 +149,7 @@
 
                     <br/>
                     <div>
-                        <input type="Video" style="max-width: 200px; margin-right: 0rem;" class="form-control" id="inputVideoId" placeholder="YouTube Video ID">
+                        <input type="Video" style="max-width: 200px; margin-right: 0rem;" class="form-control" id="inputVideoId" placeholder="Video ID">
                         <button onclick="changeVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
 
                         <br/>
@@ -380,6 +368,7 @@
 
     <script src="js/sync.js"></script>
     <script src="js/player.js"></script>
+    <script src="js/host.js"></script>
     <script src="js/events.js"></script>
 
     <!-- Youtube -->
