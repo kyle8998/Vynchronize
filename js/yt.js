@@ -72,6 +72,7 @@ function onPlayerStateChange(event) {
             var currTime = player.getCurrentTime();
             if (host) {
                 seekOther(roomnum, currTime)
+                // syncVideo(roomnum)
             }
             break;
     }

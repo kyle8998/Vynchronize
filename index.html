@@ -112,12 +112,11 @@
                     </div>
 
 
-                    <br/>
-                    NOTE: MOBILE IS CURRENTLY BROKEN, EVENT HANDLERS IN BETA
+                    <br/> NOTE: MOBILE IS CURRENTLY BROKEN, EVENT HANDLERS IN BETA
                     <br/>
                     <h2><span id="hostlabel" class="label label-default"> Current Host: Kyle </span></h2>
 
-<!----------------------------------- PLAYER AREA ----------------------------------->
+                    <!----------------------------------- PLAYER AREA ----------------------------------->
 
                     <div id='playerArea'>
                         <iframe class="video" id="player" allowfullscreen="0" rel="0" width="640" height="360" src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1" frameborder="1" style="border: solid 4px #37474F"></iframe>
@@ -129,7 +128,7 @@
                         <iframe class="video" id="player-vimeo" src="https://player.vimeo.com/video/76979871" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     </div>
 
-<!----------------------------------- PLAYER AREA ----------------------------------->
+                    <!----------------------------------- PLAYER AREA ----------------------------------->
 
                     <div>
                         <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
@@ -172,6 +171,7 @@
             <!-- /.row -->
 
             <div id="messageArea" class="row">
+                <br/>
                 <h2 style="color:gray">Chat</h2>
                 <div class="col-md-8">
                     <div class="chat" id="chat"></div>
@@ -240,14 +240,16 @@
 
             <hr style="height:120pt; visibility:hidden;" />
             <section id="about" class="bg-light">
+                <br/>
+                <br/>
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 mx-auto">
                             <h2>About Vynchronize</h2>
                             <p class="lead">Vynchronize is a video synchronization platform created for viewing parties with friends!</p>
-                            <p> To use Vynchronize just enter your name and a shared room number with friends. Then all you have to do is enter in a video id which you can get from a specific youtube video link then click on change video. The video will change
-                                for everyone connected to your room. You can use the play and sync buttons to control video playback. Play simply plays/pauses the video for everyone. The sync button syncs everyone in the room to your current position
-                                in the video. Normal controls on the youtube player still work, but they only affect you! If you want to pause the video only for yourself, then just pause on the player instead of hitting the play button!</p>
+                            <p> To use Vynchronize just enter your name and a shared room number with friends. Then all you have to do is select your video client (YouTube by default), enter a video ID, and click "Change Video". All video playback should
+                                be synchronized to everyone in the room! </p>
+                            <p> There is one host per room that can control the video client directly with the native player controls. Everyone else can still use them but it will only affect them until they hit sync!</p>
                             <p> Have fun watching videos with friends!</p>
                         </div>
                     </div>

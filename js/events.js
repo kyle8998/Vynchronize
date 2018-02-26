@@ -78,6 +78,7 @@ function seekOther(roomnum, currTime) {
         room: roomnum,
         time: currTime
     });
+    // socket.emit('getData');
 }
 
 
@@ -92,6 +93,8 @@ socket.on('justSeek', function(data) {
             var clientTime = player.getCurrentTime();
             if (clientTime < currTime - .1 || clientTime > currTime + .1) {
                 player.seekTo(currTime);
+                // Forces video to play right after seek
+                player.playVideo()
             }
             break;
         case 1:

@@ -66,6 +66,11 @@ io.sockets.on('connection', function(socket) {
         io.sockets.in("room-" + roomnum).emit('justSeek', {
             time: currTime
         });
+
+        // Sync up
+        // host = io.sockets.adapter.rooms['room-' + roomnum].host
+        // console.log("let me sync "+host)
+        // socket.broadcast.to(host).emit('getData');
     });
 
     // Sync video
