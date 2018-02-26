@@ -26,20 +26,26 @@ setTimeout(function() {
     // Play Event
     dailyPlayer.addEventListener('play', function(e) {
         console.log('dm playing', e);
-        playOther(roomnum)
+        if (host) {
+            playOther(roomnum)
+        }
     });
 
     // Pause Event
     dailyPlayer.addEventListener('pause', function(e) {
         console.log('dm pausing', e);
-        pauseOther(roomnum)
+        if (host) {
+            pauseOther(roomnum)
+        }
     });
 
     // Seek Event
     dailyPlayer.addEventListener('seeked', function(e) {
         console.log('dm seeking', e);
         currTime = dailyPlayer.currentTime
-        seekOther(roomnum, currTime)
+        if (host) {
+            seekOther(roomnum, currTime)
+        }
     });
 
 

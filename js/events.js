@@ -1,6 +1,13 @@
 // These functions just simply play or pause the player
 // Created for event listeners
 
+var host = false
+
+// Sets the host for the room
+socket.on('setHost', function(data) {
+    host = true
+});
+
 function playOther(roomnum) {
     socket.emit('play other', {
         room: roomnum
@@ -45,6 +52,7 @@ function pauseOther(roomnum) {
 }
 
 socket.on('justPause', function(data) {
+    console.log("hiIamPausing!")
 	switch (currPlayer) {
         case 0:
             player.pauseVideo()
@@ -82,6 +90,7 @@ function seekOther(roomnum, currTime) {
 // It seeks on an buffer event
 // Only syncs if off by over .1 seconds
 socket.on('justSeek', function(data) {
+    console.log("Seeking Event!")
     currTime = data.time
 	switch (currPlayer) {
         case 0:

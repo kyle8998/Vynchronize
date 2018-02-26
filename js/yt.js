@@ -58,17 +58,20 @@ function onPlayerStateChange(event) {
             //record('video ended');
             break;
         case 1:
-            //record('video playing from '+player.getCurrentTime());
-            playOther(roomnum)
+            if (host) {
+                playOther(roomnum)
+            }
             break;
         case 2:
-            //record('video paused at '+player.getCurrentTime());
-            pauseOther(roomnum)
+            if (host) {
+                pauseOther(roomnum)
+            }
             break;
         case 3:
-            // syncVideo(roomnum)
             var currTime = player.getCurrentTime();
-            seekOther(roomnum, currTime)
+            if (host) {
+                seekOther(roomnum, currTime)
+            }
             break;
     }
 

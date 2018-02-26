@@ -201,8 +201,12 @@ io.sockets.on('connection', function(socket) {
         console.log(io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined)
         if (io.sockets.adapter.rooms['room-' + socket.roomnum] === undefined) {
             socket.send(socket.id)
+            // Sets the first socket to join as the host
             host = socket.id
             init = true
+
+            // Set the host on the client side
+            socket.emit('setHost');
             //console.log(socket.id)
         } else {
             console.log(socket.roomnum)

@@ -3,19 +3,24 @@ var vimeoPlayer = new Vimeo.Player('player-vimeo');
 
 vimeoPlayer.on('play', function() {
     console.log('played the video!');
-    playOther(roomnum)
+    if (host) {
+        playOther(roomnum)
+    }
 });
 
 vimeoPlayer.on('pause', function() {
     console.log('paused the video!');
-    pauseOther(roomnum)
+    if (host) {
+        pauseOther(roomnum)
+    }
 });
 
 vimeoPlayer.on('seeked', function(data) {
     currTime = data.seconds
     console.log('seeked the video to: '+currTime);
-    seekOther(roomnum, currTime)
-
+    if (host) {
+        seekOther(roomnum, currTime)
+    }
     // seekOther(roomnum, currTime)
 });
 //
