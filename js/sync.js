@@ -153,3 +153,192 @@ function changeSinglePlayer(playerId) {
         resolve("socket entered change single player function")
     })
 }
+
+
+
+//------------------------------//
+// Client Synchronization Stuff //
+//------------------------------//
+
+var socket = io.connect();
+var roomnum = 1
+var id = "M7lc1UVf-VE"
+
+// Calls the play/pause function
+socket.on('playVideoClient', function(data) {
+    // Calls the proper play function for the player
+    switch (currPlayer) {
+        case 0:
+            play()
+            break;
+        case 1:
+            dailyPlay()
+            break;
+        case 2:
+            vimeoPlay()
+            break;
+        default:
+            console.log("Error invalid player id")
+    }
+});
+
+socket.on('pauseVideoClient', function(data) {
+    switch (currPlayer) {
+        case 0:
+            player.pauseVideo();
+            break;
+        case 1:
+            dailyPlayer.pause();
+            break;
+        case 2:
+            vimeoPlayer.pause();
+            break;
+        default:
+            console.log("Error invalid player id")
+    }
+});
+
+// Syncs the video client
+socket.on('syncVideoClient', function(data) {
+    var currTime = data.time
+    var state = data.state
+    var videoId = data.videoId
+    var playerId = data.playerId
+    console.log("current time is: " + currTime)
+    console.log("curr vid id: " + id + " " + videoId)
+
+    // There should no longer be any need to sync a video change
+    // Video should always be the same
+    // if (id != videoId){
+    //     console.log(id == videoId)
+    //     changeVideoId(roomnum, videoId)
+    // }
+
+    // This switchs you to the correct player
+    // Should only happen when a new socket joins late
+
+    // Current issue: changePlayer is called asynchronously when we need this function to wait for it to finish
+    console.log("currPlayer=" + currPlayer)
+    console.log("playerId=" + playerId)
+    // changeSinglePlayer(playerId)
+    // currPlayer = playerId
+
+    // Change the player if necessary
+    if (currPlayer != playerId) {
+        // This changes the player then recalls sync afterwards on the host
+        changeSinglePlayer(playerId)
+    } else {
+        // This syncs the time and state
+        switch (currPlayer) {
+            case 0:
+                var clientTime = player.getCurrentTime();
+                // Only seek if off by more than .1 seconds
+                // CURRENTLY ALL SET TO TRUE TO TO SYNCING ISSUES
+                if (true || clientTime < currTime-.1 || clientTime > currTime+.1){
+                    player.seekTo(currTime);
+                }
+                // Sync player state
+                // IF parent player was paused
+                if (state == -1 || state == 2)
+                    player.pauseVideo();
+                // If not paused
+                else
+                    player.playVideo();
+                break;
+
+            case 1:
+                var clientTime = dailyPlayer.currentTime;
+                // Only seek if off by more than .1 seconds
+                if (true || clientTime < currTime-.1 || clientTime > currTime+.1){
+                    dailyPlayer.seek(currTime);
+                }
+                if (state) {
+                    console.log("i pausing!")
+                    dailyPlayer.pause()
+                } else {
+                    dailyPlayer.play()
+                }
+                break;
+
+            case 2:
+                vimeoPlayer.getCurrentTime().then(function(seconds) {
+                    // seconds = the current playback position
+                    if (true || seconds < currTime-.1 || seconds > currTime+.1) {
+                        vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
+                            if (state) {
+                                vimeoPlayer.pause()
+                            } else {
+                                vimeoPlayer.play()
+                            }
+
+                        }).catch(function(error) {
+                            switch (error.name) {
+                                case 'RangeError':
+                                    // the time was less than 0 or greater than the video’s duration
+                                    console.log("the time was less than 0 or greater than the video’s duration")
+                                    break;
+
+                                default:
+                                    // some other error occurred
+                                    break;
+                            }
+                        });
+                    }
+                }).catch(function(error) {
+                    // an error occurred
+                    console.log("Error: Could not retrieve Vimeo player current time")
+                });
+                break;
+
+            default:
+                console.log("Error invalid player id")
+        }
+    }
+});
+
+// Change video
+socket.on('changeVideoClient', function(data) {
+    var videoId = data.videoId;
+    console.log("video id is: " + videoId)
+
+    // This changes the video
+    id = videoId
+
+    switch (currPlayer) {
+        case 0:
+            player.loadVideoById(videoId);
+            break;
+        case 1:
+            dailyPlayer.load(videoId, {
+                autoplay: true
+            });
+            break;
+        case 2:
+            vimeoPlayer.loadVideo(videoId).then(function(id) {
+                // the video successfully loaded
+            }).catch(function(error) {
+                switch (error.name) {
+                    case 'TypeError':
+                        // the id was not a number
+                        break;
+
+                    case 'PasswordError':
+                        // the video is password-protected and the viewer needs to enter the
+                        // password first
+                        break;
+
+                    case 'PrivacyError':
+                        // the video is password-protected or private
+                        break;
+
+                    default:
+                        // some other error occurred
+                        break;
+                }
+            });
+            break;
+        default:
+            console.log("Error invalid player id")
+    }
+
+});

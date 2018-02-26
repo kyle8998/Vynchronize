@@ -223,7 +223,13 @@ io.sockets.on('connection', function(socket) {
         if (init) {
             io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer = 0
             io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo = ''
+            io.sockets.adapter.rooms['room-' + socket.roomnum].hostName = socket.username
         }
+
+        // Set Host label
+        io.sockets.in("room-" + socket.roomnum).emit('changeHostLabel', {
+            username: io.sockets.adapter.rooms['room-' + socket.roomnum].hostName
+        });
 
         // Gets current video from room variable
         var currVideo = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo
@@ -278,6 +284,26 @@ io.sockets.on('connection', function(socket) {
         io.sockets.emit('get users', users);
     }
 
+    // Change host
+    socket.on('change host', function(data) {
+        var roomnum = data.room
+        var newHost = socket.id
+        console.log("I want to be the host and my socket id is: " + newHost);
+
+        // Broadcast to current host and set false
+        socket.broadcast.to(io.sockets.adapter.rooms['room-' + socket.roomnum].host).emit('unSetHost');
+        // Reset host
+        io.sockets.adapter.rooms['room-' + socket.roomnum].host = newHost
+        // Broadcast to new host and set true
+        socket.emit('setHost')
+
+        io.sockets.adapter.rooms['room-' + socket.roomnum].hostName = socket.username
+        // Update host label in all sockets
+        io.sockets.in("room-" + roomnum).emit('changeHostLabel', {
+            username: socket.username
+        });
+
+    });
 
     //------------------------------------------------------------------------------
     // Async get current time

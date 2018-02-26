@@ -1,12 +1,35 @@
 // These functions just simply play or pause the player
 // Created for event listeners
 
+//-----------------------------------------------------------------------------
+// Host stuff
 var host = false
 
 // Sets the host for the room
 socket.on('setHost', function(data) {
+    console.log("You are the new host!")
     host = true
 });
+
+socket.on('unSetHost', function(data) {
+    console.log("Unsetting host")
+    host = false
+});
+
+function changeHost(roomnum) {
+    socket.emit('change host', {
+        room: roomnum
+    });
+}
+
+socket.on('changeHostLabel', function(data) {
+    var username = data.username
+    // Change label
+    var hostlabel = document.getElementById('hostlabel')
+    hostlabel.innerHTML = "Current Host: " + username
+});
+
+//-----------------------------------------------------------------------------
 
 function playOther(roomnum) {
     socket.emit('play other', {

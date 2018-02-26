@@ -58,6 +58,7 @@ function onPlayerStateChange(event) {
             //record('video ended');
             break;
         case 1:
+            console.log(host)
             if (host) {
                 playOther(roomnum)
             }

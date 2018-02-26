@@ -73,15 +73,15 @@ setTimeout(function() {
         console.log('ad_end', e);
     });
 
-    document.querySelector('#play').addEventListener('click', function() {
-        console.log('click on play');
-        player.play();
-    });
-
-    document.querySelector('#pause').addEventListener('click', function() {
-        console.log('click on pause');
-        player.pause();
-    });
+    // document.querySelector('#play').addEventListener('click', function() {
+    //     console.log('click on play');
+    //     player.play();
+    // });
+    //
+    // document.querySelector('#pause').addEventListener('click', function() {
+    //     console.log('click on pause');
+    //     player.pause();
+    // });
 
 }, 1000);
 
