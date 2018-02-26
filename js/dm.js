@@ -21,6 +21,8 @@ setTimeout(function() {
 
     dailyPlayer.addEventListener('apiready', function(e) {
         console.log('api ready', e);
+        // When api is ready
+        document.getElementById('loading').style.display = 'none';
     });
 
     // Play Event

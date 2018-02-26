@@ -221,8 +221,11 @@ io.sockets.on('connection', function(socket) {
         io.sockets.adapter.rooms['room-' + socket.roomnum].host = host
         // Sets the default values when first initializing
         if (init) {
+            // Default Player
             io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer = 0
-            io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo = ''
+            // Default video
+            io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo = 'M7lc1UVf-VE'
+            // Host username
             io.sockets.adapter.rooms['room-' + socket.roomnum].hostName = socket.username
         }
 
