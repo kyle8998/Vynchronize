@@ -75,6 +75,44 @@ function syncVideo(roomnum) {
 function changeVideo(roomnum) {
     //var videoId = 'sjk7DiH0JhQ';
     var videoId = document.getElementById("inputVideoId").value;
+
+    // If user enters a full link
+    if (videoId.includes("https://") || videoId.includes("http://")){
+        // Do some string processing with regex
+        switch (currPlayer) {
+            case 0:
+                var myRegex = /.+=(.+)/g
+                var match = myRegex.exec(videoId)
+                if (match != null) {
+                    console.log("You entered a link, but you really meant "+match[1])
+                    videoId = match[1]
+                }
+                break;
+
+            case 1:
+                var myRegex = /.+\/(.+)/g
+                var match = myRegex.exec(videoId)
+                if (match != null) {
+                    console.log("You entered a link, but you really meant "+match[1])
+                    videoId = match[1]
+                }
+                break;
+
+            case 2:
+                var myRegex = /.+\/(.+)/g
+                var match = myRegex.exec(videoId)
+                if (match != null) {
+                    console.log("You entered a link, but you really meant "+match[1])
+                    videoId = match[1]
+                }
+                break;
+
+            default:
+                console.log("Error invalid videoId")
+        }
+    }
+
+    // Actually change the video!
     socket.emit('change video', {
         room: roomnum,
         videoId: videoId
