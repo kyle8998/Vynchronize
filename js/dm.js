@@ -1,7 +1,6 @@
 var dailyPlayer
 
 setTimeout(function() {
-    console.log("whyewwefwwvrgf")
     DM.init({
         apiKey: '1e81e2b5ea5ab3dd737a',
         status: false, // check login status

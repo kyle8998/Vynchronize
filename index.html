@@ -80,6 +80,7 @@
                 <h2> Join a Room! </h2>
                 <form id="userForm">
                     <div class="form-group">
+                        <p style="color:red; margin-bottom: 0px" id="missinginfo"></p>
                         <label>Enter Name</label>
                         <input class="form-control" id="username" />
                         <br />
@@ -112,7 +113,7 @@
                     </div>
 
 
-                    <br/> NOTE: MOBILE IS CURRENTLY BROKEN, EVENT HANDLERS IN BETA
+                    <br/> <b>Note:</b> Event Handlers in beta. Mobile web browsers do not support autoplay.
                     <br/>
                     <h2><span id="hostlabel" class="label label-default"> Current Host: Kyle </span></h2>
 
@@ -122,7 +123,7 @@
                         <iframe class="video" id="player" allowfullscreen="0" rel="0" width="640" height="360" src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1" frameborder="1" style="border: solid 4px #37474F"></iframe>
                     </div>
                     <div id='dailyArea'>
-                        <iframe class="video" id="player-daily" frameborder="0" width="640" height="360" src="//www.dailymotion.com/embed/video/VIDEO_ID?PARAMS" allowfullscreen allow="autoplay"></iframe>
+                        <iframe class="video" id="player-daily" frameborder="0" width="640" height="360" allowfullscreen allow="autoplay"></iframe>
                     </div>
                     <div id='vimeoArea'>
                         <iframe class="video" id="player-vimeo" src="https://player.vimeo.com/video/76979871" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
@@ -303,30 +304,38 @@
                 e.preventDefault();
                 // console.log("Submitted");
                 // New User
-                socket.emit('new user', $username.val(), function(data) {
-                    if (data) {
-                        $userFormArea.hide();
-                        $roomArea.show();
-                        var initStuff = document.getElementById("initArea")
-                        initStuff.innerHTML = ""
+                if ($username.val() == "") {
+                    console.log("ENTER A NAME")
+                    var noname = document.getElementById('missinginfo')
+                    noname.innerHTML = "Please enter your name!"
+                } else {
+                    socket.emit('new user', $username.val(), function(data) {
+                        if (data) {
+                            $userFormArea.hide();
+                            $roomArea.show();
+
+                            // No longer using initarea
+                            // var initStuff = document.getElementById("initArea")
+                            // initStuff.innerHTML = ""
 
 
-                        // This sets the room number on the client
-                        if ($roomnum.val() != "") {
-                            roomnum = $roomnum.val()
+                            // This sets the room number on the client
+                            if ($roomnum.val() != "") {
+                                roomnum = $roomnum.val()
+                            }
                         }
-                    }
-                });
-                // Join room
-                socket.emit('new room', $roomnum.val(), function(data) {
-                    // This should only call back if the client is the host
-                    if (data) {
-                        console.log("Host is syncing the new socket!")
-                        syncVideo(roomnum)
-                    }
-                });
+                    });
+                    // Join room
+                    socket.emit('new room', $roomnum.val(), function(data) {
+                        // This should only call back if the client is the host
+                        if (data) {
+                            console.log("Host is syncing the new socket!")
+                            syncVideo(roomnum)
+                        }
+                    });
 
-                $username.val('');
+                    $username.val('');
+                }
             });
 
             socket.on('get users', function(data) {
