@@ -37,4 +37,9 @@ socket.on('changeHostLabel', function(data) {
     hostlabel.innerHTML = "Current Host: " + username
 });
 
+// When the host leaves, the server calls this function on the next socket
+socket.on('autoHost', function(data) {
+    changeHost(data.roomnum)
+});
+
 //-----------------------------------------------------------------------------

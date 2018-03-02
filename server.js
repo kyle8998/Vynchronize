@@ -5,6 +5,8 @@ var io = require('socket.io').listen(server);
 users = [];
 connections = [];
 rooms = [];
+// Store all of the sockets and their respective room numbers
+userrooms = {}
 
 app.use(express.static(__dirname + '/'));
 
@@ -159,11 +161,36 @@ io.sockets.on('connection', function(socket) {
 
     // Disconnect
     socket.on('disconnect', function(data) {
-        // if(!socket.username) return;
+        // console.log(userrooms)
         users.splice(users.indexOf(socket.username), 1);
         updateUsernames();
         connections.splice(connections.indexOf(socket), 1);
-        console.log('Disconnected: %s sockets connected', connections.length);
+        console.log(socket.id + ' Disconnected: %s sockets connected', connections.length);
+        // console.log(io.sockets.adapter.rooms['room-' + socket.roomnum])
+        // console.log(socket.roomnum)
+
+
+        // HOST DISCONNECT
+        // Need to check if current socket is the host of the roomnum
+        // If it is the host, needs to auto assign to another socket in the room
+
+        // Grabs room from userrooms data structure
+        var id = socket.id
+        var roomnum = userrooms[id]
+        var room = io.sockets.adapter.rooms['room-' + roomnum]
+
+        // If you are the host
+        if (room !== undefined && socket.id == room.host) {
+            // Reassign
+            console.log("hello i am the host " + socket.id + " and i am leaving my responsibilities to " + Object.keys(room.sockets)[0])
+            io.to(Object.keys(room.sockets)[0]).emit('autoHost', {
+                roomnum: roomnum
+            })
+        }
+
+        // Delete socket from userrooms
+        delete userrooms[id]
+
     });
 
     // Send Message in chat
@@ -189,12 +216,17 @@ io.sockets.on('connection', function(socket) {
     socket.on('new room', function(data, callback) {
         //callback(true);
         socket.roomnum = data;
+
+        // This stores the room data for all sockets
+        userrooms[socket.id] = data
+
         var host = null
         var init = false
 
         // Sets default room value to 1
         if (socket.roomnum == null || socket.roomnum == "") {
-            socket.roomnum = 1
+            socket.roomnum = '1'
+            userrooms[socket.id] = '1'
         }
 
         // Adds the room to a global array
@@ -203,7 +235,7 @@ io.sockets.on('connection', function(socket) {
         }
 
         // Checks if the room exists or not
-        console.log(io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined)
+        // console.log(io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined)
         if (io.sockets.adapter.rooms['room-' + socket.roomnum] === undefined) {
             socket.send(socket.id)
             // Sets the first socket to join as the host
@@ -298,6 +330,7 @@ io.sockets.on('connection', function(socket) {
         var roomnum = data.room
         var newHost = socket.id
         console.log("I want to be the host and my socket id is: " + newHost);
+        //console.log(io.sockets.adapter.rooms['room-' + socket.roomnum])
 
         // Broadcast to current host and set false
         socket.broadcast.to(io.sockets.adapter.rooms['room-' + socket.roomnum].host).emit('unSetHost');
