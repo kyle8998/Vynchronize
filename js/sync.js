@@ -77,23 +77,27 @@ function changeVideo(roomnum) {
     var videoId = document.getElementById("inputVideoId").value;
 
     // If user enters a full link
-    if (videoId.includes("https://") || videoId.includes("http://")){
+    if (videoId.includes("https://") || videoId.includes("http://")) {
         // Do some string processing with regex
         switch (currPlayer) {
             case 0:
-                var myRegex = /.+=(.+)/g
+                var myRegex = /.+watch\?v=([A-Za-z0-9\-_]+)/g
                 var match = myRegex.exec(videoId)
                 if (match != null) {
-                    console.log("You entered a link, but you really meant "+match[1])
+                    console.log("You entered a link, but you really meant " + match[1])
                     videoId = match[1]
                 }
                 break;
 
             case 1:
                 var myRegex = /.+\/(.+)/g
+                if (videoId.includes("playlist")) {
+                    myRegex = /.+video=(.+)/g
+                }
+
                 var match = myRegex.exec(videoId)
                 if (match != null) {
-                    console.log("You entered a link, but you really meant "+match[1])
+                    console.log("You entered a link, but you really meant " + match[1])
                     videoId = match[1]
                 }
                 break;
@@ -102,7 +106,7 @@ function changeVideo(roomnum) {
                 var myRegex = /.+\/(.+)/g
                 var match = myRegex.exec(videoId)
                 if (match != null) {
-                    console.log("You entered a link, but you really meant "+match[1])
+                    console.log("You entered a link, but you really meant " + match[1])
                     videoId = match[1]
                 }
                 break;
