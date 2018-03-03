@@ -6,12 +6,18 @@ vimeoPlayer.on('play', function() {
     if (host) {
         playOther(roomnum)
     }
+    else {
+        getHostData(roomnum)
+    }
 });
 
 vimeoPlayer.on('pause', function() {
     console.log('paused the video!');
     if (host) {
         pauseOther(roomnum)
+    }
+    else {
+        // getHostData(roomnum)
     }
 });
 
@@ -20,6 +26,9 @@ vimeoPlayer.on('seeked', function(data) {
     console.log('seeked the video to: ' + currTime);
     if (host) {
         seekOther(roomnum, currTime)
+    }
+    else {
+        getHostData(roomnum)
     }
     // seekOther(roomnum, currTime)
 });

@@ -62,10 +62,16 @@ function onPlayerStateChange(event) {
             if (host) {
                 playOther(roomnum)
             }
+            else {
+                getHostData(roomnum)
+            }
             break;
         case 2:
             if (host) {
                 pauseOther(roomnum)
+            }
+            else {
+                // getHostData(roomnum)
             }
             break;
         case 3:
@@ -73,6 +79,9 @@ function onPlayerStateChange(event) {
             if (host) {
                 seekOther(roomnum, currTime)
                 // syncVideo(roomnum)
+            }
+            else {
+                getHostData(roomnum)
             }
             break;
     }

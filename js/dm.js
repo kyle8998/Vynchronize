@@ -30,6 +30,9 @@ setTimeout(function() {
         if (host) {
             playOther(roomnum)
         }
+        else {
+            getHostData(roomnum)
+        }
     });
 
     // Pause Event
@@ -37,6 +40,9 @@ setTimeout(function() {
         console.log('dm pausing', e);
         if (host) {
             pauseOther(roomnum)
+        }
+        else {
+            // getHostData(roomnum)
         }
     });
 
@@ -46,6 +52,9 @@ setTimeout(function() {
         currTime = dailyPlayer.currentTime
         if (host) {
             seekOther(roomnum, currTime)
+        }
+        else {
+            getHostData(roomnum)
         }
     });
 

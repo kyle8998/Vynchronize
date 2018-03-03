@@ -347,6 +347,30 @@ io.sockets.on('connection', function(socket) {
 
     });
 
+    // Get host data
+    socket.on('get host data', function(data) {
+        var roomnum = data.room
+        var host = io.sockets.adapter.rooms['room-' + roomnum].host
+
+        // Broadcast to current host and set false
+        // Call back not supported when broadcasting
+
+        // Checks if it has the data, if not get the data and recursively call again
+        if (data.currTime === undefined) {
+            // Saves the original caller so the host can send back the data
+            var caller = socket.id
+            socket.broadcast.to(host).emit('getPlayerData', {
+                room: roomnum,
+                caller: caller
+            })
+        } else {
+            var caller = data.caller
+            // Call necessary function on the original caller
+            socket.broadcast.to(caller).emit('compareHost', data);
+        }
+
+    });
+
     //------------------------------------------------------------------------------
     // Async get current time
     socket.on('auto sync', function(data) {

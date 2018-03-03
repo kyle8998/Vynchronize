@@ -35,11 +35,118 @@ socket.on('changeHostLabel', function(data) {
     // Change label
     var hostlabel = document.getElementById('hostlabel')
     hostlabel.innerHTML = "Current Host: " + username
+
+    // Generate notify alert
+    $.notify({
+        title: '<strong>Host Changed: </strong>',
+        icon: 'fas fa-users',
+        message: username + " is now the host."
+    }, {
+        type: 'info',
+        animate: {
+            enter: 'animated fadeInUp',
+            exit: 'animated fadeOutRight'
+        },
+        placement: {
+            from: "bottom",
+            align: "right"
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+    });
 });
 
 // When the host leaves, the server calls this function on the next socket
 socket.on('autoHost', function(data) {
     changeHost(data.roomnum)
+});
+
+// If user gets disconnected from the host, give warning!
+function disconnected() {
+    $.notify({
+        title: '<strong>Warning: </strong>',
+        icon: 'fas fa-users',
+        message: " You are now out of sync of the host"
+    }, {
+        type: 'warning',
+        animate: {
+            enter: 'animated fadeInUp',
+            exit: 'animated fadeOutRight'
+        },
+        placement: {
+            from: "bottom",
+            align: "right"
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+    });
+}
+
+// Grab all host data
+function getHostData(roomnum) {
+    socket.emit('get host data', {
+        room: roomnum
+    });
+}
+
+// Uses the host data to compare
+socket.on('compareHost', function(data) {
+    // The host data
+    var hostTime = data.currTime
+    var hostState = data.state
+
+    switch (currPlayer) {
+        case 0:
+            var currTime = player.getCurrentTime()
+            var state = playerStatus
+
+            console.log("curr: " + currTime + " Host: " + hostTime)
+            if (currTime < hostTime - 2 || currTime > hostTime + 2) {
+                disconnected()
+            }
+
+            break;
+        case 1:
+            var currTime = currTime = dailyPlayer.currentTime
+            var state = dailyPlayer.paused;
+            socket.emit('get host data', {
+                room: roomnum,
+                currTime: currTime,
+                state: state
+            });
+            break;
+        case 2:
+            vimeoPlayer.getCurrentTime().then(function(seconds) {
+                // seconds = the current playback position
+                var currTime = seconds
+
+                // Need to nest async functions
+                vimeoPlayer.getPaused().then(function(paused) {
+                    // paused = whether or not the player is paused
+                    var state = paused
+
+                    socket.emit('get host data', {
+                        room: roomnum,
+                        currTime: currTime,
+                        state: state
+                    });
+
+                }).catch(function(error) {
+                    // an error occurred
+                    console.log("Error: Could not retrieve Vimeo Player state")
+                });
+
+            }).catch(function(error) {
+                // an error occurred
+                console.log("Error: Could not retrieve Vimeo player current time")
+            });
+
+            break;
+        default:
+            console.log("Error invalid player id")
+    }
 });
 
 //-----------------------------------------------------------------------------

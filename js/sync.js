@@ -69,6 +69,26 @@ function syncVideo(roomnum) {
             videoId: videoId
         });
     }
+
+    // Sync notify
+    $.notify({
+        title: '<strong>Sync: </strong>',
+        icon: 'fas fa-users',
+        message: " The room is now synced with you"
+    }, {
+        type: 'success',
+        animate: {
+            enter: 'animated fadeInUp',
+            exit: 'animated fadeOutRight'
+        },
+        placement: {
+            from: "bottom",
+            align: "right"
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+    });
 }
 
 // Change playVideo
@@ -157,7 +177,7 @@ function loveLive(roomnum) {
 
 // Get time
 socket.on('getTime', function(data) {
-    var caller = data.id
+    var caller = data.caller
     var time = player.getCurrentTime()
     console.log("Syncing new socket to time: " + time)
     socket.emit('change time', {
@@ -337,6 +357,27 @@ socket.on('syncVideoClient', function(data) {
                 console.log("Error invalid player id")
         }
     }
+
+
+    // Notify alert
+    // $.notify({
+    //     title: '<strong>Sync: </strong>',
+    //     icon: 'fas fa-users',
+    //     message: " The room is now synced with you"
+    // }, {
+    //     type: 'success',
+    //     animate: {
+    //         enter: 'animated fadeInUp',
+    //         exit: 'animated fadeOutRight'
+    //     },
+    //     placement: {
+    //         from: "bottom",
+    //         align: "right"
+    //     },
+    //     offset: 20,
+    //     spacing: 10,
+    //     z_index: 1031,
+    // });
 });
 
 // Change video

@@ -4,6 +4,65 @@ var currPlayer = 0
 // 1 - Daily Motion
 // 2 - Vimeo
 
+// Gets all the player data
+socket.on('getPlayerData', function(data) {
+    var roomnum = data.room
+    var caller = data.caller
+
+    switch (currPlayer) {
+        case 0:
+            var currTime = player.getCurrentTime()
+            var state = playerStatus
+            socket.emit('get host data', {
+                room: roomnum,
+                currTime: currTime,
+                state: state,
+                caller: caller
+            });
+            break;
+        case 1:
+            var currTime = currTime = dailyPlayer.currentTime
+            var state = dailyPlayer.paused;
+            socket.emit('get host data', {
+                room: roomnum,
+                currTime: currTime,
+                state: state,
+                caller: caller
+            });
+            break;
+        case 2:
+            vimeoPlayer.getCurrentTime().then(function(seconds) {
+                // seconds = the current playback position
+                var currTime = seconds
+
+                // Need to nest async functions
+                vimeoPlayer.getPaused().then(function(paused) {
+                    // paused = whether or not the player is paused
+                    var state = paused
+
+                    socket.emit('get host data', {
+                        room: roomnum,
+                        currTime: currTime,
+                        state: state,
+                        caller: caller
+                    });
+
+                }).catch(function(error) {
+                    // an error occurred
+                    console.log("Error: Could not retrieve Vimeo Player state")
+                });
+
+            }).catch(function(error) {
+                // an error occurred
+                console.log("Error: Could not retrieve Vimeo player current time")
+            });
+
+            break;
+        default:
+            console.log("Error invalid player id")
+    }
+});
+
 // Create Youtube Player
 socket.on('createYoutube', function(data) {
     if (currPlayer != 0) {

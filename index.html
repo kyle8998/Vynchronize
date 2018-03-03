@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -138,10 +139,9 @@
 
                         <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Love live noises</button>
                         <br/>
-                        <button onclick="changeHost(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-users"></i> Make me the host!</button>
+                        <button id="hostbutton" onclick="changeHost(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-users"></i> Make me the host!</button>
 
                         <button style="margin-top:.5rem" class="btn btn-primary switch"><i class="fas fa-lightbulb"></i> Turn off the Lights!</button>
-
                     </div>
 
                     <!-- Div for lights off! -->
@@ -373,10 +373,12 @@
     <script src="js/dependencies/jquery.min.js"></script>
     <script src="js/dependencies/bootstrap.bundle.min.js"></script>
     <script src="js/dependencies/scrolling-nav.js"></script>
+    <script src="js/dependencies/bootstrap-notify.min.js"></script>
     <!-- Plugin JavaScript -->
     <script src="js/dependencies/jquery.easing.min.js"></script>
 
 
+    <!-- My JS files -->
     <script src="js/sync.js"></script>
     <script src="js/player.js"></script>
     <script src="js/host.js"></script>
