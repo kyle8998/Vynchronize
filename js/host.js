@@ -43,6 +43,7 @@ socket.on('changeHostLabel', function(data) {
         message: username + " is now the host."
     }, {
         type: 'info',
+        delay: 800,
         animate: {
             enter: 'animated fadeInUp',
             exit: 'animated fadeOutRight'
@@ -70,6 +71,7 @@ function disconnected() {
         message: " You are now out of sync of the host"
     }, {
         type: 'warning',
+        delay: 400,
         animate: {
             enter: 'animated fadeInUp',
             exit: 'animated fadeOutRight'

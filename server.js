@@ -329,21 +329,26 @@ io.sockets.on('connection', function(socket) {
     socket.on('change host', function(data) {
         var roomnum = data.room
         var newHost = socket.id
-        console.log("I want to be the host and my socket id is: " + newHost);
-        //console.log(io.sockets.adapter.rooms['room-' + socket.roomnum])
+        var currHost = io.sockets.adapter.rooms['room-' + socket.roomnum].host
 
-        // Broadcast to current host and set false
-        socket.broadcast.to(io.sockets.adapter.rooms['room-' + socket.roomnum].host).emit('unSetHost');
-        // Reset host
-        io.sockets.adapter.rooms['room-' + socket.roomnum].host = newHost
-        // Broadcast to new host and set true
-        socket.emit('setHost')
+        // If socket is already the host!
+        if (newHost != currHost) {
+            console.log("I want to be the host and my socket id is: " + newHost);
+            //console.log(io.sockets.adapter.rooms['room-' + socket.roomnum])
 
-        io.sockets.adapter.rooms['room-' + socket.roomnum].hostName = socket.username
-        // Update host label in all sockets
-        io.sockets.in("room-" + roomnum).emit('changeHostLabel', {
-            username: socket.username
-        });
+            // Broadcast to current host and set false
+            socket.broadcast.to(currHost).emit('unSetHost');
+            // Reset host
+            io.sockets.adapter.rooms['room-' + socket.roomnum].host = newHost
+            // Broadcast to new host and set true
+            socket.emit('setHost')
+
+            io.sockets.adapter.rooms['room-' + socket.roomnum].hostName = socket.username
+            // Update host label in all sockets
+            io.sockets.in("room-" + roomnum).emit('changeHostLabel', {
+                username: socket.username
+            });
+        }
 
     });
 

@@ -77,6 +77,7 @@ function syncVideo(roomnum) {
         message: " The room is now synced with you"
     }, {
         type: 'success',
+        delay: 400,
         animate: {
             enter: 'animated fadeInUp',
             exit: 'animated fadeOutRight'
