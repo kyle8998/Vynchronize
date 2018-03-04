@@ -161,9 +161,13 @@ io.sockets.on('connection', function(socket) {
 
     // Disconnect
     socket.on('disconnect', function(data) {
-        // console.log(userrooms)
-        users.splice(users.indexOf(socket.username), 1);
-        updateUsernames();
+
+        // If socket username is found
+        if (users.indexOf(socket.username) != -1) {
+            users.splice((users.indexOf(socket.username)), 1);
+            updateUsernames();
+        }
+
         connections.splice(connections.indexOf(socket), 1);
         console.log(socket.id + ' Disconnected: %s sockets connected', connections.length);
         // console.log(io.sockets.adapter.rooms['room-' + socket.roomnum])
@@ -179,13 +183,23 @@ io.sockets.on('connection', function(socket) {
         var roomnum = userrooms[id]
         var room = io.sockets.adapter.rooms['room-' + roomnum]
 
-        // If you are the host
-        if (room !== undefined && socket.id == room.host) {
-            // Reassign
-            console.log("hello i am the host " + socket.id + " and i am leaving my responsibilities to " + Object.keys(room.sockets)[0])
-            io.to(Object.keys(room.sockets)[0]).emit('autoHost', {
-                roomnum: roomnum
-            })
+        // If you are not the last socket to leave
+        if (room !== undefined) {
+            // If you are the host
+            if (socket.id == room.host) {
+                // Reassign
+                console.log("hello i am the host " + socket.id + " and i am leaving my responsibilities to " + Object.keys(room.sockets)[0])
+                io.to(Object.keys(room.sockets)[0]).emit('autoHost', {
+                    roomnum: roomnum
+                })
+            }
+
+            // Remove from users list
+            // If socket username is found
+            if (room.users.indexOf(socket.username) != -1) {
+                room.users.splice((room.users.indexOf(socket.username)), 1);
+                updateRoomUsers(roomnum);
+            }
         }
 
         // Delete socket from userrooms
@@ -264,6 +278,8 @@ io.sockets.on('connection', function(socket) {
             io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo = 'M7lc1UVf-VE'
             // Host username
             io.sockets.adapter.rooms['room-' + socket.roomnum].hostName = socket.username
+            // Keep list of online users
+            io.sockets.adapter.rooms['room-' + socket.roomnum].users = [socket.username]
         }
 
         // Set Host label
@@ -284,6 +300,9 @@ io.sockets.on('connection', function(socket) {
             console.log("call the damn host " + host)
             socket.broadcast.to(host).emit('getData');
 
+            // Push to users in the room
+            io.sockets.adapter.rooms['room-' + socket.roomnum].users.push(socket.username)
+
             // This calls back the function on the host client
             //callback(true)
         } else {
@@ -293,6 +312,9 @@ io.sockets.on('connection', function(socket) {
             // Auto syncing is not working atm
             // socket.broadcast.to(host).emit('auto sync');
         }
+
+        // Update online users
+        updateRoomUsers(socket.roomnum)
 
         // This is all of the rooms
         // io.sockets.adapter.rooms['room-1'].currVideo = "this is the video"
@@ -321,8 +343,16 @@ io.sockets.on('connection', function(socket) {
         console.log(data)
     });
 
+    // Update all users
     function updateUsernames() {
-        io.sockets.emit('get users', users);
+        // io.sockets.emit('get users', users);
+        // console.log(users)
+    }
+
+    // Update the room usernames
+    function updateRoomUsers(roomnum) {
+        var roomUsers = io.sockets.adapter.rooms['room-' + socket.roomnum].users
+        io.sockets.in("room-" + roomnum).emit('get users', roomUsers);
     }
 
     // Change host
