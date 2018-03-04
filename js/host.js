@@ -104,6 +104,7 @@ socket.on('compareHost', function(data) {
             var currTime = player.getCurrentTime()
             var state = playerStatus
 
+            // If out of sync
             console.log("curr: " + currTime + " Host: " + hostTime)
             if (currTime < hostTime - 2 || currTime > hostTime + 2) {
                 disconnected()
@@ -111,13 +112,15 @@ socket.on('compareHost', function(data) {
 
             break;
         case 1:
-            var currTime = currTime = dailyPlayer.currentTime
+            var currTime = dailyPlayer.currentTime
             var state = dailyPlayer.paused;
-            socket.emit('get host data', {
-                room: roomnum,
-                currTime: currTime,
-                state: state
-            });
+
+            // If out of sync
+            console.log("curr: " + currTime + " Host: " + hostTime)
+            if (currTime < hostTime - 2 || currTime > hostTime + 2) {
+                disconnected()
+            }
+
             break;
         case 2:
             vimeoPlayer.getCurrentTime().then(function(seconds) {
@@ -129,11 +132,11 @@ socket.on('compareHost', function(data) {
                     // paused = whether or not the player is paused
                     var state = paused
 
-                    socket.emit('get host data', {
-                        room: roomnum,
-                        currTime: currTime,
-                        state: state
-                    });
+                    // If out of sync
+                    console.log("curr: " + currTime + " Host: " + hostTime)
+                    if (currTime < hostTime - 2 || currTime > hostTime + 2) {
+                        disconnected()
+                    }
 
                 }).catch(function(error) {
                     // an error occurred

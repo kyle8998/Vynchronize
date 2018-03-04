@@ -16,9 +16,6 @@ vimeoPlayer.on('pause', function() {
     if (host) {
         pauseOther(roomnum)
     }
-    else {
-        // getHostData(roomnum)
-    }
 });
 
 vimeoPlayer.on('seeked', function(data) {

@@ -70,18 +70,12 @@ function onPlayerStateChange(event) {
             if (host) {
                 pauseOther(roomnum)
             }
-            else {
-                // getHostData(roomnum)
-            }
             break;
         case 3:
             var currTime = player.getCurrentTime();
             if (host) {
                 seekOther(roomnum, currTime)
                 // syncVideo(roomnum)
-            }
-            else {
-                getHostData(roomnum)
             }
             break;
     }

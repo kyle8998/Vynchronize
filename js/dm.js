@@ -41,9 +41,6 @@ setTimeout(function() {
         if (host) {
             pauseOther(roomnum)
         }
-        else {
-            // getHostData(roomnum)
-        }
     });
 
     // Seek Event
@@ -52,9 +49,6 @@ setTimeout(function() {
         currTime = dailyPlayer.currentTime
         if (host) {
             seekOther(roomnum, currTime)
-        }
-        else {
-            getHostData(roomnum)
         }
     });
 

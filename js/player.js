@@ -21,7 +21,7 @@ socket.on('getPlayerData', function(data) {
             });
             break;
         case 1:
-            var currTime = currTime = dailyPlayer.currentTime
+            var currTime = dailyPlayer.currentTime
             var state = dailyPlayer.paused;
             socket.emit('get host data', {
                 room: roomnum,
