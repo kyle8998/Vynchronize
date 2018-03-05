@@ -220,7 +220,9 @@ io.sockets.on('connection', function(socket) {
     // New User
     socket.on('new user', function(data, callback) {
         callback(true);
-        socket.username = data;
+        // Data is username
+        var encodedUser = data.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        socket.username = encodedUser;
         //console.log(socket.username)
         users.push(socket.username);
         updateUsernames();
@@ -229,6 +231,7 @@ io.sockets.on('connection', function(socket) {
     // New room
     socket.on('new room', function(data, callback) {
         //callback(true);
+        // Roomnum passed through
         socket.roomnum = data;
 
         // This stores the room data for all sockets

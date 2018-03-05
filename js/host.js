@@ -34,7 +34,7 @@ socket.on('changeHostLabel', function(data) {
     var username = data.username
     // Change label
     var hostlabel = document.getElementById('hostlabel')
-    hostlabel.innerHTML = "Current Host: " + username
+    hostlabel.innerHTML = "<i class=\"fas fa-user\"></i> Current Host: " + username
 
     // Generate notify alert
     $.notify({
