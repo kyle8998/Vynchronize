@@ -100,7 +100,21 @@ io.sockets.on('connection', function(socket) {
         });
 
         // This changes the room variable to the video id
-        io.sockets.adapter.rooms['room-' + roomnum].currVideo = videoId
+        // io.sockets.adapter.rooms['room-' + roomnum].currVideo = videoId
+        switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
+            case 0:
+                io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.yt = videoId
+                break;
+            case 1:
+                io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.dm = videoId
+                break;
+            case 2:
+                io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.vimeo = videoId
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
+
         // console.log(io.sockets.adapter.rooms['room-1'])
     });
 
@@ -278,7 +292,11 @@ io.sockets.on('connection', function(socket) {
             // Default Player
             io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer = 0
             // Default video
-            io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo = 'M7lc1UVf-VE'
+            io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo = {
+                yt: 'M7lc1UVf-VE',
+                dm: 'x26m1j4',
+                vimeo: '76979871'
+            }
             // Host username
             io.sockets.adapter.rooms['room-' + socket.roomnum].hostName = socket.username
             // Keep list of online users
@@ -291,7 +309,21 @@ io.sockets.on('connection', function(socket) {
         });
 
         // Gets current video from room variable
-        var currVideo = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo
+        switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
+            case 0:
+                var currVideo = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.yt
+                break;
+            case 1:
+                var currVideo = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.dm
+                break;
+            case 2:
+                var currVideo = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.vimeo
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
+        var currYT = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.yt
+
         // Change the video to current One
         socket.emit('changeVideoClient', {
             videoId: currVideo
@@ -305,6 +337,10 @@ io.sockets.on('connection', function(socket) {
 
             // Push to users in the room
             io.sockets.adapter.rooms['room-' + socket.roomnum].users.push(socket.username)
+
+            // socket.emit('changeVideoClient', {
+            //     videoId: currVideo
+            // });
 
             // This calls back the function on the host client
             //callback(true)

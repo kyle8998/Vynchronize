@@ -61,8 +61,7 @@ function onPlayerStateChange(event) {
             console.log(host)
             if (host) {
                 playOther(roomnum)
-            }
-            else {
+            } else {
                 getHostData(roomnum)
             }
             break;
@@ -83,8 +82,9 @@ function onPlayerStateChange(event) {
 }
 
 function play() {
-    if (playerStatus == -1 || playerStatus == 2)
+    if (playerStatus == -1 || playerStatus == 2) {
         player.playVideo();
-    else
+    } else {
         player.pauseVideo();
+    }
 }

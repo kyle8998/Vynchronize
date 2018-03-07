@@ -270,6 +270,7 @@ socket.on('syncVideoClient', function(data) {
     var playerId = data.playerId
     console.log("current time is: " + currTime)
     console.log("curr vid id: " + id + " " + videoId)
+    console.log("state" + state)
 
     // There should no longer be any need to sync a video change
     // Video should always be the same
@@ -282,8 +283,6 @@ socket.on('syncVideoClient', function(data) {
     // Should only happen when a new socket joins late
 
     // Current issue: changePlayer is called asynchronously when we need this function to wait for it to finish
-    console.log("currPlayer=" + currPlayer)
-    console.log("playerId=" + playerId)
     // changeSinglePlayer(playerId)
     // currPlayer = playerId
 
@@ -303,11 +302,14 @@ socket.on('syncVideoClient', function(data) {
                 }
                 // Sync player state
                 // IF parent player was paused
-                if (state == -1 || state == 2)
+                if (state == -1 || state == 2) {
+                    console.log("paused?")
                     player.pauseVideo();
+                }
                 // If not paused
-                else
+                else {
                     player.playVideo();
+                }
                 break;
 
             case 1:
@@ -359,26 +361,6 @@ socket.on('syncVideoClient', function(data) {
         }
     }
 
-
-    // Notify alert
-    // $.notify({
-    //     title: '<strong>Sync: </strong>',
-    //     icon: 'fas fa-users',
-    //     message: " The room is now synced with you"
-    // }, {
-    //     type: 'success',
-    //     animate: {
-    //         enter: 'animated fadeInUp',
-    //         exit: 'animated fadeOutRight'
-    //     },
-    //     placement: {
-    //         from: "bottom",
-    //         align: "right"
-    //     },
-    //     offset: 20,
-    //     spacing: 10,
-    //     z_index: 1031,
-    // });
 });
 
 // Change video
