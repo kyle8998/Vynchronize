@@ -95,6 +95,8 @@ io.sockets.on('connection', function(socket) {
     socket.on('change video', function(data) {
         var roomnum = data.room
         var videoId = data.videoId
+        var host = io.sockets.adapter.rooms['room-' + socket.roomnum].host
+
         io.sockets.in("room-" + roomnum).emit('changeVideoClient', {
             videoId: videoId
         });
@@ -114,6 +116,11 @@ io.sockets.on('connection', function(socket) {
             default:
                 console.log("Error invalid player id")
         }
+
+        // Auto sync with host after 1000ms of changing video
+        setTimeout(function() {
+            socket.broadcast.to(host).emit('getData');
+        }, 1000);
 
         // console.log(io.sockets.adapter.rooms['room-1'])
     });
@@ -333,7 +340,12 @@ io.sockets.on('connection', function(socket) {
         if (socket.id != host) {
             //socket.broadcast.to(host).emit('getTime', { id: socket.id });
             console.log("call the damn host " + host)
-            socket.broadcast.to(host).emit('getData');
+
+            // Set a timeout so the video can load before it syncs
+            setTimeout(function() {
+                socket.broadcast.to(host).emit('getData');
+            }, 1000);
+            //socket.broadcast.to(host).emit('getData');
 
             // Push to users in the room
             io.sockets.adapter.rooms['room-' + socket.roomnum].users.push(socket.username)

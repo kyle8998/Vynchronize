@@ -408,6 +408,11 @@ socket.on('changeVideoClient', function(data) {
             console.log("Error invalid player id")
     }
 
+    // Auto sync with host after 1000ms of changing video
+    // setTimeout(function() {
+    //     socket.emit('sync host', {});
+    // }, 1000);
+
 });
 
 // Change time
