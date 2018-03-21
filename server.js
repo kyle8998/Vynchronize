@@ -97,10 +97,6 @@ io.sockets.on('connection', function(socket) {
         var videoId = data.videoId
         var host = io.sockets.adapter.rooms['room-' + socket.roomnum].host
 
-        io.sockets.in("room-" + roomnum).emit('changeVideoClient', {
-            videoId: videoId
-        });
-
         // This changes the room variable to the video id
         // io.sockets.adapter.rooms['room-' + roomnum].currVideo = videoId
         switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
@@ -116,6 +112,10 @@ io.sockets.on('connection', function(socket) {
             default:
                 console.log("Error invalid player id")
         }
+
+        io.sockets.in("room-" + roomnum).emit('changeVideoClient', {
+            videoId: videoId
+        });
 
         // Auto sync with host after 1000ms of changing video
         // NOT NEEDED ANYMORE, IN THE CHANGEVIDEOCLIENT FUNCTION

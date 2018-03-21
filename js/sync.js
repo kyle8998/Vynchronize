@@ -24,7 +24,7 @@ function syncVideo(roomnum) {
         case 0:
             currTime = player.getCurrentTime();
             state = playerStatus
-            console.log("I am host and my current time is " + currTime)
+            console.log("I am host and my current time is " + currTime + state)
             break;
         case 1:
             currTime = dailyPlayer.currentTime;
@@ -305,7 +305,8 @@ socket.on('syncVideoClient', function(data) {
                 }
                 // Sync player state
                 // IF parent player was paused
-                if (state == -1 || state == 2) {
+                // If state is -1 (unstarted) the video will still start as intended
+                if (state == 2) {
                     console.log("paused?")
                     player.pauseVideo();
                 }
@@ -370,6 +371,9 @@ socket.on('syncVideoClient', function(data) {
 socket.on('changeVideoClient', function(data) {
     var videoId = data.videoId;
     console.log("video id is: " + videoId)
+
+    // Pause right before changing
+    // pauseOther(roomnum)
 
     // This is getting the video id from the server
     // The original change video call updates the value for the room
