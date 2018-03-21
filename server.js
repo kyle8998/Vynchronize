@@ -118,11 +118,32 @@ io.sockets.on('connection', function(socket) {
         }
 
         // Auto sync with host after 1000ms of changing video
-        setTimeout(function() {
-            socket.broadcast.to(host).emit('getData');
-        }, 1000);
+        // NOT NEEDED ANYMORE, IN THE CHANGEVIDEOCLIENT FUNCTION
+        // setTimeout(function() {
+        //     socket.broadcast.to(host).emit('getData');
+        // }, 1000);
 
         // console.log(io.sockets.adapter.rooms['room-1'])
+    });
+
+    // Get video id based on player
+    socket.on('get video', function(callback) {
+        // Gets current video from room variable
+        switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
+            case 0:
+                var currVideo = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.yt
+                break;
+            case 1:
+                var currVideo = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.dm
+                break;
+            case 2:
+                var currVideo = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.vimeo
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
+        // Call back to return the video id
+        callback(currVideo)
     });
 
     // Change video player
@@ -385,7 +406,13 @@ io.sockets.on('connection', function(socket) {
     // This just calls the syncHost function
     socket.on('sync host', function(data) {
         //socket.broadcast.to(host).emit('syncVideoClient', { time: time, state: state, videoId: videoId });
-        socket.emit('syncHost');
+        var host = io.sockets.adapter.rooms['room-' + socket.roomnum].host
+        // If not host, recall it on host
+        if (socket.id != host) {
+            socket.broadcast.to(host).emit('getData')
+        } else {
+            socket.emit('syncHost')
+        }
     });
 
     // Emits the player status

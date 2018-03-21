@@ -69,7 +69,10 @@ function syncVideo(roomnum) {
             videoId: videoId
         });
     }
+}
 
+// Made into its own function to reduce spam
+function syncAlert() {
     // Sync notify
     $.notify({
         title: '<strong>Sync: </strong>',
@@ -368,50 +371,57 @@ socket.on('changeVideoClient', function(data) {
     var videoId = data.videoId;
     console.log("video id is: " + videoId)
 
-    // This changes the video
-    id = videoId
+    // This is getting the video id from the server
+    // The original change video call updates the value for the room
+    // This probably is more inefficient than just passing in the parameter but is safer?
+    socket.emit('get video', function(id) {
+        console.log("it really is " + id)
+        videoId = id
+        // This changes the video
+        id = videoId
 
-    switch (currPlayer) {
-        case 0:
-            player.loadVideoById(videoId);
-            break;
-        case 1:
-            dailyPlayer.load(videoId, {
-                autoplay: true
-            });
-            break;
-        case 2:
-            vimeoPlayer.loadVideo(videoId).then(function(id) {
-                // the video successfully loaded
-            }).catch(function(error) {
-                switch (error.name) {
-                    case 'TypeError':
-                        // the id was not a number
-                        break;
+        switch (currPlayer) {
+            case 0:
+                player.loadVideoById(videoId);
+                break;
+            case 1:
+                dailyPlayer.load(videoId, {
+                    autoplay: true
+                });
+                break;
+            case 2:
+                vimeoPlayer.loadVideo(videoId).then(function(id) {
+                    // the video successfully loaded
+                }).catch(function(error) {
+                    switch (error.name) {
+                        case 'TypeError':
+                            // the id was not a number
+                            break;
 
-                    case 'PasswordError':
-                        // the video is password-protected and the viewer needs to enter the
-                        // password first
-                        break;
+                        case 'PasswordError':
+                            // the video is password-protected and the viewer needs to enter the
+                            // password first
+                            break;
 
-                    case 'PrivacyError':
-                        // the video is password-protected or private
-                        break;
+                        case 'PrivacyError':
+                            // the video is password-protected or private
+                            break;
 
-                    default:
-                        // some other error occurred
-                        break;
-                }
-            });
-            break;
-        default:
-            console.log("Error invalid player id")
-    }
+                        default:
+                            // some other error occurred
+                            break;
+                    }
+                });
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
+    })
 
     // Auto sync with host after 1000ms of changing video
-    // setTimeout(function() {
-    //     socket.emit('sync host', {});
-    // }, 1000);
+    setTimeout(function() {
+        socket.emit('sync host', {});
+    }, 1000);
 
 });
 
