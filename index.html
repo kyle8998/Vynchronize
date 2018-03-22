@@ -3,202 +3,203 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>Vynchronize</title>
+  <title>Vynchronize</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/animate.css" rel="stylesheet">
 
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <!-- Socket.io -->
-    <script src="/socket.io/socket.io.js"></script>
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <!-- Socket.io -->
+  <script src="/socket.io/socket.io.js"></script>
 
-    <!-- Font awesome -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <!-- Font awesome -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
-    <!-- Custom styles for this template -->
-    <link href="css/small-business.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/small-business.css" rel="stylesheet">
 
-    <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
 
 </head>
 
 <body class="bg-light" id="Home">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#Home"><img src="img/logo.png" alt="Vynchronize logo" height="40" width="40"> Vynchronize</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#Home"><img src="img/logo.png" alt="Vynchronize logo" height="40" width="40"> Vynchronize</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <!-- <li class="nav-item active">
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <!-- <li class="nav-item active">
               <a class="nav-link js-scroll-trigger" href="#Home">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li> -->
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#messageArea">Chatroom</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="https://github.com/kyle8998/Vynchronize">Source Code</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#messageArea">Chatroom</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="https://github.com/kyle8998/Vynchronize">Source Code</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Page Content -->
-    <div class="container">
+  <!-- Page Content -->
+  <div class="container">
 
-        <!-- Loading page -->
-        <!-- Loader is currently dependent on the dailymotion api because it is the slowest -->
-        <div id="loading"></div>
+    <!-- Loading page -->
+    <!-- Loader is currently dependent on the dailymotion api because it is the slowest -->
+    <div id="loading"></div>
 
-        <!-- User Form (First Page) -->
-        <div id="userFormArea" class="row">
-            <div class="col-md-12">
-                <!-- ADD DESCRIPTION HERE -->
-                <h2>Welcome to Vynchronize</h2>
-                <p class="lead">The hot new video synchronization platform used to watch videos in realtime with friends!</p>
-                <hr style="height:20pt; visibility:hidden;" />
+    <!-- User Form (First Page) -->
+    <div id="userFormArea" class="row">
+      <div class="col-md-12">
+        <!-- ADD DESCRIPTION HERE -->
+        <h2>Welcome to Vynchronize</h2>
+        <p class="lead">The hot new video synchronization platform used to watch videos in realtime with friends!</p>
+        <hr style="height:20pt; visibility:hidden;" />
 
-                <h2> Join a Room! </h2>
-                <form id="userForm">
-                    <div class="form-group">
-                        <p style="color:red; margin-bottom: 0px" id="missinginfo"></p>
-                        <label>Enter Name</label>
-                        <input class="form-control" id="username" />
-                        <br />
-                        <label>Enter Room ID (Default 1)</label>
-                        <input class="form-control" id="roomnum" />
-                        <br/>
+        <h2> Join a Room! </h2>
+        <form id="userForm">
+          <div class="form-group">
+            <p style="color:red; margin-bottom: 0px" id="missinginfo"></p>
+            <label>Enter Name</label>
+            <input class="form-control" id="username" />
+            <br />
+            <label>Enter Room ID (Default 1)</label>
+            <input class="form-control" id="roomnum" />
+            <br/>
 
-                        <input type="submit" class="btn btn-primary" value="Enter" />
-                        <hr style="height:65pt; visibility:hidden;" />
-                    </div>
-                </form>
-            </div>
-        </div>
+            <input type="submit" class="btn btn-primary" value="Enter" />
+            <hr style="height:65pt; visibility:hidden;" />
+          </div>
+        </form>
+      </div>
+    </div>
 
-        <div id="roomArea">
-            <!-- Heading Row -->
-            <div class="row my-4">
-                <div class="col-lg-8">
+    <div id="roomArea">
+      <!-- Heading Row -->
+      <div class="row my-4">
+        <div class="col-lg-8">
 
 
-                    <div class="dropdown">
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-video"></i> Player
               </button>
-                        <div class="form-control dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" onclick="changePlayer(roomnum, 0)"><i class="fab fa-youtube"></i> YouTube</a>
-                            <a class="dropdown-item" onclick="changePlayer(roomnum, 1)"><img width="14px" height="14px" src="img/dailymotion-logo.svg" alt="Daily Motion Logo"> Daily Motion</a>
-                            <a class="dropdown-item" onclick="changePlayer(roomnum, 2)"><i class="fab fa-vimeo"></i> Vimeo</a>
-                        </div>
-                    </div>
+            <div class="form-control dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" onclick="changePlayer(roomnum, 0)"><i class="fab fa-youtube"></i> YouTube</a>
+              <a class="dropdown-item" onclick="changePlayer(roomnum, 1)"><img width="14px" height="14px" src="img/dailymotion-logo.svg" alt="Daily Motion Logo"> Daily Motion</a>
+              <a class="dropdown-item" onclick="changePlayer(roomnum, 2)"><i class="fab fa-vimeo"></i> Vimeo</a>
+            </div>
+          </div>
 
 
-                    <br/> <b>Note:</b> Mobile web browsers do not support autoplay. Host can control player natively.
-                    <br/>
-                    <h2><span id="hostlabel" class="label label-default"><i class="fas fa-user"></i> Current Host: Kyle </span></h2>
+          <br/> <b>Note:</b> Mobile web browsers do not support autoplay. Host can control player natively.
+          <br/>
+          <p id="invite">Invite a friend! Send them the link: vynchronize.herokuapp.com/ROOMNUM</p>
+          <h2><span id="hostlabel" class="label label-default"><i class="fas fa-user"></i> Current Host: Kyle </span></h2>
 
-                    <!----------------------------------- PLAYER AREA ----------------------------------->
+          <!----------------------------------- PLAYER AREA ----------------------------------->
 
-                    <div id='playerArea'>
-                        <iframe class="video" id="player" allowfullscreen="0" rel="0" width="640" height="360" src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1" frameborder="1" style="border: solid 4px #37474F"></iframe>
-                    </div>
-                    <div id='dailyArea'>
-                        <iframe class="video" id="player-daily" frameborder="0" width="640" height="360" allowfullscreen allow="autoplay"></iframe>
-                    </div>
-                    <div id='vimeoArea'>
-                        <iframe class="video" id="player-vimeo" src="https://player.vimeo.com/video/76979871" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                    </div>
+          <div id='playerArea'>
+            <iframe class="video" id="player" allowfullscreen="0" rel="0" width="640" height="360" src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1" frameborder="1" style="border: solid 4px #37474F"></iframe>
+          </div>
+          <div id='dailyArea'>
+            <iframe class="video" id="player-daily" frameborder="0" width="640" height="360" allowfullscreen allow="autoplay"></iframe>
+          </div>
+          <div id='vimeoArea'>
+            <iframe class="video" id="player-vimeo" src="https://player.vimeo.com/video/76979871" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
 
-                    <!----------------------------------- PLAYER AREA ----------------------------------->
-                    <!-- <hr> -->
-                    <div>
-                        <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
+          <!----------------------------------- PLAYER AREA ----------------------------------->
+          <!-- <hr> -->
+          <div>
+            <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
 
-                        <button id="syncbutton" onclick="syncVideo(roomnum);syncAlert()" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-sync"></i> Sync</button>
+            <button id="syncbutton" onclick="syncVideo(roomnum);syncAlert()" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-sync"></i> Sync</button>
 
-                        <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Love live noises</button>
-                        <br/>
-                        <button id="hostbutton" onclick="changeHost(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-users"></i> Make me the host!</button>
+            <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Love live noises</button>
+            <br/>
+            <button id="hostbutton" onclick="changeHost(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-users"></i> Make me the host!</button>
 
-                        <button style="margin-top:.5rem" class="btn btn-primary switch"><i class="fas fa-lightbulb"></i> Turn off the Lights!</button>
-                    </div>
+            <button style="margin-top:.5rem" class="btn btn-primary switch"><i class="fas fa-lightbulb"></i> Turn off the Lights!</button>
+          </div>
 
-                    <!-- Div for lights off! -->
-                    <div id='persoff'></div>
+          <!-- Div for lights off! -->
+          <div id='persoff'></div>
 
-                    <br/>
-                    <div>
-                        <input type="Video" style="max-width: 200px; margin-right: 0rem;" class="form-control" id="inputVideoId" placeholder="Video ID">
-                        <button onclick="changeVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
+          <br/>
+          <div>
+            <input type="Video" style="max-width: 200px; margin-right: 0rem;" class="form-control" id="inputVideoId" placeholder="Video ID">
+            <button onclick="changeVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
 
-                        <br/>
-                    </div>
-                </div>
+            <br/>
+          </div>
+        </div>
 
-                <!-- /.col-lg-8 -->
-                <div class="col-lg-4">
-                    <div style="margin-top: 2em" class="col-md-4">
-                        <div style="padding-right: 20em;" class="well">
-                            <h3>Online Users</h3>
-                            <ul class="list-group" id="users"></ul>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- /.col-md-4 -->
+        <!-- /.col-lg-8 -->
+        <div class="col-lg-4">
+          <div style="margin-top: 2em" class="col-md-4">
+            <div style="padding-right: 20em;" class="well">
+              <h3>Online Users</h3>
+              <ul class="list-group" id="users"></ul>
             </div>
 
-            <!-- /.row -->
+          </div>
+        </div>
+        <!-- /.col-md-4 -->
+      </div>
 
-            <div id="messageArea" class="row">
-                <br/>
-                <h2 style="color:gray">Chat</h2>
-                <div class="col-md-8">
-                    <div class="chat" id="chat"></div>
+      <!-- /.row -->
 
-                    <!-- Message Form (Enter Message) -->
-                    <form id="messageForm">
-                        <div class="form-group">
-                            <label>Enter Message...</label>
-                            <textarea class="form-control" id="message"></textarea>
-                            <br />
+      <div id="messageArea" class="row">
+        <br/>
+        <h2 style="color:gray">Chat</h2>
+        <div class="col-md-8">
+          <div class="chat" id="chat"></div>
 
-                            <input type="submit" class="btn btn-primary" value="Send Message" />
-                        </div>
-                    </form>
-                </div>
+          <!-- Message Form (Enter Message) -->
+          <form id="messageForm">
+            <div class="form-group">
+              <label>Enter Message...</label>
+              <textarea class="form-control" id="message"></textarea>
+              <br />
+
+              <input type="submit" class="btn btn-primary" value="Send Message" />
             </div>
+          </form>
+        </div>
+      </div>
 
-            <!-- Call to Action Well -->
-            <div class="card text-white bg-secondary my-4 text-center">
-                <div class="card-body">
-                    <p class="text-white m-0">*The synchronization is not perfect at the moment! It's a work in progress</p>
-                </div>
-            </div>
+      <!-- Call to Action Well -->
+      <div class="card text-white bg-secondary my-4 text-center">
+        <div class="card-body">
+          <p class="text-white m-0">*The synchronization is not perfect at the moment! It's a work in progress</p>
+        </div>
+      </div>
 
-            <!-- Content Row -->
-            <!-- <div class="row">
+      <!-- Content Row -->
+      <!-- <div class="row">
         <div class="col-md-4 mb-4">
           <div class="card h-100">
             <div class="card-body">
@@ -210,8 +211,8 @@
             </div>
           </div>
         </div> -->
-            <!-- /.col-md-4 -->
-            <!-- <div class="col-md-4 mb-4">
+      <!-- /.col-md-4 -->
+      <!-- <div class="col-md-4 mb-4">
           <div class="card h-100">
             <div class="card-body">
               <h2 class="card-title">Card Two</h2>
@@ -222,8 +223,8 @@
             </div>
           </div>
         </div> -->
-            <!-- /.col-md-4 -->
-            <!-- <div class="col-md-4 mb-4">
+      <!-- /.col-md-4 -->
+      <!-- <div class="col-md-4 mb-4">
           <div class="card h-100">
             <div class="card-body">
               <h2 class="card-title">Card Three</h2>
@@ -234,164 +235,179 @@
             </div>
           </div>
         </div> -->
-            <!-- /.col-md-4 -->
+      <!-- /.col-md-4 -->
 
-            <!-- </div> -->
-            <!-- /.row -->
+      <!-- </div> -->
+      <!-- /.row -->
 
-            <hr style="height:120pt; visibility:hidden;" />
-            <section id="about" class="bg-light">
-                <br/>
-                <br/>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 mx-auto">
-                            <h2>About Vynchronize</h2>
-                            <p class="lead">Vynchronize is a video synchronization platform created for viewing parties with friends!</p>
-                            <p> To use Vynchronize just enter your name and a shared room number with friends. Then all you have to do is select your video client (YouTube by default), enter a video ID, and click "Change Video". All video playback should
-                                be synchronized to everyone in the room! </p>
-                            <p> There is one host per room that can control the video client directly with the native player controls. Everyone else can still use them but it will only affect them until they hit sync!</p>
-                            <p> Have fun watching videos with friends!</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <hr style="height:120pt; visibility:hidden;" />
-
+      <hr style="height:120pt; visibility:hidden;" />
+      <section id="about" class="bg-light">
+        <br/>
+        <br/>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h2>About Vynchronize</h2>
+              <p class="lead">Vynchronize is a video synchronization platform created for viewing parties with friends!</p>
+              <p> To use Vynchronize just enter your name and a shared room number with friends. Then all you have to do is select your video client (YouTube by default), enter a video ID, and click "Change Video". All video playback should be synchronized
+                to everyone in the room! </p>
+              <p> There is one host per room that can control the video client directly with the native player controls. Everyone else can still use them but it will only affect them until they hit sync!</p>
+              <p> Have fun watching videos with friends!</p>
+            </div>
+          </div>
         </div>
+      </section>
+      <hr style="height:120pt; visibility:hidden;" />
+
+    </div>
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Vynchronize 2018</p>
     </div>
     <!-- /.container -->
+  </footer>
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Vynchronize 2018</p>
-        </div>
-        <!-- /.container -->
-    </footer>
+  <script>
+    var socket = io.connect();
+    var roomnum = 1
+    var id = "M7lc1UVf-VE"
 
-    <script>
-        var socket = io.connect();
-        var roomnum = 1
-        var id = "M7lc1UVf-VE"
+    // Chat stuff
+    $(function() {
+      //var socket = io.connect();
+      var $messageForm = $('#messageForm');
+      var $message = $('#message');
+      var $chat = $('#chat');
+      var $roomArea = $('#roomArea');
+      var $userFormArea = $('#userFormArea');
+      var $userForm = $('#userForm');
+      var $users = $('#users');
+      var $username = $('#username');
+      var $roomnum = $('#roomnum');
 
-        // Chat stuff
-        $(function() {
-            //var socket = io.connect();
-            var $messageForm = $('#messageForm');
-            var $message = $('#message');
-            var $chat = $('#chat');
-            var $roomArea = $('#roomArea');
-            var $userFormArea = $('#userFormArea');
-            var $userForm = $('#userForm');
-            var $users = $('#users');
-            var $username = $('#username');
-            var $roomnum = $('#roomnum');
+      $messageForm.submit(function(e) {
+        e.preventDefault();
+        // console.log("Submitted");
+        socket.emit('send message', $message.val());
+        $message.val('');
+      });
 
-            $messageForm.submit(function(e) {
-                e.preventDefault();
-                // console.log("Submitted");
-                socket.emit('send message', $message.val());
-                $message.val('');
-            });
+      socket.on('new message', function(data) {
+        $chat.append('<div class="well"><strong>' + data.user + '</strong>: ' + data.msg + '</div>');
+      });
 
-            socket.on('new message', function(data) {
-                $chat.append('<div class="well"><strong>' + data.user + '</strong>: ' + data.msg + '</div>');
-            });
+      // Submit user form
+      $userForm.submit(function(e) {
+        e.preventDefault();
+        // console.log("Submitted");
+        // New User
+        if ($username.val() == "") {
+          console.log("ENTER A NAME")
+          var noname = document.getElementById('missinginfo')
+          noname.innerHTML = "Please enter your name!"
+        } else {
+          socket.emit('new user', $username.val(), function(data) {
+            if (data) {
+              $userFormArea.hide();
+              $roomArea.show();
 
-            // Submit user form
-            $userForm.submit(function(e) {
-                e.preventDefault();
-                // console.log("Submitted");
-                // New User
-                if ($username.val() == "") {
-                    console.log("ENTER A NAME")
-                    var noname = document.getElementById('missinginfo')
-                    noname.innerHTML = "Please enter your name!"
-                } else {
-                    socket.emit('new user', $username.val(), function(data) {
-                        if (data) {
-                            $userFormArea.hide();
-                            $roomArea.show();
-
-                            // No longer using initarea
-                            // var initStuff = document.getElementById("initArea")
-                            // initStuff.innerHTML = ""
+              // No longer using initarea
+              // var initStuff = document.getElementById("initArea")
+              // initStuff.innerHTML = ""
 
 
-                            // This sets the room number on the client
-                            if ($roomnum.val() != "") {
-                                roomnum = $roomnum.val()
-                            }
-                        }
-                    });
-                    // Join room
-                    socket.emit('new room', $roomnum.val(), function(data) {
-                        // This should only call back if the client is the host
-                        if (data) {
-                            console.log("Host is syncing the new socket!")
-                            syncVideo(roomnum)
-                        }
-                    });
+              // This sets the room number on the client
+              if ($roomnum.val() != "") {
+                roomnum = $roomnum.val()
+              }
 
-                    $username.val('');
-                }
-            });
+              // Sets the invite link (roomnum)
+              document.getElementById('invite').innerHTML = "Invite a friend! Send them the link: vynchronize.herokuapp.com/" + roomnum
+            }
+          });
+          // Join room
+          socket.emit('new room', $roomnum.val(), function(data) {
+            // This should only call back if the client is the host
+            if (data) {
+              console.log("Host is syncing the new socket!")
+              syncVideo(roomnum)
+            }
+          });
 
-            socket.on('get users', function(data) {
-                var html = '';
-                for (i = 0; i < data.length; i++) {
-                    html += '<li style="padding-right: 10em;" class="list-group-item">' + data[i] + '</li>';
-                }
+          $username.val('');
+        }
+      });
 
-                $users.html(html);
-            });
-        });
+      socket.on('get users', function(data) {
+        var html = '';
+        for (i = 0; i < data.length; i++) {
+          html += '<li style="padding-right: 10em;" class="list-group-item">' + data[i] + '</li>';
+        }
 
-
-        // Turn off the lights!
-        var per = 0;
-        $(document).ready(function() {
-            $("#persoff").css("height", $(document).height()).hide();
-            $(document).click(function(e) {
-                if (!$(e.target).hasClass('switch') && per == 1) {
-                    $("#persoff").toggle();
-                    per = 0;
-                }
-            });
-            $(".switch").click(function() {
-                $("#persoff").toggle();
-                per += 1;
-                if (per == 2) {
-                    per = 0;
-                }
-            });
-        });
-    </script>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="js/dependencies/jquery.min.js"></script>
-    <script src="js/dependencies/bootstrap.bundle.min.js"></script>
-    <script src="js/dependencies/scrolling-nav.js"></script>
-    <script src="js/dependencies/bootstrap-notify.min.js"></script>
-    <!-- Plugin JavaScript -->
-    <script src="js/dependencies/jquery.easing.min.js"></script>
+        $users.html(html);
+      });
+    });
 
 
-    <!-- My JS files -->
-    <script src="js/sync.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/host.js"></script>
-    <script src="js/events.js"></script>
+    // Turn off the lights!
+    var per = 0;
+    $(document).ready(function() {
+      $("#persoff").css("height", $(document).height()).hide();
+      $(document).click(function(e) {
+        if (!$(e.target).hasClass('switch') && per == 1) {
+          $("#persoff").toggle();
+          per = 0;
+        }
+      });
+      $(".switch").click(function() {
+        $("#persoff").toggle();
+        per += 1;
+        if (per == 2) {
+          per = 0;
+        }
+      });
+    });
 
-    <!-- Youtube -->
-    <script src="js/yt.js"></script>
-    <!-- Daily Motion -->
-    <script src="https://api.dmcdn.net/all.js"></script>
-    <script src="js/dm.js"></script>
-    <!-- Vimeo -->
-    <script src="https://player.vimeo.com/api/player.js"></script>
-    <script src="js/vimeo.js"></script>
+    // set id
+    socket.on('set id', function(data) {
+      if (data.id != "") {
+        document.getElementById('roomnum').value = data.id
+        document.getElementById('roomnum').readOnly = true
+        console.log("You are joining room: " + data.id)
+      }
+      // Reset url for next person
+      // Workaround
+      socket.emit('reset url')
+    });
+  </script>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="js/dependencies/jquery.min.js"></script>
+  <script src="js/dependencies/bootstrap.bundle.min.js"></script>
+  <script src="js/dependencies/scrolling-nav.js"></script>
+  <script src="js/dependencies/bootstrap-notify.min.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="js/dependencies/jquery.easing.min.js"></script>
+
+
+  <!-- My JS files -->
+  <script src="js/sync.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/host.js"></script>
+  <script src="js/events.js"></script>
+
+  <!-- Youtube -->
+  <script src="js/yt.js"></script>
+  <!-- Daily Motion -->
+  <script src="https://api.dmcdn.net/all.js"></script>
+  <script src="js/dm.js"></script>
+  <!-- Vimeo -->
+  <script src="https://player.vimeo.com/api/player.js"></script>
+  <script src="js/vimeo.js"></script>
 
 </body>
 

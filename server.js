@@ -8,14 +8,28 @@ rooms = [];
 // Store all of the sockets and their respective room numbers
 userrooms = {}
 
+// Set given room for url parameter
+var given_room = ""
+
 app.use(express.static(__dirname + '/'));
 
 server.listen(process.env.PORT || 3000);
 console.log('Server Started . . .');
 
-app.get('/', function(req, res) {
+
+// app.param('room', function(req,res, next, room){
+//     console.log("testing")
+//     console.log(room)
+//     given_room = room
+    // res.sendFile(__dirname + '/index.html');
+// });
+
+
+app.get('/:room', function(req, res) {
+    given_room = req.params.room
     res.sendFile(__dirname + '/index.html');
 });
+
 
 //var roomno = 1;
 /*
@@ -37,6 +51,10 @@ io.sockets.on('connection', function(socket) {
     // Connect Socket
     connections.push(socket);
     console.log('Connected: %s sockets connected', connections.length);
+
+    // Set default room, if provided in url
+    socket.emit('set id', {id: given_room})
+    
     // io.sockets.emit('broadcast',{ description: connections.length + ' clients connected!'});
 
     // For now have it be the same room for everyone!
@@ -45,6 +63,11 @@ io.sockets.on('connection', function(socket) {
     //Send this event to everyone in the room.
     //io.sockets.in("room-"+roomno).emit('connectToRoom', "You are in room no. "+roomno);
 
+    // reset url parameter
+    // Workaround because middleware was not working right
+    socket.on('reset url', function(data) {
+        given_room = ""
+    });
 
     // Play video
     socket.on('play video', function(data) {
