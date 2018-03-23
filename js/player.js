@@ -81,6 +81,17 @@ socket.on('createYoutube', function(data) {
         you.style.display = 'block';
         currPlayer = 0
 
+        console.log("Player state: "+playerStatus)
+        // If it is -1, there was an error and needs to resync to host
+        if (playerStatus == -1) {
+            socket.emit('get video', function(id) {
+                player.loadVideoById(id);
+                // Auto sync with host after 1000ms of changing video
+                setTimeout(function() {
+                    socket.emit('sync host', {});
+                }, 1000);
+            })
+        }
     }
 });
 
