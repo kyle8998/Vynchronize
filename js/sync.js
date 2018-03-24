@@ -158,7 +158,21 @@ function changeVideoId(roomnum, id) {
     //player.loadVideoById(videoId);
 }
 
-var noises = false
+// Change to previous video
+function prevVideo(roomnum) {
+    // This gets the previous video
+    socket.emit('change previous video', {
+        room: roomnum
+    }, function(data) {
+        // Actually change the video!
+        socket.emit('change video', {
+            room: roomnum,
+            videoId: data.videoId
+        });
+    });
+}
+
+var noises = true
 
 function loveLive(roomnum) {
     var test = document.getElementById("inputVideoId").innerHTML = "sjk7DiH0JhQ";

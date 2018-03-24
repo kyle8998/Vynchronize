@@ -21,7 +21,7 @@ console.log('Server Started . . .');
 //     console.log("testing")
 //     console.log(room)
 //     given_room = room
-    // res.sendFile(__dirname + '/index.html');
+// res.sendFile(__dirname + '/index.html');
 // });
 
 
@@ -53,8 +53,10 @@ io.sockets.on('connection', function(socket) {
     console.log('Connected: %s sockets connected', connections.length);
 
     // Set default room, if provided in url
-    socket.emit('set id', {id: given_room})
-    
+    socket.emit('set id', {
+        id: given_room
+    })
+
     // io.sockets.emit('broadcast',{ description: connections.length + ' clients connected!'});
 
     // For now have it be the same room for everyone!
@@ -124,12 +126,21 @@ io.sockets.on('connection', function(socket) {
         // io.sockets.adapter.rooms['room-' + roomnum].currVideo = videoId
         switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
             case 0:
+                // Set prev video before changing
+                io.sockets.adapter.rooms['room-' + socket.roomnum].prevVideo.yt = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.yt
+                // Set new video id
                 io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.yt = videoId
                 break;
             case 1:
+                // Set prev video before changing
+                io.sockets.adapter.rooms['room-' + socket.roomnum].prevVideo.dm = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.dm
+                // Set new video id
                 io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.dm = videoId
                 break;
             case 2:
+                // Set prev video before changing
+                io.sockets.adapter.rooms['room-' + socket.roomnum].prevVideo.vimeo = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.vimeo
+                // Set new video id
                 io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.vimeo = videoId
                 break;
             default:
@@ -147,6 +158,32 @@ io.sockets.on('connection', function(socket) {
         // }, 1000);
 
         // console.log(io.sockets.adapter.rooms['room-1'])
+    });
+
+    // Change to previous video
+    socket.on('change previous video', function(data, callback) {
+        var roomnum = data.room
+        var host = io.sockets.adapter.rooms['room-' + socket.roomnum].host
+
+        // This sets the videoId to the proper previous video
+        switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
+            case 0:
+                var videoId = io.sockets.adapter.rooms['room-' + socket.roomnum].prevVideo.yt
+                break;
+            case 1:
+                var videoId = io.sockets.adapter.rooms['room-' + socket.roomnum].prevVideo.dm
+                break;
+            case 2:
+                var videoId = io.sockets.adapter.rooms['room-' + socket.roomnum].prevVideo.vimeo
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
+
+        // Callback to go back to client to request the video change
+        callback({
+            videoId: videoId
+        })
     });
 
     // Get video id based on player
@@ -344,6 +381,12 @@ io.sockets.on('connection', function(socket) {
             io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer = 0
             // Default video
             io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo = {
+                yt: 'M7lc1UVf-VE',
+                dm: 'x26m1j4',
+                vimeo: '76979871'
+            }
+            // Previous Video
+            io.sockets.adapter.rooms['room-' + socket.roomnum].prevVideo = {
                 yt: 'M7lc1UVf-VE',
                 dm: 'x26m1j4',
                 vimeo: '76979871'
