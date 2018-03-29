@@ -95,6 +95,59 @@ function syncAlert() {
     });
 }
 
+// This return the current time
+function getTime() {
+    switch (currPlayer) {
+        case 0:
+            return player.getCurrentTime();
+            break;
+        case 1:
+            return  dailyPlayer.currentTime;
+            break;
+        case 2:
+            vimeoPlayer.getCurrentTime().then(function(seconds) {
+                // seconds = the current playback position
+                return seconds
+
+            }).catch(function(error) {
+                // an error occurred
+                console.log("Error: Could not retrieve Vimeo player current time")
+                return null
+            });
+            break;
+        default:
+            console.log("Error invalid player id")
+    }
+}
+
+function seekTo(time) {
+    switch (currPlayer) {
+        case 0:
+            player.seekTo(time)
+            player.playVideo()
+            break;
+        case 1:
+            dailyPlayer.seek(currTime);
+            dailyPlayer.play();
+            break;
+        case 2:
+            vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
+                // seconds = the actual time that the player seeked to
+            }).catch(function(error) {
+                switch (error.name) {
+                    case 'RangeError':
+                        // the time was less than 0 or greater than the video’s duration
+                        console.log("the time was less than 0 or greater than the video’s duration")
+                        break;
+                    default:
+                        // some other error occurred
+                        break;
+                }
+            });
+            break;
+    }
+}
+
 // Change playVideo
 function changeVideo(roomnum) {
     //var videoId = 'sjk7DiH0JhQ';
@@ -140,10 +193,13 @@ function changeVideo(roomnum) {
         }
     }
 
+    var time = getTime()
+    console.log("The time is this man: "+time)
     // Actually change the video!
     socket.emit('change video', {
         room: roomnum,
-        videoId: videoId
+        videoId: videoId,
+        time: time
     });
     //player.loadVideoById(videoId);
 }
@@ -165,45 +221,55 @@ function prevVideo(roomnum) {
         room: roomnum
     }, function(data) {
         // Actually change the video!
+        var prevTime = data.time
+        var time = getTime()
         socket.emit('change video', {
             room: roomnum,
-            videoId: data.videoId
+            videoId: data.videoId,
+            time: time,
+            prev: true
+        }, function(data){
+            // Set to the previous time
+            setTimeout(function() {
+                seekTo(prevTime)
+            }, 1200);
         });
     });
 }
 
-var noises = true
+var noises = false
 
 function loveLive(roomnum) {
     var test = document.getElementById("inputVideoId").innerHTML = "sjk7DiH0JhQ";
-
+    var time = getTime()
     // Only for YouTube testing
     if (!noises) {
         socket.emit('change video', {
             room: roomnum,
-            videoId: 'sjk7DiH0JhQ'
+            videoId: 'sjk7DiH0JhQ',
+            time: time
         });
         noises = true
     } else {
         socket.emit('change video', {
             room: roomnum,
-            videoId: '97uviVyw0_o'
+            videoId: '97uviVyw0_o',
+            time: time
         });
         noises = false
     }
 }
 
-// Get time
-socket.on('getTime', function(data) {
-    var caller = data.caller
-    var time = player.getCurrentTime()
-    console.log("Syncing new socket to time: " + time)
-    socket.emit('change time', {
-        time: time,
-        id: caller
-    });
-    //socket.emit('change video', { time: time });
-});
+// Get time - DEPRECATED
+// socket.on('getTime', function(data) {
+//     var caller = data.caller
+//     var time = player.getCurrentTime()
+//     console.log("Syncing new socket to time: " + time)
+//     socket.emit('change time', {
+//         time: time,
+//         id: caller
+//     });
+// });
 
 // This just calls the sync host function in the server
 socket.on('getData', function(data) {
