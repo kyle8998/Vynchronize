@@ -310,7 +310,27 @@
             });
 
             socket.on('new message', function(data) {
-                $chat.append('<div class="well well-sm message-well"><strong>' + data.user + '</strong>: ' + data.msg + '</div>');
+                var last_div = $('.chat > div:last')[0]
+
+                // This checks for the last user
+                // If you are the last user, attach the message instead of creating a new div
+                if (last_div !== undefined) {
+                    var myRegex = /.*<strong>(.+)<\/strong>.*/g
+                    var match = myRegex.exec(last_div.innerHTML)
+                    console.log(last_div.innerHTML)
+                    var last_user = ""
+                    if (match != null) {
+                        console.log("found the user!" + match[1])
+                         last_user = match[1]
+                    }
+                }
+                if (data.user != last_user) {
+                    $chat.append('<div class="well well-sm message-well"><strong>' + data.user + '</strong>: ' + data.msg + '</div>');
+                }
+                // If you sent the last message, append to previous
+                else {
+                    last_div.innerHTML = last_div.innerHTML + " <br> " + data.msg
+                }
             });
 
             // Submit user form
