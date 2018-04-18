@@ -166,42 +166,46 @@
                 <div class="col-lg-5">
                     <!-- <div class="col-md-4"> -->
                     <!-- <div id="onlineArea" class="row"> -->
-                        <h5 style="float:right; color: gray;">Online Users</h5>
-                        <hr style="height:0pt; visibility:hidden;" />
+                    <h5 style="float:right; color: gray;">Online Users</h5>
+                    <hr style="height:0pt; visibility:hidden;" />
 
-                        <!-- <br/> -->
-                        <div class="col-md-13">
+                    <!-- <br/> -->
+                    <div class="col-md-13">
                         <div class="well online-users">
                             <ul class="list-group" id="users"></ul>
                         </div>
 
                         <!-- Trigger the modal with a button -->
                         <button type="button" class="btn btn-info btn-sm invite-button" data-toggle="modal" data-target="#inviteModal"><i style="width: 30px; height: 30px;" class="fas fa-user-plus"></i><br><h5>Invite</h5></button>
-                        </div>
-                        <hr style="height:0pt; visibility:hidden;" />
-                        <h5 style="color:gray;">Chatroom</h5>
+                    </div>
+                    <hr style="height:0pt; visibility:hidden;" />
+                    <h5 style="color:gray;">Chatroom</h5>
 
-                        <!-- Modal -->
-                        <div id="inviteModal" class="modal fade" role="dialog">
-                          <div class="modal-dialog">
+                    <!-- Modal -->
+                    <div id="inviteModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
 
                             <!-- Modal content-->
                             <div class="modal-content">
-                              <div class="modal-header">
-                                <h4 class="modal-title">Invite a Friend!</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              </div>
-                              <div class="modal-body">
-                                <p>Send a friend your unique room link so they can watch videos too!</p>
-                                <p style="text-align: center;" id="invite">vynchronize.herokuapp.com/ROOMNUM</p>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                              </div>
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Invite a Friend</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Send a friend your unique room link so they can watch videos too!</p>
+                                    <!-- <p style="text-align: center;" id="invite">vynchronize.herokuapp.com/ROOMNUM</p> -->
+                                    <input style="margin : 0 auto; display:block; text-align: center; width: 22em" id="inv_input" type="text" value="vynchronize.herokuapp.com/ROOMNUM" class="field left" readonly>
+                                </div>
+                                <div class="modal-footer">
+                                    <div style="opacity: 1" class="tooltip">
+                                        <button type="button" class="btn btn-default" onclick="copyInvite()" onmouseout="outFunc()"><span class="tooltiptext" id="myTooltip">Copy to clipboard</span><i class="fas fa-clipboard"></i> Copy to Clipboard</button>
+                                    </div>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
 
-                          </div>
                         </div>
+                    </div>
                     <!-- </div> -->
                     <!-- </div> -->
 
@@ -359,7 +363,7 @@
                     var last_user = ""
                     if (match != null) {
                         console.log("found the user!" + match[1])
-                         last_user = match[1]
+                        last_user = match[1]
                     }
                 }
                 if (data.user != last_user) {
@@ -398,7 +402,8 @@
                             }
 
                             // Sets the invite link (roomnum)
-                            document.getElementById('invite').innerHTML = "vynchronize.herokuapp.com/" + roomnum
+                            // document.getElementById('invite').innerHTML = "vynchronize.herokuapp.com/" + roomnum
+                            document.getElementById("inv_input").value = "vynchronize.herokuapp.com/" + roomnum
                         }
                     });
                     // Join room
@@ -457,6 +462,25 @@
             // Workaround
             socket.emit('reset url')
         });
+
+        function copyInvite() {
+            /* Get the text field */
+            var copyText = document.getElementById("inv_input");
+            console.log(copyText)
+            /* Select the text field */
+            copyText.select();
+            /* Copy the text inside the text field */
+            document.execCommand("Copy");
+            /* Alert the copied text */
+            // alert("Copied the text: " + copyText.value);
+            var tooltip = document.getElementById("myTooltip");
+            tooltip.innerHTML = "Copied!";
+        }
+
+        function outFunc() {
+            var tooltip = document.getElementById("myTooltip");
+            tooltip.innerHTML = "Copy to clipboard";
+        }
     </script>
 
     <!-- Bootstrap core JavaScript -->
