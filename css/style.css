@@ -165,10 +165,16 @@
 
  .online-users {
      padding: 5px !important;
-     padding-right: 11em;
+     float: right;
+     /* padding-right: 11em; */
      height: 140px;
      width: 300px;
      overflow: scroll;
+ }
+
+ .invite-button {
+     height: 100px;
+     width: 100px;
  }
 
  .chat-users {
