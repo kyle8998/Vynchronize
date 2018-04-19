@@ -143,10 +143,10 @@
                         <button id="syncbutton" onclick="syncVideo(roomnum);syncAlert()" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-sync"></i> Sync</button>
 
                         <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Love live noises</button>
-                        <br/>
+                        <!-- <br/> -->
                         <button id="hostbutton" onclick="changeHost(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-users"></i> Make me the host!</button>
 
-                        <button style="margin-top:.5rem" class="btn btn-primary switch"><i class="fas fa-lightbulb"></i> Turn off the Lights!</button>
+                        <button style="margin-top:.5rem" class="btn btn-primary switch"><i class="fas fa-lightbulb"></i></button>
                     </div>
 
                     <!-- Div for lights off! -->
@@ -154,9 +154,9 @@
 
                     <br/>
                     <div>
-                        <input type="Video" style="max-width: 200px; margin-right: 0rem;" class="form-control" id="inputVideoId" placeholder="Video ID">
-                        <button onclick="changeVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
-                        <button onclick="prevVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-step-backward"></i> Previous Video</button>
+                        <input type="Video" style="max-width: 200px; margin-right: .5rem; float: left;" class="form-control" id="inputVideoId" placeholder="Video ID">
+                        <button onclick="changeVideo(roomnum)" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
+                        <button onclick="prevVideo(roomnum)" class="btn btn-primary"><i class="fas fa-step-backward"></i> Previous Video</button>
 
                         <br/>
                     </div>
@@ -217,11 +217,13 @@
                             <!-- Message Form (Enter Message) -->
                             <form id="messageForm">
                                 <div class="form-group">
-                                    <label>Enter Message...</label>
-                                    <input class="form-control chat-form" id="message" />
+                                    <br/>
+                                    <!-- <label>Enter Message...</label> -->
+                                    <input class="form-control chat-form" id="message" placeholder="Enter Message..." />
                                     <!-- <textarea class="form-control" id="message"></textarea> -->
                                     <br />
-                                    <input type="submit" class="btn btn-primary" value="Send Message" />
+                                    <!-- <input type="submit" class="btn btn-primary" value="Send Message" /> -->
+                                    <br />
                                 </div>
                             </form>
                         </div>
@@ -281,10 +283,10 @@
             <!-- </div> -->
             <!-- /.row -->
 
-            <hr style="height:120pt; visibility:hidden;" />
+            <!-- <hr style="height:20pt; visibility:hidden;" /> -->
             <section id="about" class="bg-light">
-                <br/>
-                <br/>
+                <hr style="height:100pt; visibility:hidden;" />
+
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 mx-auto">
