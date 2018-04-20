@@ -85,6 +85,7 @@
                         <label>Enter Name</label>
                         <input class="form-control" id="username" />
                         <br />
+                        <p style="color:red; margin-bottom: 0px" id="missinginfo2"></p>
                         <label>Enter Room ID (Default 1)</label>
                         <input class="form-control" id="roomnum" />
                         <br/>
@@ -332,6 +333,9 @@
             var $username = $('#username');
             var $roomnum = $('#roomnum');
 
+            // Don't allow trailing or leading whitespace!
+            var nosymbols = new RegExp("^(([a-zA-Z0-9_-][a-zA-Z0-9 _-]*[a-zA-Z0-9_-])|([a-zA-Z0-9_-]*))$");
+
             //   function send_message() {
             //       socket.emit('send message', $message.val());
             //       $message.val('');
@@ -383,10 +387,24 @@
                 e.preventDefault();
                 // console.log("Submitted");
                 // New User
+
+                // Get rid of trailing/leading whitespace
+                // var roomnum_val = $roomnum.val().trim();
+
+                // If name not entered
                 if ($username.val() == "") {
                     console.log("ENTER A NAME")
                     var noname = document.getElementById('missinginfo')
                     noname.innerHTML = "Please enter your name!"
+                }
+                // If Room contains symbols
+                // Can only be reached if the user decided to be sneaky and paste them!
+                else if (!nosymbols.test($roomnum.val())) {
+                    console.log("ENTER A PROPER ROOMNUMBER")
+                    var noname = document.getElementById('missinginfo')
+                    noname.innerHTML = ""
+                    var noname2 = document.getElementById('missinginfo2')
+                    noname2.innerHTML = "Please enter a room ID without symbols or leading/trailing whitespace!"
                 } else {
                     socket.emit('new user', $username.val(), function(data) {
                         if (data) {
@@ -396,7 +414,6 @@
                             // No longer using initarea
                             // var initStuff = document.getElementById("initArea")
                             // initStuff.innerHTML = ""
-
 
                             // This sets the room number on the client
                             if ($roomnum.val() != "") {
@@ -431,6 +448,20 @@
 
                 $users.html(html);
             });
+        });
+
+
+        // Prevent special characters from being typed
+        $('#roomnum').on('keypress', function(event) {
+            var nosymbols = new RegExp("^[a-zA-Z0-9\s]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            console.log(key)
+            console.log(event.keyCode)
+            // Allow enters and spaces to be used still
+            if (!nosymbols.test(key) && event.keyCode != 13 && event.keyCode != 32 && event.keyCode != 45 && event.keyCode != 95) {
+                event.preventDefault();
+                return false;
+            }
         });
 
 
