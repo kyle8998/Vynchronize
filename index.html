@@ -146,8 +146,8 @@
                         <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Love live noises</button>
                         <!-- <br/> -->
                         <button id="hostbutton" onclick="changeHost(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-users"></i> Make me the host!</button>
-
-                        <button style="margin-top:.5rem" class="btn btn-primary switch"><i class="fas fa-lightbulb"></i></button>
+                        <!-- Turn off the lights -->
+                        <button style="margin-top:.5rem" class="btn btn-primary switch"><i style="pointer-events:none;" class="fas fa-lightbulb"></i></button>
                     </div>
 
                     <!-- Div for lights off! -->
@@ -172,7 +172,7 @@
 
                     <!-- <br/> -->
                     <div class="col-md-13">
-                        <div class="well online-users">
+                        <div class="well online-users noscrollbar">
                             <ul class="list-group" id="users"></ul>
                         </div>
 
@@ -214,7 +214,7 @@
                         <br/>
                         <!-- <h2 style="color:gray">Chat</h2> -->
                         <div class="col-md-12">
-                            <div class="chat" id="chat"></div>
+                            <div class="chat noscrollbar" id="chat"></div>
                             <!-- Message Form (Enter Message) -->
                             <form id="messageForm">
                                 <div class="form-group">
@@ -379,6 +379,9 @@
                 else {
                     last_div.innerHTML = last_div.innerHTML + " <br> " + data.msg
                 }
+                // $chat.scrollTop = $chat.scrollHeight;
+                // Auto scroll on each message send!
+                $('div#chat').scrollTop($('div#chat')[0].scrollHeight)
             });
 
             // Submit user form

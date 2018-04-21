@@ -153,6 +153,7 @@
      width: 500px;
      height: 300px;
      overflow: scroll;
+     border:1px solid gray;
  }
 
  .message-well {
@@ -181,6 +182,23 @@
      padding: .2rem 1rem !important;
      padding-right: 10em !important;
  }
+
+ .noscrollbar {
+  /* These rules create an artificially confined space, so we get
+     a scrollbar that we can hide. They are not part of the hiding itself. */
+
+  /* border: 1px dashed gray;
+  padding: .5em; */
+
+  /* white-space: pre-wrap; */
+  /* height: 5em; */
+  overflow-y: scroll;
+}
+
+.noscrollbar::-webkit-scrollbar {
+  /* This is the magic bit */
+  display: none;
+}
 
  .form-group {
      margin-bottom: 15px;
