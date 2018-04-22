@@ -69,6 +69,14 @@
      text-align: center;
  }
 
+ .random {
+     margin: 10px;
+     height: 30px;
+     width: 120px;
+     padding: 2px;
+     background-color: black;
+ }
+
  .form-control-static {
      min-height: 34px;
      padding-top: 7px;
@@ -153,7 +161,7 @@
      width: 500px;
      height: 300px;
      overflow: scroll;
-     border:1px solid gray;
+     border: 1px solid gray;
  }
 
  .message-well {
@@ -184,21 +192,19 @@
  }
 
  .noscrollbar {
-  /* These rules create an artificially confined space, so we get
+     /* These rules create an artificially confined space, so we get
      a scrollbar that we can hide. They are not part of the hiding itself. */
-
-  /* border: 1px dashed gray;
+     /* border: 1px dashed gray;
   padding: .5em; */
+     /* white-space: pre-wrap; */
+     /* height: 5em; */
+     overflow-y: scroll;
+ }
 
-  /* white-space: pre-wrap; */
-  /* height: 5em; */
-  overflow-y: scroll;
-}
-
-.noscrollbar::-webkit-scrollbar {
-  /* This is the magic bit */
-  display: none;
-}
+ .noscrollbar::-webkit-scrollbar {
+     /* This is the magic bit */
+     display: none;
+ }
 
  .form-group {
      margin-bottom: 15px;
@@ -229,39 +235,39 @@
  }
 
  .tooltip {
-  position: relative;
-  display: inline-block;
-}
+     position: relative;
+     display: inline-block;
+ }
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 140px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -75px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
+ .tooltip .tooltiptext {
+     visibility: hidden;
+     width: 140px;
+     background-color: #555;
+     color: #fff;
+     text-align: center;
+     border-radius: 6px;
+     padding: 5px;
+     position: absolute;
+     z-index: 1;
+     bottom: 150%;
+     left: 50%;
+     margin-left: -75px;
+     opacity: 0;
+     transition: opacity 0.3s;
+ }
 
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
+ .tooltip .tooltiptext::after {
+     content: "";
+     position: absolute;
+     top: 100%;
+     left: 50%;
+     margin-left: -5px;
+     border-width: 5px;
+     border-style: solid;
+     border-color: #555 transparent transparent transparent;
+ }
 
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
+ .tooltip:hover .tooltiptext {
+     visibility: visible;
+     opacity: 1;
+ }

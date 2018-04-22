@@ -87,10 +87,12 @@
                         <br />
                         <p style="color:red; margin-bottom: 0px" id="missinginfo2"></p>
                         <label>Enter Room ID (Default 1)</label>
+                        <button type="button" onClick="randomroom()" class="btn btn-primary random">Random</button>
+                        <br/>
                         <input class="form-control" id="roomnum" />
                         <br/>
 
-                        <input type="submit" class="btn btn-primary" value="Enter" />
+                        <input style="margin-top: 10px;" type="submit" class="btn btn-primary" value="Enter" />
                         <hr style="height:65pt; visibility:hidden;" />
                     </div>
                 </form>
@@ -491,7 +493,8 @@
         socket.on('set id', function(data) {
             if (data.id != "") {
                 document.getElementById('roomnum').value = data.id
-                document.getElementById('roomnum').readOnly = true
+                // Probably should not force it to be readonly
+                // document.getElementById('roomnum').readOnly = true
                 console.log("You are joining room: " + data.id)
             }
             // Reset url for next person
@@ -516,6 +519,11 @@
         function outFunc() {
             var tooltip = document.getElementById("myTooltip");
             tooltip.innerHTML = "Copy to clipboard";
+        }
+
+        // Generate a random alphanumeric room id
+        function randomroom() {
+            document.getElementById('roomnum').value = Math.random().toString(36).substr(2, 12)
         }
     </script>
 
