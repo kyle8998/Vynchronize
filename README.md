@@ -116,3 +116,46 @@ original YouTube video will be saved and you can go back to it at any time.
 This set up the foundation for many more video players in the future. I hope to
 implement them soon! One feature I would really like would be the ability to
 parse videos from any link, but that may be out of my ability at the moment!
+
+
+##### The Room Object
+
+io.sockets.adapter.rooms['room-'+roomnum]
+
+This is the special object generated for every room created. Here is it's structure:
+
+```
+io.sockets.adapter.rooms['room-'+roomnum]
+│   .host
+|   .hostName
+|   .users
+│   .currPlayer
+|   .length
+│
+└───.currVideo
+│   |   .yt
+│   |   .dm
+│   |   .vimeo
+|
+└───.prevVideo
+│   │
+│   └───.yt
+│   |   |   .id
+│   |   |   .time
+│   └───.dm
+│   |   |   .id
+│   |   |   .time
+│   └───.vimeo
+│       │   .id
+│       │   .time
+|
+└───.queue
+│   |   .yt
+│   |   .dm
+│   |   .vimeo
+|
+└───.sockets
+    │   SOCKET-ID1
+    │   SOCKET-ID2
+    |   ...
+```

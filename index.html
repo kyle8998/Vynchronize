@@ -108,7 +108,7 @@
                     <!-- <hr style="height:0pt; visibility:hidden;" /> -->
 
                     <div style="margin: 10px" class="dropdown">
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button style="background-color: #007bff" class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-video"></i> Player
                         </button>
                         <div class="form-control dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
@@ -158,8 +158,9 @@
                     <br/>
                     <div>
                         <input type="Video" style="max-width: 200px; margin-right: .5rem; float: left;" class="form-control" id="inputVideoId" placeholder="Video ID">
+                        <button onclick="enqueueVideo(roomnum)" class="btn btn-primary"><i class="fas fa-plus"></i> Add to Queue</button>
                         <button onclick="changeVideo(roomnum)" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
-                        <button onclick="prevVideo(roomnum)" class="btn btn-primary"><i class="fas fa-step-backward"></i> Previous Video</button>
+                        <button onclick="prevVideo(roomnum)" class="btn btn-primary"><i class="fas fa-step-backward"></i> Previous</button>
 
                         <br/>
                     </div>
@@ -179,7 +180,7 @@
                         </div>
 
                         <!-- Trigger the modal with a button -->
-                        <button type="button" class="btn btn-info btn-sm invite-button" data-toggle="modal" data-target="#inviteModal"><i style="width: 30px; height: 30px;" class="fas fa-user-plus"></i><br><h5>Invite</h5></button>
+                        <button style="background-color: #007bff" type="button" class="btn btn-info btn-sm invite-button" data-toggle="modal" data-target="#inviteModal"><i style="width: 30px; height: 30px;" class="fas fa-user-plus"></i><br><h5>Invite</h5></button>
                     </div>
                     <hr style="height:0pt; visibility:hidden;" />
                     <h5 style="color:gray;">Chatroom</h5>

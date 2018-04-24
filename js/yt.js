@@ -55,7 +55,11 @@ function onPlayerStateChange(event) {
     // Event Listeners
     switch (playerStatus) {
         case 0:
-            //record('video ended');
+            // Video Ended
+            // Go to next in queue
+            if (host) {
+                playNext(roomnum)
+            }
             break;
         case 1:
             console.log(host)

@@ -148,11 +148,8 @@ function seekTo(time) {
     }
 }
 
-// Change playVideo
-function changeVideo(roomnum) {
-    //var videoId = 'sjk7DiH0JhQ';
-    var videoId = document.getElementById("inputVideoId").value;
-
+// This parses the ID out of the video link
+function idParse(videoId) {
     // If user enters a full link
     if (videoId.includes("https://") || videoId.includes("http://")) {
         // Do some string processing with regex
@@ -162,7 +159,7 @@ function changeVideo(roomnum) {
                 var match = myRegex.exec(videoId)
                 if (match != null) {
                     console.log("You entered a link, but you really meant " + match[1])
-                    videoId = match[1]
+                    return match[1]
                 }
                 break;
 
@@ -175,7 +172,7 @@ function changeVideo(roomnum) {
                 var match = myRegex.exec(videoId)
                 if (match != null) {
                     console.log("You entered a link, but you really meant " + match[1])
-                    videoId = match[1]
+                    return match[1]
                 }
                 break;
 
@@ -184,7 +181,7 @@ function changeVideo(roomnum) {
                 var match = myRegex.exec(videoId)
                 if (match != null) {
                     console.log("You entered a link, but you really meant " + match[1])
-                    videoId = match[1]
+                    return match[1]
                 }
                 break;
 
@@ -192,6 +189,47 @@ function changeVideo(roomnum) {
                 console.log("Error invalid videoId")
         }
     }
+    return videoId
+}
+// QueueVideo
+function enqueueVideo(roomnum) {
+    //var videoId = 'sjk7DiH0JhQ';
+    var videoId = document.getElementById("inputVideoId").value;
+    videoId = idParse(videoId)
+
+    // Actually change the video!
+    socket.emit('enqueue video', {
+        room: roomnum,
+        videoId: videoId
+    });
+
+    // Generate notify alert
+    $.notify({
+        title: '<strong>Video Added to Queue:  </strong>',
+        icon: 'fas fa-users',
+        message: videoId
+    }, {
+        type: 'info',
+        delay: 800,
+        animate: {
+            enter: 'animated fadeInUp',
+            exit: 'animated fadeOutRight'
+        },
+        placement: {
+            from: "bottom",
+            align: "right"
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+    });
+}
+
+// Change playVideo
+function changeVideo(roomnum) {
+    //var videoId = 'sjk7DiH0JhQ';
+    var videoId = document.getElementById("inputVideoId").value;
+    videoId = idParse(videoId)
 
     var time = getTime()
     console.log("The time is this man: "+time)
@@ -204,6 +242,7 @@ function changeVideo(roomnum) {
     //player.loadVideoById(videoId);
 }
 
+// Does this even work?
 function changeVideoId(roomnum, id) {
     //var videoId = 'sjk7DiH0JhQ';
     document.getElementById("inputVideoId").innerHTML = id;

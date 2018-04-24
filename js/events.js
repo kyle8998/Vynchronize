@@ -131,3 +131,17 @@ socket.on('justSeek', function(data) {
             break;
     }
 });
+
+// Needs to grab the next video id and change the video
+function playNext(roomnum) {
+    socket.emit('play next', {}, function(data){
+        var videoId = data.videoId
+
+        // Change the video
+        socket.emit('change video', {
+            room: roomnum,
+            videoId: videoId,
+            time: 0
+        });
+    });
+}
