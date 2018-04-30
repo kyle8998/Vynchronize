@@ -3,6 +3,7 @@ tag.id = 'iframe-demo';
 tag.src = 'https://www.youtube.com/iframe_api';
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+yt3_api = 'AIzaSyCEc0w2faZFftIynhOfjUSW8YIQDFPBMkI'
 
 var player;
 
@@ -92,3 +93,21 @@ function play() {
         player.pauseVideo();
     }
 }
+
+socket.on('get title', function(data, callback) {
+    var videoId = data.videoId
+    $.get(
+        "https://www.googleapis.com/youtube/v3/videos", {
+            part: 'snippet',
+            id: videoId,
+            key: yt3_api
+        },
+        function(data) {
+            // Does a callback and returns title
+            callback({
+                videoId: videoId,
+                title: data.items[0].snippet.title
+            })
+        }
+    )
+})

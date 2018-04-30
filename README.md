@@ -150,12 +150,33 @@ io.sockets.adapter.rooms['room-'+roomnum]
 │       │   .time
 |
 └───.queue
-│   |   .yt
-│   |   .dm
-│   |   .vimeo
+│   |
+|   └───.yt
+|   |   └───[{
+|   |   |   videoId,
+|   |   |   title
+|   |   |   }]
+|   |
+│   └───.dm
+|   |   └───[{
+|   |   |   videoId,
+|   |   |   title
+|   |   |   }]
+|   |
+│   └───.vimeo
+|   |   └───[{
+|   |   |   videoId,
+|   |   |   title
+|   |   |   }]
 |
 └───.sockets
     │   SOCKET-ID1
     │   SOCKET-ID2
     |   ...
 ```
+
+**Some Notable Things**
+
+The Queue object consists of arrays for each specific player. Each array then
+consists of objects that hold both the id and title. It was created this way because
+grabbing the title required extra work, and could not be done continuously on the spot.
