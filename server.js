@@ -109,7 +109,7 @@ io.sockets.on('connection', function(socket) {
                     // Gets the video id from the room object
                     videoId = io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt.shift().videoId
                     // Remove video from the front end
-                    updateQueueVideos(videoId)
+                    updateQueueVideos()
                     callback({
                         videoId: videoId
                     })
@@ -186,8 +186,26 @@ io.sockets.on('connection', function(socket) {
                     console.log("Error invalid player id")
             }
             console.log(io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt)
-            updateQueueVideos(videoId)
+            updateQueueVideos()
         })
+    })
+
+    // Empty the queue
+    socket.on('empty queue', function(data) {
+        switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
+            case 0:
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt = []
+                break;
+            case 1:
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm = []
+                break;
+            case 2:
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.vimeo = []
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
+        updateQueueVideos()
     })
 
     // Change video
@@ -547,6 +565,9 @@ io.sockets.on('connection', function(socket) {
 
             // This calls back the function on the host client
             //callback(true)
+
+            // DISABLE CONTROLS - DEPRECATED
+            // socket.emit('hostControls');
         } else {
             console.log("I am the host")
             //socket.emit('auto sync');
@@ -604,13 +625,12 @@ io.sockets.on('connection', function(socket) {
     }
 
     // Update the playlist/queue
-    function updateQueueVideos(videoId) {
+    function updateQueueVideos() {
         var vidlist = io.sockets.adapter.rooms['room-' + socket.roomnum].queue
         var currPlayer = io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer
         io.sockets.in("room-" + socket.roomnum).emit('get vidlist', {
             vidlist: vidlist,
             currPlayer: currPlayer,
-            videoId: videoId
         });
     }
 

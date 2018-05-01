@@ -129,7 +129,8 @@
                     <!----------------------------------- PLAYER AREA ----------------------------------->
 
                     <div id='playerArea'>
-                        <iframe class="video" id="player" allowfullscreen="0" rel="0" width="640" height="360" src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1" frameborder="1" style="border: solid 4px #37474F"></iframe>
+                        <div id="player"></div>
+                        <!-- <iframe class="video" id="player" allowfullscreen="0" rel="0" width="640" height="360" src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1" frameborder="1" style="border: solid 4px #37474F"></iframe> -->
                     </div>
                     <div id='dailyArea'>
                         <iframe class="video" id="player-daily" frameborder="0" width="640" height="360" allowfullscreen allow="autoplay"></iframe>
@@ -155,12 +156,15 @@
                     <!-- Div for lights off! -->
                     <div id='persoff'></div>
 
-                    <br/>
-                    <div>
+                    <div class="topbotmargins">
                         <input type="Video" style="max-width: 200px; margin-right: .5rem; float: left;" class="form-control" id="inputVideoId" placeholder="Video ID">
                         <button onclick="enqueueVideo(roomnum)" class="btn btn-primary"><i class="fas fa-plus"></i> Add to Queue</button>
+                        <button onclick="emptyQueue(roomnum)" class="btn btn-primary"><i class="fas fa-trash"></i> Empty Queue</button>
+                    </div>
+                    <div>
                         <button onclick="changeVideo(roomnum)" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
                         <button onclick="prevVideo(roomnum)" class="btn btn-primary"><i class="fas fa-step-backward"></i> Previous</button>
+                        <button onclick="playNext(roomnum)" class="btn btn-primary"><i class="fas fa-step-forward"></i> Next</button>
 
                         <br/>
                     </div>

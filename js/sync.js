@@ -206,10 +206,40 @@ function enqueueVideo(roomnum) {
     // Generate notify alert
     $.notify({
         title: '<strong>Video Added to Queue:  </strong>',
-        icon: 'fas fa-users',
+        icon: 'fas fa-plus',
         message: videoId
     }, {
         type: 'info',
+        delay: 800,
+        animate: {
+            enter: 'animated fadeInUp',
+            exit: 'animated fadeOutRight'
+        },
+        placement: {
+            from: "bottom",
+            align: "right"
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+    });
+}
+
+// Empty Queue
+function emptyQueue(roomnum) {
+
+    // Empty the queue
+    socket.emit('empty queue', {
+        room: roomnum
+    });
+
+    // Generate notify alert
+    $.notify({
+        title: '<strong>Queue Emptied</strong>',
+        icon: 'fas fa-trash',
+        message: ""
+    }, {
+        type: 'warning',
         delay: 800,
         animate: {
             enter: 'animated fadeInUp',
