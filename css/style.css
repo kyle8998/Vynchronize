@@ -272,88 +272,89 @@
      opacity: 1;
  }
 
-/* PLAYLIST? */
+ /* PLAYLIST? */
+
  .vid-list-container {
-	width: 92%;
-	overflow: hidden;
-	margin-top: 20px;
-	margin-left:4%;
-	padding-bottom: 20px;
-}
+     width: 92%;
+     overflow: hidden;
+     margin-top: 20px;
+     margin-left: 4%;
+     padding-bottom: 20px;
+ }
 
-.vid-list {
-	width: 1344px;
-	position: relative;
-	top:0;
-	left: 0;
-}
+ .vid-list {
+     /* Width is made large to support a lot of videos, can be more but will make a second row */
+     width: 13440px;
+     position: relative;
+     top: 0;
+     left: 0;
+ }
 
-.vid-item {
-	display: block;
-	width: 148px;
-	height: 148px;
-	float: left;
-	margin: 0;
-	padding: 10px;
-}
+ .vid-item {
+     display: block;
+     width: 148px;
+     height: 148px;
+     float: left;
+     margin: 0;
+     padding: 10px;
+ }
 
-.thumb {
-	overflow:hidden;
-	height: 84px;
-}
+ .thumb {
+     overflow: hidden;
+     height: 84px;
+ }
 
-.thumb img {
-	width: 100%;
-	position: relative;
-	top: -13px;
-}
+ .thumb img {
+     width: 100%;
+     position: relative;
+     top: -13px;
+ }
 
-.vid-item .desc {
-	color: #21A1D2;
-	font-size: 15px;
-	margin-top:5px;
-}
+ .vid-item .desc {
+     color: #21A1D2;
+     font-size: 15px;
+     margin-top: 5px;
+ }
 
-.arrows {
-	position:relative;
-	width: 100%;
-}
+ .arrows {
+     position: relative;
+     width: 100%;
+ }
 
-.arrow-left {
-	color: #fff;
-	position: absolute;
-	background: #777;
-	padding: 15px;
-	left: -25px;
-	top: -130px;
-	z-index: 99;
-	cursor: pointer;
-}
+ .arrow-left {
+     color: #fff;
+     position: absolute;
+     background: #777;
+     padding: 15px;
+     left: -25px;
+     top: -130px;
+     z-index: 99;
+     cursor: pointer;
+ }
 
-.arrow-right {
-	color: #fff;
-	position: absolute;
-	background: #777;
-	padding: 15px;
-	right: -25px;
-	top: -130px;
-	z-index:100;
-	cursor: pointer;
-}
+ .arrow-right {
+     color: #fff;
+     position: absolute;
+     background: #777;
+     padding: 15px;
+     right: -25px;
+     top: -130px;
+     z-index: 100;
+     cursor: pointer;
+ }
 
-@media (max-width: 624px) {
-	.arrows {
-		position:relative;
-		margin: 0 auto;
-		width:96px;
-	}
-	.arrow-left {
-		left: 0;
-		top: -20px;
-	}
-
-	.arrow-right {
-		right: 0;
-		top: -20px;
-	}
-}
+ @media (max-width: 624px) {
+     .arrows {
+         position: relative;
+         margin: 0 auto;
+         width: 96px;
+     }
+     .arrow-left {
+         left: 0;
+         top: -20px;
+     }
+     .arrow-right {
+         right: 0;
+         top: -20px;
+     }
+ }

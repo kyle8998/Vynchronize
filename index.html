@@ -489,9 +489,14 @@
                 console.log("i am updating the queue")
                 var yt = data.vidlist.yt
                 var html = ''
-                for (i = 0; i < yt.length; i++) {
-                    html += '<li class="vid-item"><div class="thumb"><img src="http://img.youtube.com/vi/' + yt[i].videoId + '/0.jpg"></div><div class="desc">' + yt[i].title + '</div></li>'
+                if (yt.length > 0) {
+                    for (i = 0; i < yt.length; i++) {
+                        html += '<li class="vid-item"><div class="thumb"><img src="http://img.youtube.com/vi/' + yt[i].videoId + '/0.jpg"></div><div class="desc">' + yt[i].title + '</div></li>'
+                    }
+                } else {
+                    html += '<li class="vid-item"></li>'
                 }
+
                 $vidlist.html(html)
             });
         });
