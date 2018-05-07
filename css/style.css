@@ -293,7 +293,7 @@
  .vid-item {
      display: block;
      width: 148px;
-     height: 148px;
+     height: 170px;
      float: left;
      margin: 0;
      padding: 10px;
@@ -301,7 +301,7 @@
 
  .thumb {
      overflow: hidden;
-     height: 84px;
+     height: 110px;
  }
 
  .thumb img {
@@ -362,4 +362,31 @@
 .topbotmargins {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+/* GHOST BUTTONS */
+.ghost-button-full-color {
+  float: right;
+  display: inline-block;
+  width: 25px;
+  padding-bottom: 10px;
+  /* height: 25px; */
+  /* padding: 8px; */
+  color: #000;
+  background-color: transparent;
+  /* border: 2px solid #fff; */  text-align: center;
+  outline: none;
+  text-decoration: none;
+  transition: color 0.3s ease-out,
+              background-color 0.3s ease-out,
+              border-color 0.3s ease-out;
+}
+.ghost-button-full-color:hover,
+.ghost-button-full-color:active {
+  background-color: #e05555;
+  border-color: #e05555;
+  color: #fff;
+  transition: color 0.3s ease-in,
+              background-color 0.3s ease-in,
+              border-color 0.3s ease-in;
 }

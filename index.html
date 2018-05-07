@@ -162,6 +162,7 @@
                         <button onclick="emptyQueue(roomnum)" class="btn btn-primary"><i class="fas fa-trash"></i> Empty Queue</button>
                     </div>
                     <div>
+                        <!-- <a class="ghost-button-full-color"><i class="far fa-times-circle"></i></a> -->
                         <button onclick="changeVideo(roomnum)" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
                         <button onclick="prevVideo(roomnum)" class="btn btn-primary"><i class="fas fa-step-backward"></i> Previous</button>
                         <button onclick="playNext(roomnum)" class="btn btn-primary"><i class="fas fa-step-forward"></i> Next</button>
@@ -174,6 +175,7 @@
                         <ul class="vid-list" id="vidlist">
                             <li class="vid-item">
                                 <!-- <div class="thumb">
+                                    <a onClick="removeAt(0)" class="ghost-button-full-color"><i class="far fa-times-circle"></i></a>
                                     <img src="http://img.youtube.com/vi/eg6kNoJmzkY/0.jpg">
                                 </div>
                                 <div class="desc">
@@ -495,7 +497,7 @@
                 var html = ''
                 if (yt.length > 0) {
                     for (i = 0; i < yt.length; i++) {
-                        html += '<li class="vid-item"><div class="thumb"><img src="http://img.youtube.com/vi/' + yt[i].videoId + '/0.jpg"></div><div class="desc">' + yt[i].title + '</div></li>'
+                        html += '<li class="vid-item"><div class="thumb"><a href="javascript: removeAt(' + i + ')" class="ghost-button-full-color"><i class="far fa-times-circle"></i></a><a href="javascript: playAt(' + i + ')"><img src="http://img.youtube.com/vi/' + yt[i].videoId + '/0.jpg"></a></div><a href="javascript: playAt(' + i + ')" class="desc">' + yt[i].title + '</a></li>'
                     }
                 } else {
                     html += '<li class="vid-item"></li>'
@@ -504,6 +506,24 @@
                 $vidlist.html(html)
             });
         });
+
+        // Remove the video from the queue at idx
+        function removeAt(idx) {
+            socket.emit('remove at', { idx: idx })
+        }
+
+        function playAt(idx) {
+            socket.emit('play at', { idx: idx }, function(data){
+                var videoId = data.videoId
+
+                // Change the video
+                socket.emit('change video', {
+                    room: roomnum,
+                    videoId: videoId,
+                    time: 0
+                })
+            })
+        }
 
 
         // Prevent special characters from being typed
