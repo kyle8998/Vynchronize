@@ -101,7 +101,7 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('play next', function(data, callback) {
-        var videoId = ""
+        var videoId = "QUEUE IS EMPTY"
 
         switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
             case 0:
@@ -123,6 +123,7 @@ io.sockets.on('connection', function(socket) {
             default:
                 console.log("Error invalid player id")
         }
+        // console.log(videoId)
         // Remove video from the front end
         updateQueueVideos()
         callback({

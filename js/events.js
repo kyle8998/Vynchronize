@@ -137,11 +137,36 @@ function playNext(roomnum) {
     socket.emit('play next', {}, function(data){
         var videoId = data.videoId
 
-        // Change the video
-        socket.emit('change video', {
-            room: roomnum,
-            videoId: videoId,
-            time: 0
-        });
-    });
+        // IF queue is empty do not try to change
+        if (videoId !== "QUEUE IS EMPTY") {
+            // Change the video
+            socket.emit('change video', {
+                room: roomnum,
+                videoId: videoId,
+                time: 0
+            })
+        }
+        else {
+            // Notify alert
+            $.notify({
+                title: '<strong>Queue</strong>',
+                icon: 'fas fa-list-alt',
+                message: " is empty!"
+            }, {
+                type: 'warning',
+                delay: 400,
+                animate: {
+                    enter: 'animated fadeInUp',
+                    exit: 'animated fadeOutRight'
+                },
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                offset: 20,
+                spacing: 10,
+                z_index: 1031,
+            });
+        }
+    })
 }

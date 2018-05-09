@@ -70,7 +70,7 @@ function disconnected() {
         icon: 'fas fa-users',
         message: " You are now out of sync of the host"
     }, {
-        type: 'warning',
+        type: 'danger',
         delay: 400,
         animate: {
             enter: 'animated fadeInUp',
