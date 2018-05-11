@@ -208,13 +208,13 @@ io.sockets.on('connection', function(socket) {
         var idx = data.idx
         switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
             case 0:
-                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt.splice(idx,1)
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt.splice(idx, 1)
                 break;
             case 1:
-                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.splice(idx,1)
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.splice(idx, 1)
                 break;
             case 2:
-                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.vimeo.splice(idx,1)
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.vimeo.splice(idx, 1)
                 break;
             default:
                 console.log("Error invalid player id")
@@ -229,13 +229,13 @@ io.sockets.on('connection', function(socket) {
         switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
             case 0:
                 videoId = io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt[idx].videoId
-                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt.splice(idx,1)
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt.splice(idx, 1)
                 break;
             case 1:
-                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.splice(idx,1)
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.splice(idx, 1)
                 break;
             case 2:
-                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.vimeo.splice(idx,1)
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.vimeo.splice(idx, 1)
                 break;
             default:
                 console.log("Error invalid player id")
@@ -561,6 +561,9 @@ io.sockets.on('connection', function(socket) {
         io.sockets.in("room-" + socket.roomnum).emit('changeHostLabel', {
             username: io.sockets.adapter.rooms['room-' + socket.roomnum].hostName
         });
+
+        // Set Queue
+        updateQueueVideos()
 
         // Gets current video from room variable
         switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
