@@ -353,6 +353,7 @@
         var socket = io.connect();
         var roomnum = 1
         var id = "M7lc1UVf-VE"
+        var username = ""
 
         // Chat stuff
         $(function() {
@@ -446,6 +447,7 @@
                     var noname2 = document.getElementById('missinginfo2')
                     noname2.innerHTML = "Please enter a room ID without symbols or leading/trailing whitespace!"
                 } else {
+                    username = $username.val()
                     socket.emit('new user', $username.val(), function(data) {
                         if (data) {
                             $userFormArea.hide();
@@ -627,6 +629,7 @@
     <script src="js/player.js"></script>
     <script src="js/host.js"></script>
     <script src="js/events.js"></script>
+    <script src="js/notify.js"></script>
 
     <!-- Youtube -->
     <script src="js/yt.js"></script>

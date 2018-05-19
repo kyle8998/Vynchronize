@@ -102,7 +102,7 @@ function getTime() {
             return player.getCurrentTime();
             break;
         case 1:
-            return  dailyPlayer.currentTime;
+            return dailyPlayer.currentTime;
             break;
         case 2:
             vimeoPlayer.getCurrentTime().then(function(seconds) {
@@ -200,28 +200,8 @@ function enqueueVideo(roomnum) {
     // Actually change the video!
     socket.emit('enqueue video', {
         room: roomnum,
-        videoId: videoId
-    });
-
-    // Generate notify alert
-    $.notify({
-        title: '<strong>Video Added to Queue:  </strong>',
-        icon: 'fas fa-plus',
-        message: videoId
-    }, {
-        type: 'info',
-        delay: 800,
-        animate: {
-            enter: 'animated fadeInUp',
-            exit: 'animated fadeOutRight'
-        },
-        placement: {
-            from: "bottom",
-            align: "right"
-        },
-        offset: 20,
-        spacing: 10,
-        z_index: 1031,
+        videoId: videoId,
+        user: username
     });
 }
 
@@ -262,7 +242,7 @@ function changeVideo(roomnum) {
     videoId = idParse(videoId)
 
     var time = getTime()
-    console.log("The time is this man: "+time)
+    console.log("The time is this man: " + time)
     // Actually change the video!
     socket.emit('change video', {
         room: roomnum,
@@ -297,7 +277,7 @@ function prevVideo(roomnum) {
             videoId: data.videoId,
             time: time,
             prev: true
-        }, function(data){
+        }, function(data) {
             // Set to the previous time
             setTimeout(function() {
                 seekTo(prevTime)

@@ -98,6 +98,7 @@ function play() {
 
 socket.on('get title', function(data, callback) {
     var videoId = data.videoId
+    var user = data.user
     $.get(
         "https://www.googleapis.com/youtube/v3/videos", {
             part: 'snippet',
@@ -105,6 +106,12 @@ socket.on('get title', function(data, callback) {
             key: yt3_api
         },
         function(data) {
+            // enqueueNotify(user, data.items[0].snippet.title)
+            socket.emit('notify alerts', {
+                alert: 0,
+                user: user,
+                title: data.items[0].snippet.title
+            });
             // Does a callback and returns title
             callback({
                 videoId: videoId,

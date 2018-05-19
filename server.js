@@ -150,10 +150,12 @@ io.sockets.on('connection', function(socket) {
     // Enqueue video
     // Gets title then calls back
     socket.on('enqueue video', function(data) {
+        var user = data.user
         // callback
         // See yt.js file
         socket.emit('get title', {
-            videoId: data.videoId
+            videoId: data.videoId,
+            user: user
         }, function(data) {
             // Data contains videoId and title
             var videoId = data.videoId
@@ -181,6 +183,16 @@ io.sockets.on('connection', function(socket) {
                     console.log("Error invalid player id")
             }
             console.log(io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt)
+
+            // Call notify
+            // DEPRECATED - NOW THE SOCKET ITSELF CALLS 'notify alerts' from within the get title function
+            // io.sockets.in("room-"+socket.roomnum).emit('enqueueNotify', {
+            //     videoId: videoId,
+            //     title: title,
+            //     user: user
+            // })
+
+            // Update front end
             updateQueueVideos()
         })
     })
@@ -726,6 +738,28 @@ io.sockets.on('connection', function(socket) {
         }
 
     });
+
+    // Calls notify functions
+    // NOT YET FINISHED
+    socket.on('notify alerts', function(data) {
+        var alert = data.alert
+
+        switch (alert) {
+            // Enqueue alert
+            case 0:
+                io.sockets.in("room-" + socket.roomnum).emit('enqueueNotify', {
+                    user: data.user,
+                    title: data.title
+                });
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+                console.log("Error alert id")
+        }
+    })
 
     //------------------------------------------------------------------------------
     // Async get current time
