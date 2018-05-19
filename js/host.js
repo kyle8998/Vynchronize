@@ -1,9 +1,11 @@
 //-----------------------------------------------------------------------------
 // Host stuff
 var host = false
+var notifyfix = false
 
 // Sets the host for the room
 socket.on('setHost', function(data) {
+    notifyfix = true
     console.log("You are the new host!")
     host = true
 });
@@ -65,25 +67,29 @@ socket.on('autoHost', function(data) {
 
 // If user gets disconnected from the host, give warning!
 function disconnected() {
-    $.notify({
-        title: '<strong>Warning: </strong>',
-        icon: 'fas fa-users',
-        message: " You are now out of sync of the host"
-    }, {
-        type: 'danger',
-        delay: 400,
-        animate: {
-            enter: 'animated fadeInUp',
-            exit: 'animated fadeOutRight'
-        },
-        placement: {
-            from: "bottom",
-            align: "right"
-        },
-        offset: 20,
-        spacing: 10,
-        z_index: 1031,
-    });
+    if (notifyfix) {
+        $.notify({
+            title: '<strong>Warning: </strong>',
+            icon: 'fas fa-users',
+            message: " You are now out of sync of the host"
+        }, {
+            type: 'danger',
+            delay: 400,
+            animate: {
+                enter: 'animated fadeInUp',
+                exit: 'animated fadeOutRight'
+            },
+            placement: {
+                from: "bottom",
+                align: "right"
+            },
+            offset: 20,
+            spacing: 10,
+            z_index: 1031,
+        });
+    } else {
+        notifyfix = true
+    }
 }
 
 // Grab all host data
@@ -164,10 +170,10 @@ function test() {
 socket.on('hostControls', function(data) {
     // If host disable controls
     if (!host) {
-        console.log("SOURCE: "+document.getElementById('player').src)
+        console.log("SOURCE: " + document.getElementById('player').src)
         // document.getElementById('player').src = document.getElementById('player').src + '&controls=0'
         document.getElementById('player').src = document.getElementById('player').src.replace("&controls=1", "&controls=0")
-        console.log("POSTSOURCE: "+document.getElementById('player').src)
+        console.log("POSTSOURCE: " + document.getElementById('player').src)
 
     }
     // Give back controls, if needed!
