@@ -71,30 +71,6 @@ function syncVideo(roomnum) {
     }
 }
 
-// Made into its own function to reduce spam
-function syncAlert() {
-    // Sync notify
-    $.notify({
-        title: '<strong>Sync: </strong>',
-        icon: 'fas fa-users',
-        message: " The room is now synced with you"
-    }, {
-        type: 'success',
-        delay: 400,
-        animate: {
-            enter: 'animated fadeInUp',
-            exit: 'animated fadeOutRight'
-        },
-        placement: {
-            from: "bottom",
-            align: "right"
-        },
-        offset: 20,
-        spacing: 10,
-        z_index: 1031,
-    });
-}
-
 // This return the current time
 function getTime() {
     switch (currPlayer) {
@@ -212,27 +188,11 @@ function emptyQueue(roomnum) {
     socket.emit('empty queue', {
         room: roomnum
     });
-
-    // Generate notify alert
-    $.notify({
-        title: '<strong>Queue Emptied</strong>',
-        icon: 'fas fa-trash',
-        message: ""
-    }, {
-        type: 'warning',
-        delay: 800,
-        animate: {
-            enter: 'animated fadeInUp',
-            exit: 'animated fadeOutRight'
-        },
-        placement: {
-            from: "bottom",
-            align: "right"
-        },
-        offset: 20,
-        spacing: 10,
-        z_index: 1031,
-    });
+    // Notify
+    socket.emit('notify alerts', {
+        alert: 2,
+        user: username
+    })
 }
 
 // Change playVideo

@@ -572,7 +572,7 @@ io.sockets.on('connection', function(socket) {
         // Set Host label
         io.sockets.in("room-" + socket.roomnum).emit('changeHostLabel', {
             username: io.sockets.adapter.rooms['room-' + socket.roomnum].hostName
-        });
+        })
 
         // Set Queue
         updateQueueVideos()
@@ -700,7 +700,7 @@ io.sockets.on('connection', function(socket) {
             //console.log(io.sockets.adapter.rooms['room-' + socket.roomnum])
 
             // Broadcast to current host and set false
-            socket.broadcast.to(currHost).emit('unSetHost');
+            socket.broadcast.to(currHost).emit('unSetHost')
             // Reset host
             io.sockets.adapter.rooms['room-' + socket.roomnum].host = newHost
             // Broadcast to new host and set true
@@ -710,7 +710,12 @@ io.sockets.on('connection', function(socket) {
             // Update host label in all sockets
             io.sockets.in("room-" + roomnum).emit('changeHostLabel', {
                 username: socket.username
-            });
+            })
+            // Notify alert
+            socket.emit('notify alerts', {
+                alert: 1,
+                user: socket.username
+            })
         }
 
     });
@@ -743,6 +748,7 @@ io.sockets.on('connection', function(socket) {
     // NOT YET FINISHED
     socket.on('notify alerts', function(data) {
         var alert = data.alert
+        console.log("entered notify alerts")
 
         switch (alert) {
             // Enqueue alert
@@ -750,11 +756,21 @@ io.sockets.on('connection', function(socket) {
                 io.sockets.in("room-" + socket.roomnum).emit('enqueueNotify', {
                     user: data.user,
                     title: data.title
-                });
+                })
                 break;
+                // Host Change Alert
             case 1:
+                io.sockets.in("room-" + socket.roomnum).emit('changeHostNotify', {
+                    user: data.user
+                })
                 break;
+                // Empty Queue Alert
             case 2:
+                io.sockets.in("room-" + socket.roomnum).emit('emptyQueueNotify', {
+                    user: data.user
+                })
+                break;
+            case 3:
                 break;
             default:
                 console.log("Error alert id")

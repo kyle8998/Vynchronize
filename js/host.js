@@ -27,66 +27,41 @@ socket.on('syncHost', function(data) {
 
 //Change the host
 function changeHost(roomnum) {
-    socket.emit('change host', {
-        room: roomnum
-    });
+    if (!host){
+        socket.emit('change host', {
+            room: roomnum
+        });
+        socket.emit('notify alerts', {
+            alert: 1,
+            user: username
+        })
+    }
 }
 // Change the host label
 socket.on('changeHostLabel', function(data) {
-    var username = data.username
+    var user = data.username
     // Change label
     var hostlabel = document.getElementById('hostlabel')
-    hostlabel.innerHTML = "<i class=\"fas fa-user\"></i> Current Host: " + username
+    hostlabel.innerHTML = "<i class=\"fas fa-user\"></i> Current Host: " + user
 
     // Generate notify alert
-    $.notify({
-        title: '<strong>Host Changed: </strong>',
-        icon: 'fas fa-users',
-        message: username + " is now the host."
-    }, {
-        type: 'info',
-        delay: 800,
-        animate: {
-            enter: 'animated fadeInUp',
-            exit: 'animated fadeOutRight'
-        },
-        placement: {
-            from: "bottom",
-            align: "right"
-        },
-        offset: 20,
-        spacing: 10,
-        z_index: 1031,
-    });
-});
+    // CANNOT CALL IT HERE
+    // socket.emit('notify alerts', {
+    //     alert: 1,
+    //     user: user
+    // })
+})
 
 // When the host leaves, the server calls this function on the next socket
 socket.on('autoHost', function(data) {
     changeHost(data.roomnum)
-});
+})
 
 // If user gets disconnected from the host, give warning!
 function disconnected() {
+    // boolean to prevent alert on join
     if (notifyfix) {
-        $.notify({
-            title: '<strong>Warning: </strong>',
-            icon: 'fas fa-users',
-            message: " You are now out of sync of the host"
-        }, {
-            type: 'danger',
-            delay: 400,
-            animate: {
-                enter: 'animated fadeInUp',
-                exit: 'animated fadeOutRight'
-            },
-            placement: {
-                from: "bottom",
-                align: "right"
-            },
-            offset: 20,
-            spacing: 10,
-            z_index: 1031,
-        });
+        disconnectedAlert()
     } else {
         notifyfix = true
     }

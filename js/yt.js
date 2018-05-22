@@ -111,7 +111,7 @@ socket.on('get title', function(data, callback) {
                 alert: 0,
                 user: user,
                 title: data.items[0].snippet.title
-            });
+            })
             // Does a callback and returns title
             callback({
                 videoId: videoId,
