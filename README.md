@@ -1,6 +1,8 @@
 # Vynchronize
 [Access the application here!](https://vynchronize.herokuapp.com/)
 
+![Vynchronize Screenshot](https://raw.githubusercontent.com/kyle8998/Vynchronize/master/img/screenshot2.PNG)
+
 Vynchronize is a online video synchronization platform where you can watch videos online with friends in real time!
 
 Vynchronize currently supports YouTube, Daily Motion, and Vimeo!

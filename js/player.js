@@ -81,7 +81,12 @@ socket.on('createYoutube', function(data) {
         you.style.display = 'block';
         currPlayer = 0
 
-        console.log("Player state: "+playerStatus)
+        // The visual queue
+        document.getElementById('visual-queue').style.display = 'block'
+        document.getElementById('queue-arrows').style.display = 'block'
+        document.getElementById('beta-message').style.display = 'none'
+
+        console.log("Player state: " + playerStatus)
         // If it is -1, there was an error and needs to resync to host
         if (playerStatus == -1) {
             socket.emit('get video', function(id) {
@@ -114,6 +119,11 @@ socket.on('createDaily', function(data) {
         daily.style.display = 'block';
         currPlayer = 1
 
+        // disable for dm/vimeo
+        document.getElementById('visual-queue').style.display = 'none'
+        document.getElementById('queue-arrows').style.display = 'none'
+        document.getElementById('beta-message').style.display = 'block'
+
         // Special call to pause youtube player
         // Only have to do on youtube player as it is the default player that autoplays
         player.pauseVideo();
@@ -136,6 +146,11 @@ socket.on('createVimeo', function(data) {
         var vimeo = document.getElementById('vimeoArea');
         vimeo.style.display = 'block';
         currPlayer = 2
+
+        // disable for dm/vimeo
+        document.getElementById('visual-queue').style.display = 'none'
+        document.getElementById('queue-arrows').style.display = 'none'
+        document.getElementById('beta-message').style.display = 'block'
 
         // Special call to pause youtube player
         // Only have to do on youtube player as it is the default player that autoplays

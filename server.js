@@ -151,50 +151,41 @@ io.sockets.on('connection', function(socket) {
     // Gets title then calls back
     socket.on('enqueue video', function(data) {
         var user = data.user
-        // callback
-        // See yt.js file
-        socket.emit('get title', {
-            videoId: data.videoId,
-            user: user
-        }, function(data) {
-            // Data contains videoId and title
-            var videoId = data.videoId
-            var title = data.title
-            switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
-                case 0:
+        var videoId = data.videoId
+        var title = ""
+        switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
+            case 0:
+                // See yt.js file
+                socket.emit('get title', {
+                    videoId: videoId,
+                    user: user
+                }, function(data) {
+                    videoId = data.videoId
+                    title = data.title
                     io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt.push({
                         videoId: videoId,
                         title: title
                     })
-                    break;
-                case 1:
-                    io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.push({
-                        videoId: videoId,
-                        title: title
-                    })
-                    break;
-                case 2:
-                    io.sockets.adapter.rooms['room-' + socket.roomnum].queue.vimeo.push({
-                        videoId: videoId,
-                        title: title
-                    })
-                    break;
-                default:
-                    console.log("Error invalid player id")
-            }
-            console.log(io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt)
-
-            // Call notify
-            // DEPRECATED - NOW THE SOCKET ITSELF CALLS 'notify alerts' from within the get title function
-            // io.sockets.in("room-"+socket.roomnum).emit('enqueueNotify', {
-            //     videoId: videoId,
-            //     title: title,
-            //     user: user
-            // })
-
-            // Update front end
-            updateQueueVideos()
-        })
+                    console.log(io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt)
+                    // Update front end
+                    updateQueueVideos()
+                })
+                break;
+            case 1:
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.push({
+                    videoId: videoId,
+                    title: title
+                })
+                break;
+            case 2:
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.vimeo.push({
+                    videoId: videoId,
+                    title: title
+                })
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
     })
 
     // Empty the queue
