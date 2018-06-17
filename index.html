@@ -272,7 +272,7 @@
             <!-- Call to Action Well -->
             <div class="card text-white bg-secondary my-4 text-center">
                 <div class="card-body">
-                    <p class="text-white m-0">*The synchronization is not perfect at the moment! It's a work in progress</p>
+                    <p class="text-white m-0">*The synchronization may not be perfect! It's a work in progress, submit an issue on github if you wish to submit a bug report/suggestion.</p>
                 </div>
             </div>
 
@@ -499,7 +499,8 @@
                 var html = ''
                 if (yt.length > 0) {
                     for (i = 0; i < yt.length; i++) {
-                        html += '<li class="vid-item"><div class="thumb"><a href="javascript: removeAt(' + i + ')" class="ghost-button-full-color"><i class="far fa-times-circle"></i></a><a href="javascript: playAt(' + i + ')"><img src="http://img.youtube.com/vi/' + yt[i].videoId + '/0.jpg"></a></div><a href="javascript: playAt(' + i + ')" class="desc">' + yt[i].title + '</a></li>'
+                        html += '<li class="vid-item"><div class="thumb"><a href="javascript: removeAt(' + i + ')" class="ghost-button-full-color"><i class="far fa-times-circle"></i></a><a href="javascript: playAt(' + i +
+                            ')"><img src="http://img.youtube.com/vi/' + yt[i].videoId + '/0.jpg"></a></div><a href="javascript: playAt(' + i + ')" class="desc">' + yt[i].title + '</a></li>'
                     }
                 } else {
                     html += '<li class="vid-item"></li>'
@@ -511,11 +512,15 @@
 
         // Remove the video from the queue at idx
         function removeAt(idx) {
-            socket.emit('remove at', { idx: idx })
+            socket.emit('remove at', {
+                idx: idx
+            })
         }
 
         function playAt(idx) {
-            socket.emit('play at', { idx: idx }, function(data){
+            socket.emit('play at', {
+                idx: idx
+            }, function(data) {
                 var videoId = data.videoId
 
                 // Change the video

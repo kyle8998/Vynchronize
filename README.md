@@ -3,8 +3,6 @@
 
 Vynchronize is a online video synchronization platform where you can watch videos online with friends in real time!
 
-This is a work in progress, and it is only in the beta stages. Don't expect it to be perfect!
-
 Vynchronize currently supports YouTube, Daily Motion, and Vimeo!
 
 [![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](http://forthebadge.com)
@@ -180,3 +178,8 @@ io.sockets.adapter.rooms['room-'+roomnum]
 The Queue object consists of arrays for each specific player. Each array then
 consists of objects that hold both the id and title. It was created this way because
 grabbing the title required extra work, and could not be done continuously on the spot.
+
+##### In Depth Functionality
+
+Please see the [Wiki](https://github.com/kyle8998/Vynchronize/wiki) for more
+information.

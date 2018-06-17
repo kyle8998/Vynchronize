@@ -127,7 +127,7 @@ function seekTo(time) {
 // This parses the ID out of the video link
 function idParse(videoId) {
     // If user enters a full link
-    if (videoId.includes("https://") || videoId.includes("http://")) {
+    if (videoId.includes("https://") || videoId.includes("http://") || videoId.includes(".com/")) {
         // Do some string processing with regex
         switch (currPlayer) {
             case 0:
@@ -137,6 +137,7 @@ function idParse(videoId) {
                     console.log("You entered a link, but you really meant " + match[1])
                     return match[1]
                 }
+                videoId = "invalid"
                 break;
 
             case 1:
@@ -150,6 +151,7 @@ function idParse(videoId) {
                     console.log("You entered a link, but you really meant " + match[1])
                     return match[1]
                 }
+                videoId = "invalid"
                 break;
 
             case 2:
@@ -159,6 +161,7 @@ function idParse(videoId) {
                     console.log("You entered a link, but you really meant " + match[1])
                     return match[1]
                 }
+                videoId = "invalid"
                 break;
 
             default:
@@ -173,12 +176,18 @@ function enqueueVideo(roomnum) {
     var videoId = document.getElementById("inputVideoId").value;
     videoId = idParse(videoId)
 
-    // Actually change the video!
-    socket.emit('enqueue video', {
-        room: roomnum,
-        videoId: videoId,
-        user: username
-    });
+    if (videoId != "invalid") {
+        // Actually change the video!
+        socket.emit('enqueue video', {
+            room: roomnum,
+            videoId: videoId,
+            user: username
+        })
+    }
+    else {
+        console.log("User entered an invalid video url :(")
+        invalidURL()
+    }
 }
 
 // Empty Queue
@@ -201,14 +210,20 @@ function changeVideo(roomnum) {
     var videoId = document.getElementById("inputVideoId").value;
     videoId = idParse(videoId)
 
-    var time = getTime()
-    console.log("The time is this man: " + time)
-    // Actually change the video!
-    socket.emit('change video', {
-        room: roomnum,
-        videoId: videoId,
-        time: time
-    });
+    if (videoId != "invalid") {
+        var time = getTime()
+        console.log("The time is this man: " + time)
+        // Actually change the video!
+        socket.emit('change video', {
+            room: roomnum,
+            videoId: videoId,
+            time: time
+        });
+    }
+    else {
+        console.log("User entered an invalid video url :(")
+        invalidURL()
+    }
     //player.loadVideoById(videoId);
 }
 
