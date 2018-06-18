@@ -461,7 +461,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('send message', function(data) {
         var encodedMsg = data.replace(/</g, "&lt;").replace(/>/g, "&gt;");
         // console.log(data);
-        io.sockets.emit('new message', {
+        io.sockets.in("room-" + socket.roomnum).emit('new message', {
             msg: encodedMsg,
             user: socket.username
         });

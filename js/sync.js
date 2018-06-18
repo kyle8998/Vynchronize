@@ -183,8 +183,7 @@ function enqueueVideo(roomnum) {
             videoId: videoId,
             user: username
         })
-    }
-    else {
+    } else {
         console.log("User entered an invalid video url :(")
         invalidURL()
     }
@@ -219,8 +218,7 @@ function changeVideo(roomnum) {
             videoId: videoId,
             time: time
         });
-    }
-    else {
+    } else {
         console.log("User entered an invalid video url :(")
         invalidURL()
     }
@@ -261,27 +259,28 @@ function prevVideo(roomnum) {
     });
 }
 
-var noises = false
-
 function loveLive(roomnum) {
-    var test = document.getElementById("inputVideoId").innerHTML = "sjk7DiH0JhQ";
     var time = getTime()
+    // love live, love4eva, why, gee, what is love, stay, starlight, bad boy
+    // likey, spring love, palette, roller coaster, DNA, I, peekaboo, wee woo
+    // rookie, russian roulette, i want you back, TT, whistle, ddu du ddu du, turtle, 24/7
+    var video_roulette = [
+        '97uviVyw0_o', 'tIWpr3tHzII', 'WkdtmT8A2iY', 'U7mPqycQ0tQ',
+        'i0p1bmr0EmE', 'FzVR_fymZw4', 'eNmL4JiGxZQ', 'J_CFBjAyPWE',
+        'V2hlQkVJZhE', 'erErBFKPbMY', 'd9IxdwEFk1c', '900X9fDFLc4',
+        'MBdVXkSdhwU', '4OrCA1OInoo', '6uJf2IT2Zh8', 'wLfHuClrQdI',
+        'J0h8-OTC38I', 'QslJYDX3o8s', 'X3H-4crGD6k', 'ePpPVE-GGJw',
+        'dISNgvVpWlo', 'IHNzOHi8sJs', 'sErJjrLswEw', '-j6XPEUKzn0'
+    ]
+
+    // Random number between 0 and 23
+    var random = Math.floor(Math.random() * (24))
     // Only for YouTube testing
-    if (!noises) {
-        socket.emit('change video', {
-            room: roomnum,
-            videoId: 'sjk7DiH0JhQ',
-            time: time
-        });
-        noises = true
-    } else {
-        socket.emit('change video', {
-            room: roomnum,
-            videoId: '97uviVyw0_o',
-            time: time
-        });
-        noises = false
-    }
+    socket.emit('change video', {
+        room: roomnum,
+        videoId: video_roulette[random],
+        time: time
+    })
 }
 
 // Get time - DEPRECATED
