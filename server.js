@@ -740,28 +740,34 @@ io.sockets.on('connection', function(socket) {
     socket.on('notify alerts', function(data) {
         var alert = data.alert
         console.log("entered notify alerts")
+        var encodedUser = ""
+        if (data.user) {
+            encodedUser = data.user.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        }
 
         switch (alert) {
             // Enqueue alert
             case 0:
+                var encodedTitle = ""
+                if (data.title) {
+                    encodedTitle = data.title.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+                }
                 io.sockets.in("room-" + socket.roomnum).emit('enqueueNotify', {
-                    user: data.user,
-                    title: data.title
+                    user: encodedUser,
+                    title: encodedTitle
                 })
                 break;
                 // Host Change Alert
             case 1:
                 io.sockets.in("room-" + socket.roomnum).emit('changeHostNotify', {
-                    user: data.user
+                    user: encodedUser
                 })
                 break;
                 // Empty Queue Alert
             case 2:
                 io.sockets.in("room-" + socket.roomnum).emit('emptyQueueNotify', {
-                    user: data.user
+                    user: encodedUser
                 })
-                break;
-            case 3:
                 break;
             default:
                 console.log("Error alert id")
