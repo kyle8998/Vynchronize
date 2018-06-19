@@ -3,7 +3,6 @@ tag.id = 'iframe-demo';
 tag.src = 'https://www.youtube.com/iframe_api';
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-yt3_api = 'AIzaSyCEc0w2faZFftIynhOfjUSW8YIQDFPBMkI'
 
 var player;
 
@@ -103,7 +102,7 @@ socket.on('get title', function(data, callback) {
         "https://www.googleapis.com/youtube/v3/videos", {
             part: 'snippet',
             id: videoId,
-            key: yt3_api
+            key: data.api_key
         },
         function(data) {
             // enqueueNotify(user, data.items[0].snippet.title)

@@ -264,17 +264,19 @@ function loveLive(roomnum) {
     // love live, love4eva, why, gee, what is love, stay, starlight, bad boy
     // likey, spring love, palette, roller coaster, DNA, I, peekaboo, wee woo
     // rookie, russian roulette, i want you back, TT, whistle, ddu du ddu du, turtle, 24/7
+    // something new
     var video_roulette = [
         '97uviVyw0_o', 'tIWpr3tHzII', 'WkdtmT8A2iY', 'U7mPqycQ0tQ',
         'i0p1bmr0EmE', 'FzVR_fymZw4', 'eNmL4JiGxZQ', 'J_CFBjAyPWE',
         'V2hlQkVJZhE', 'erErBFKPbMY', 'd9IxdwEFk1c', '900X9fDFLc4',
         'MBdVXkSdhwU', '4OrCA1OInoo', '6uJf2IT2Zh8', 'wLfHuClrQdI',
         'J0h8-OTC38I', 'QslJYDX3o8s', 'X3H-4crGD6k', 'ePpPVE-GGJw',
-        'dISNgvVpWlo', 'IHNzOHi8sJs', 'sErJjrLswEw', '-j6XPEUKzn0'
+        'dISNgvVpWlo', 'IHNzOHi8sJs', 'sErJjrLswEw', '-j6XPEUKzn0',
+        'im1UUY8dQIk'
     ]
 
-    // Random number between 0 and 23
-    var random = Math.floor(Math.random() * (24))
+    // Random number between 0 and 24
+    var random = Math.floor(Math.random() * (25))
     // Only for YouTube testing
     socket.emit('change video', {
         room: roomnum,

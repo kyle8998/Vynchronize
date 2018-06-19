@@ -2,7 +2,6 @@ var dailyPlayer
 
 setTimeout(function() {
     DM.init({
-        apiKey: '1e81e2b5ea5ab3dd737a',
         status: false, // check login status
         cookie: true // enable cookies to allow the server to access the session
     });

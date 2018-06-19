@@ -26,6 +26,8 @@ Node.js
 
 Express
 
+YouTube Data API V3
+
 ---
 
 ### How to run locally
@@ -36,6 +38,9 @@ Install Dependencies
 ```
 npm install
 ```
+
+Obtain API keys for YouTube Data API V3 and Dailymotion SDK (Optional) and
+source it to your path as YT3_API_KEY and DM_API_KEY respectively
 
 Run the server
 ```

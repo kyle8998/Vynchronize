@@ -8,6 +8,9 @@ rooms = [];
 // Store all of the sockets and their respective room numbers
 userrooms = {}
 
+YT3_API_KEY = process.env.YT3_API_KEY
+DM_API_KEY = process.env.DM_API_KEY
+
 // Set given room for url parameter
 var given_room = ""
 
@@ -158,7 +161,8 @@ io.sockets.on('connection', function(socket) {
                 // See yt.js file
                 socket.emit('get title', {
                     videoId: videoId,
-                    user: user
+                    user: user,
+                    api_key: YT3_API_KEY
                 }, function(data) {
                     videoId = data.videoId
                     title = data.title
