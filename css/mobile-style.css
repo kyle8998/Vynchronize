@@ -1,0 +1,72 @@
+/* This stylesheet is specifically for mobile */
+
+@media only screen and (max-width: 700px) {
+    .h2 {
+        font-size: 1.5rem;
+    }
+    .video, .chat {
+        width: 352px;
+        height: 198px;
+    }
+    .chat-form {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .btn {
+        padding: 3px 10px;
+    }
+    .mobile-hide {
+        display: block;
+    }
+    .nonmobile-hide {
+        display: none;
+    }
+    .switch {
+        display: none;
+    }
+    .right-header {
+        margin-top: 1rem;
+        float: left;
+    }
+    .noscrollbar {
+        float: left;
+        margin-bottom: 10px;
+    }
+    .inv_input {
+        width: 18em;
+    }
+    .invite-button {
+        height: 75px;
+        width: 75px;
+    }
+    /* Playlist */
+    .vid-list-container {
+        width: 100%;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+}
+
+/* Strange Screen Size */
+@media (max-width: 1200px) and (min-width: 992px){
+    .video {
+        width: 551px;
+        height: 310px;
+    }
+    .chat {
+        width: 390px;
+        height: 300px;
+    }
+    .chat-form {
+        width: 390px;
+    }
+}
+@media (max-width: 1300px) and (min-width: 1201px){
+    .chat {
+        width: 480px;
+        height: 300px;
+    }
+    .chat-form {
+        width: 480px;
+    }
+}

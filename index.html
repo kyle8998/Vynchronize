@@ -26,6 +26,7 @@
     <link href="css/small-business.css" rel="stylesheet">
 
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/mobile-style.css" rel="stylesheet">
 
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
@@ -107,7 +108,8 @@
             <div class="row my-4" style="margin-top: 0px !important;">
                 <div class="col-lg-7">
 
-                    <b>Note:</b> Mobile web browsers do not support autoplay. Host can control player natively.
+                    <div class="nonmobile-hide"><b>Note: </b>Only the host can control the video using the native video player controls </div>
+                    <div class="mobile-hide"><b>Mobile User</b>, please play the video once manually to give the browser permission to control the video player. </div>
                     <!-- <hr style="height:0pt; visibility:hidden;" /> -->
 
                     <div style="margin: 10px" class="dropdown">
@@ -160,7 +162,7 @@
                     <div id='persoff'></div>
 
                     <div class="topbotmargins">
-                        <input type="Video" style="max-width: 200px; margin-right: .5rem; float: left;" class="form-control" id="inputVideoId" placeholder="Video ID">
+                        <input type="Video" style="max-width: 200px; margin-right: .5rem; margin-bottom: .5rem; float: left;" class="form-control" id="inputVideoId" placeholder="Video ID">
                         <button onclick="enqueueVideo(roomnum)" class="btn btn-primary"><i class="fas fa-plus"></i> Add to Queue</button>
                         <button onclick="emptyQueue(roomnum)" class="btn btn-primary"><i class="fas fa-trash"></i> Empty Queue</button>
                     </div>
@@ -206,7 +208,7 @@
                 <div class="col-lg-5">
                     <!-- <div class="col-md-4"> -->
                     <!-- <div id="onlineArea" class="row"> -->
-                    <h5 style="float:right; color: gray;">Online Users</h5>
+                    <h5 class="right-header">Online Users</h5>
                     <hr style="height:0pt; visibility:hidden;" />
 
                     <!-- <br/> -->
@@ -216,7 +218,7 @@
                         </div>
 
                         <!-- Trigger the modal with a button -->
-                        <button style="background-color: #007bff" type="button" class="btn btn-info btn-sm invite-button" data-toggle="modal" data-target="#inviteModal"><i style="width: 30px; height: 30px;" class="fas fa-user-plus"></i><br><h5>Invite</h5></button>
+                        <button style="background-color: #007bff" type="button" class="nonmobile-hide btn btn-info btn-sm invite-button" data-toggle="modal" data-target="#inviteModal"><i style="width: 30px; height: 30px;" class="fas fa-user-plus"></i><br><h5>Invite</h5></button>
                     </div>
                     <hr style="height:0pt; visibility:hidden;" />
                     <h5 style="color:gray;">Chatroom</h5>
@@ -234,7 +236,7 @@
                                 <div class="modal-body">
                                     <p>Send a friend your unique room link so they can watch videos too!</p>
                                     <!-- <p style="text-align: center;" id="invite">vynchronize.herokuapp.com/ROOMNUM</p> -->
-                                    <input style="margin : 0 auto; display:block; text-align: center; width: 22em" id="inv_input" type="text" value="vynchronize.herokuapp.com/ROOMNUM" class="field left" readonly>
+                                    <input class="inv_input" id="inv_input" type="text" value="vynchronize.herokuapp.com/ROOMNUM" class="field left" readonly>
                                 </div>
                                 <div class="modal-footer">
                                     <div style="opacity: 1" class="tooltip">
@@ -349,10 +351,13 @@
                     <div class="row">
                         <div class="col-lg-8 mx-auto">
                             <h2>Contact Me</h2>
-                            <p class="lead">Who Am I</p>
-                            <p> I'm Kyle! A student and developer just trying build software for the everyday user! I developed Vynchronize because it was a problem that I needed to solve myself, and now I continue to build it for the those who enjoy using it! :)</p>
-                            <p> You can contact me directly at <a href="mailto:kylelim8998@gmail.com?Subject=Vynchronize">kylelim8998@gmail.com</a> if you have any questions, concerns, or just to say hi! If you want to submit a suggestion, please see the github issues page.</p>
-                            <p> Also I want to keep the website up and running with an ad-free experience because I hate ads too! I'm currently paying for servers and a domain, but they are expensive to a broke college kid. If you would like to donate click below! I appreciate the support!</p>
+                            <p class="lead">Who Am I?</p>
+                            <p> I'm Kyle! A student and developer just trying build software for the everyday user! I developed Vynchronize because it was a problem that I needed to solve myself, and now I continue to build it for the those who enjoy using
+                                it! :)</p>
+                            <p> You can contact me directly at <a href="mailto:kylelim8998@gmail.com?Subject=Vynchronize">kylelim8998@gmail.com</a> if you have any questions, concerns, or just to say hi! If you want to submit a suggestion, please see the
+                                github issues page.</p>
+                            <p> Also I want to keep the website up and running with an ad-free experience because I hate ads too! I'm currently paying for servers and a domain, but they are expensive to a broke college kid. If you would like to donate click
+                                below! I appreciate the support!</p>
                             <a href="https://www.paypal.me/kylelim"><button style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Donate</button></a>
                         </div>
                     </div>

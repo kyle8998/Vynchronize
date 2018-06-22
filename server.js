@@ -105,33 +105,34 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('play next', function(data, callback) {
         var videoId = "QUEUE IS EMPTY"
-
-        switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
-            case 0:
-                if (io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt.length > 0) {
-                    // Gets the video id from the room object
-                    videoId = io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt.shift().videoId
-                }
-                break;
-            case 1:
-                if (io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.length > 0) {
-                    videoId = io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.shift().videoId
-                }
-                break;
-            case 2:
-                if (io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.length > 0) {
-                    videoId = io.sockets.adapter.rooms['room-' + socket.roomnum].queue.vimeo.shift().videoId
-                }
-                break;
-            default:
-                console.log("Error invalid player id")
+        if (io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined) {
+            switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
+                case 0:
+                    if (io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt.length > 0) {
+                        // Gets the video id from the room object
+                        videoId = io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt.shift().videoId
+                    }
+                    break;
+                case 1:
+                    if (io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.length > 0) {
+                        videoId = io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.shift().videoId
+                    }
+                    break;
+                case 2:
+                    if (io.sockets.adapter.rooms['room-' + socket.roomnum].queue.dm.length > 0) {
+                        videoId = io.sockets.adapter.rooms['room-' + socket.roomnum].queue.vimeo.shift().videoId
+                    }
+                    break;
+                default:
+                    console.log("Error invalid player id")
+            }
+            // console.log(videoId)
+            // Remove video from the front end
+            updateQueueVideos()
+            callback({
+                videoId: videoId
+            })
         }
-        // console.log(videoId)
-        // Remove video from the front end
-        updateQueueVideos()
-        callback({
-            videoId: videoId
-        })
     });
 
     // Sync video

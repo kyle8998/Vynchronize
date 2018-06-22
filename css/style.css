@@ -53,6 +53,14 @@
      background-color: #FF5A60 !important;
  }
 
+ .mobile-hide {
+     display: none;
+ }
+
+ .nonmobile-hide {
+     display: block;
+ }
+
  .center {
      display: block;
      margin: auto;
@@ -75,6 +83,18 @@
      width: 120px;
      padding: 2px;
      background-color: black;
+ }
+
+ .right-header {
+     float: right;
+     color: gray;
+ }
+
+ .inv_input {
+     margin: 0 auto;
+     display: block;
+     text-align: center;
+     width: 22em;
  }
 
  .form-control-static {
@@ -177,13 +197,13 @@
      float: right;
      /* padding-right: 11em; */
      height: 140px;
-     width: 300px;
+     width: 270px;
      overflow: scroll;
  }
 
  .invite-button {
-     height: 100px;
-     width: 100px;
+     height: 90px;
+     width: 90px;
  }
 
  .chat-users {
@@ -350,43 +370,41 @@
          width: 96px;
      }
      .arrow-left {
-         left: 0;
+         /* left: 0; */
          top: -20px;
      }
      .arrow-right {
-         right: 0;
+         /* right: 0; */
          top: -20px;
      }
  }
 
-.topbotmargins {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+ .topbotmargins {
+     margin-top: 10px;
+     margin-bottom: 10px;
+ }
 
-/* GHOST BUTTONS */
-.ghost-button-full-color {
-  float: right;
-  display: inline-block;
-  width: 25px;
-  padding-bottom: 10px;
-  /* height: 25px; */
-  /* padding: 8px; */
-  color: #000;
-  background-color: transparent;
-  /* border: 2px solid #fff; */  text-align: center;
-  outline: none;
-  text-decoration: none;
-  transition: color 0.3s ease-out,
-              background-color 0.3s ease-out,
-              border-color 0.3s ease-out;
-}
-.ghost-button-full-color:hover,
-.ghost-button-full-color:active {
-  background-color: #e05555;
-  border-color: #e05555;
-  color: #fff;
-  transition: color 0.3s ease-in,
-              background-color 0.3s ease-in,
-              border-color 0.3s ease-in;
-}
+ /* GHOST BUTTONS */
+
+ .ghost-button-full-color {
+     float: right;
+     display: inline-block;
+     width: 25px;
+     padding-bottom: 10px;
+     /* height: 25px; */
+     /* padding: 8px; */
+     color: #000;
+     background-color: transparent;
+     /* border: 2px solid #fff; */
+     text-align: center;
+     outline: none;
+     text-decoration: none;
+     transition: color 0.3s ease-out, background-color 0.3s ease-out, border-color 0.3s ease-out;
+ }
+
+ .ghost-button-full-color:hover, .ghost-button-full-color:active {
+     background-color: #e05555;
+     border-color: #e05555;
+     color: #fff;
+     transition: color 0.3s ease-in, background-color 0.3s ease-in, border-color 0.3s ease-in;
+ }
