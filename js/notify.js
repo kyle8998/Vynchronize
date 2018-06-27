@@ -55,7 +55,7 @@ socket.on('changeHostNotify', function(data) {
     });
 })
 
-// Empty Queue (1)
+// Empty Queue (2)
 socket.on('emptyQueueNotify', function(data) {
     console.log("Empty Queue Notify Alert")
     var user = data.user

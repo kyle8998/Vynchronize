@@ -264,7 +264,7 @@ function loveLive(roomnum) {
     // love live, love4eva, why, gee, what is love, stay, starlight, bad boy
     // likey, spring love, palette, roller coaster, DNA, I, peekaboo, wee woo
     // rookie, russian roulette, i want you back, TT, whistle, ddu du ddu du, turtle, 24/7
-    // something new
+    // something new, #cookie jar, lion heart, i will show you, bubble pop, girl front, love cherry motion, ice cream cake
     var video_roulette = [
         '97uviVyw0_o', 'tIWpr3tHzII', 'WkdtmT8A2iY', 'U7mPqycQ0tQ',
         'i0p1bmr0EmE', 'FzVR_fymZw4', 'eNmL4JiGxZQ', 'J_CFBjAyPWE',
@@ -272,11 +272,12 @@ function loveLive(roomnum) {
         'MBdVXkSdhwU', '4OrCA1OInoo', '6uJf2IT2Zh8', 'wLfHuClrQdI',
         'J0h8-OTC38I', 'QslJYDX3o8s', 'X3H-4crGD6k', 'ePpPVE-GGJw',
         'dISNgvVpWlo', 'IHNzOHi8sJs', 'sErJjrLswEw', '-j6XPEUKzn0',
-        'im1UUY8dQIk'
+        'im1UUY8dQIk', 'rRgTMs_bGuI', 'nVCubhQ454c', 'MCEcWcIww5k',
+        'bw9CALKOvAI', 'tyInv6RWL0Q', 'VBbeuXW8Nko', 'glXgSSOKlls'
     ]
 
-    // Random number between 0 and 24
-    var random = Math.floor(Math.random() * (25))
+    // Random number between 0 and 31
+    var random = Math.floor(Math.random() * (32))
     // Only for YouTube testing
     socket.emit('change video', {
         room: roomnum,
