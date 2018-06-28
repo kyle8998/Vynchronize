@@ -3,7 +3,7 @@
 
 ![Vynchronize Screenshot](https://raw.githubusercontent.com/kyle8998/Vynchronize/master/img/screenshot2.PNG)
 
-Vynchronize is a online video synchronization platform where you can watch videos online with friends in real time!
+Vynchronize is an online video synchronization platform where you can watch videos online with friends in real time!
 
 Vynchronize currently supports YouTube, Daily Motion, and Vimeo!
 
@@ -63,7 +63,7 @@ npm test
 
 The entire functionality of Vynchronize relies on web sockets, specifically
 Socket.IO. When a client connects to the server, a socket is created. The user
-then enters a name and room number. The inputs are sent back to the server, and
+then enters a name and a room number. The inputs are sent back to the server, and
 it creates/joins a room of that name with Socket.IO. Any user can connect to the
 room and interact with the users there.
 
@@ -81,9 +81,9 @@ other socket. It will use that data and bring everyone to the correct time.
 
 ##### Hosts
 
-At first it was fine to have no specific host of a room, but I quickly realized
+At first it was fine to have a room without a host, but I quickly realized
 that people want to be auto-synced rather than hitting the sync button over
-and over. For example if a client joins a room late, I want them to be synced
+and over. For example, when clients join a room later, they would want to be synced
 immediately.
 
 To do this I created a host socket which would be marked when a room is created.
