@@ -408,3 +408,13 @@
      color: #fff;
      transition: color 0.3s ease-in, background-color 0.3s ease-in, border-color 0.3s ease-in;
  }
+
+ .footer {
+     position: absolute;
+     bottom: 0;
+     width: 100%;
+ }
+
+ .hide {
+     display: none;
+ }

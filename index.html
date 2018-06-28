@@ -51,13 +51,13 @@
               </a>
             </li> -->
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#messageArea">Chatroom</a>
+                        <a id="chat-nav" class="nav-link js-scroll-trigger hide" href="#messageArea">Chatroom</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                        <a id="about-nav" class="nav-link js-scroll-trigger hide" href="#about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                        <a id="contact-nav" class="nav-link js-scroll-trigger hide" href="#contact">Contact</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="https://github.com/kyle8998/Vynchronize">Source Code</a>
@@ -370,7 +370,7 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer id="footer" class="py-5 bg-dark footer">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Vynchronize 2018</p>
         </div>
@@ -464,7 +464,19 @@
                 if ($username.val() == "") {
                     console.log("ENTER A NAME")
                     var noname = document.getElementById('missinginfo')
-                    noname.innerHTML = "Please enter your name!"
+                    noname.innerHTML = "Surely you have a name right? Enter it below!"
+                }
+                // If name is too long
+                else if ($username.val().length > 30) {
+                    console.log("NAME IS TOO LONG")
+                    var noname = document.getElementById('missinginfo')
+                    noname.innerHTML = "Your name can't possibly be over 30 characters!"
+                }
+                // If roomnate
+                else if ($roomnum.val().length > 50) {
+                    console.log("ROOM NAME IS TOO LONG")
+                    var noname = document.getElementById('missinginfo')
+                    noname.innerHTML = "How are you going to remember a room code that has more than 50 characters?"
                 }
                 // If Room contains symbols
                 // Can only be reached if the user decided to be sneaky and paste them!
@@ -480,6 +492,14 @@
                         if (data) {
                             $userFormArea.hide();
                             $roomArea.show();
+
+                            // Move footer to correct position
+                            document.getElementById('footer').style.position = 'relative';
+
+                            // Show header buttons!
+                            document.getElementById('chat-nav').style.display = 'block';
+                            document.getElementById('about-nav').style.display = 'block';
+                            document.getElementById('contact-nav').style.display = 'block';
 
                             // No longer using initarea
                             // var initStuff = document.getElementById("initArea")
