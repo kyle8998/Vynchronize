@@ -590,7 +590,7 @@ io.sockets.on('connection', function(socket) {
             var playerId = data.playerId
 
             io.sockets.in("room-" + roomnum).emit('pauseVideoClient');
-
+            console.log(playerId)
             switch (playerId) {
                 case 0:
                     io.sockets.in("room-" + roomnum).emit('createYoutube', {});
@@ -600,6 +600,9 @@ io.sockets.on('connection', function(socket) {
                     break;
                 case 2:
                     io.sockets.in("room-" + roomnum).emit('createVimeo', {});
+                    break;
+                case 3:
+                    io.sockets.in("room-" + roomnum).emit('createHTML5', {});
                     break;
                 default:
                     console.log("Error invalid player id")

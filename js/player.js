@@ -65,6 +65,7 @@ socket.on('getPlayerData', function(data) {
 
 // Create Youtube Player
 socket.on('createYoutube', function(data) {
+    media.pause()
     if (currPlayer != 0) {
         // var playerIn = document.getElementById("playerArea")
         // console.log(playerIn.innerHTML)
@@ -77,6 +78,9 @@ socket.on('createYoutube', function(data) {
         var vimeo = document.getElementById('vimeoArea');
         vimeo.style.display = 'none';
 
+        var html5 = document.getElementById('HTML5Area');
+        html5.style.display = 'none';
+
         var you = document.getElementById('playerArea');
         you.style.display = 'block';
         currPlayer = 0
@@ -85,6 +89,12 @@ socket.on('createYoutube', function(data) {
         document.getElementById('visual-queue').style.display = 'block'
         document.getElementById('queue-arrows').style.display = 'block'
         document.getElementById('beta-message').style.display = 'none'
+        document.getElementById('enqueueButton').style.display = 'inline-block'
+        document.getElementById('emptyButton').style.display = 'inline-block'
+        document.getElementById('nextButton').style.display = 'inline-block'
+        document.getElementById('html5-input').style.display = 'none'
+
+        document.getElementById('html5-message').style.display = 'none'
 
         console.log("Player state: " + playerStatus)
         // If it is -1, there was an error and needs to resync to host
@@ -102,6 +112,7 @@ socket.on('createYoutube', function(data) {
 
 // Create Daily Motion Player
 socket.on('createDaily', function(data) {
+    media.pause()
     console.log("i am in create daily")
     // player.destroy()
     if (currPlayer != 1) {
@@ -115,6 +126,9 @@ socket.on('createDaily', function(data) {
         var vimeo = document.getElementById('vimeoArea');
         vimeo.style.display = 'none';
 
+        var html5 = document.getElementById('HTML5Area');
+        html5.style.display = 'none';
+
         var daily = document.getElementById('dailyArea');
         daily.style.display = 'block';
         currPlayer = 1
@@ -123,6 +137,12 @@ socket.on('createDaily', function(data) {
         document.getElementById('visual-queue').style.display = 'none'
         document.getElementById('queue-arrows').style.display = 'none'
         document.getElementById('beta-message').style.display = 'block'
+        document.getElementById('enqueueButton').style.display = 'none'
+        document.getElementById('emptyButton').style.display = 'none'
+        document.getElementById('nextButton').style.display = 'none'
+        document.getElementById('html5-input').style.display = 'none'
+
+        document.getElementById('html5-message').style.display = 'none'
 
         // Special call to pause youtube player
         // Only have to do on youtube player as it is the default player that autoplays
@@ -132,6 +152,7 @@ socket.on('createDaily', function(data) {
 
 // Create Vimeo Player
 socket.on('createVimeo', function(data) {
+    media.pause()
     if (currPlayer != 2) {
         //     var playerIn = document.getElementById("playerArea")
         //     console.log(playerIn.innerHTML)
@@ -143,6 +164,9 @@ socket.on('createVimeo', function(data) {
         var daily = document.getElementById('dailyArea');
         daily.style.display = 'none';
 
+        var html5 = document.getElementById('HTML5Area');
+        html5.style.display = 'none';
+
         var vimeo = document.getElementById('vimeoArea');
         vimeo.style.display = 'block';
         currPlayer = 2
@@ -151,10 +175,49 @@ socket.on('createVimeo', function(data) {
         document.getElementById('visual-queue').style.display = 'none'
         document.getElementById('queue-arrows').style.display = 'none'
         document.getElementById('beta-message').style.display = 'block'
+        document.getElementById('enqueueButton').style.display = 'none'
+        document.getElementById('emptyButton').style.display = 'none'
+        document.getElementById('nextButton').style.display = 'none'
+        document.getElementById('html5-input').style.display = 'none'
+
+        document.getElementById('html5-message').style.display = 'none'
 
         // Special call to pause youtube player
         // Only have to do on youtube player as it is the default player that autoplays
         player.pauseVideo();
+    }
+});
+
+// Create HTML5 Player
+socket.on('createHTML5', function(data) {
+    console.log("55555")
+    console.log(currPlayer)
+    if (currPlayer != 3) {
+
+        var you = document.getElementById('playerArea');
+        you.style.display = 'none';
+
+        var daily = document.getElementById('dailyArea');
+        daily.style.display = 'none';
+
+        var vimeo = document.getElementById('vimeoArea');
+        vimeo.style.display = 'none';
+
+        var html5 = document.getElementById('HTML5Area');
+        html5.style.display = 'block';
+        currPlayer = 3
+
+
+        document.getElementById('visual-queue').style.display = 'none'
+        document.getElementById('queue-arrows').style.display = 'none'
+        document.getElementById('beta-message').style.display = 'block'
+        document.getElementById('enqueueButton').style.display = 'none'
+        document.getElementById('emptyButton').style.display = 'none'
+        document.getElementById('nextButton').style.display = 'none'
+        document.getElementById('html5-input').style.display = 'block'
+
+        document.getElementById('html5-message').style.display = 'block'
+
     }
 });
 

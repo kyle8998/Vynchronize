@@ -27,6 +27,7 @@
 
     <link href="css/style.css" rel="stylesheet">
     <link href="css/mobile-style.css" rel="stylesheet">
+    <link href="css/html5player.css" rel="stylesheet">
 
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
@@ -120,6 +121,7 @@
                             <a class="dropdown-item" onclick="changePlayer(roomnum, 0)"><i class="fab fa-youtube"></i> YouTube</a>
                             <a class="dropdown-item" onclick="changePlayer(roomnum, 1)"><img width="14px" height="14px" src="img/dailymotion-logo.svg" alt="Daily Motion Logo"> Daily Motion</a>
                             <a class="dropdown-item" onclick="changePlayer(roomnum, 2)"><i class="fab fa-vimeo"></i> Vimeo</a>
+                            <a class="dropdown-item" onclick="changePlayer(roomnum, 3)"><i class="fas fa-file-video"></i> HTML5 Player (Not Working Yet!)</a>
                         </div>
                     </div>
 
@@ -143,19 +145,38 @@
                     <div id='vimeoArea'>
                         <iframe class="video" id="player-vimeo" src="https://player.vimeo.com/video/76979871" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     </div>
+                    <div id='HTML5Area'>
+                        <div class="html5player">
+                            <video width="640" height="360" class="video html5video" id="html5src" controls>
+                            <!-- <source src="video/sintel-short.mp4" type="video/mp4">
+                            <source src="video/sintel-short.webm" type="video/webm"> -->
+                            <!-- fallback content here -->
+                            </video>
+                            <div class="controls">
+                                <button class="html5button play" data-icon="P" aria-label="play pause toggle"></button>
+                                <button class="html5button stop" data-icon="S" aria-label="stop"></button>
+                                <div class="timer">
+                                    <div></div>
+                                    <span aria-label="timer">00:00</span>
+                                </div>
+                                <button class="html5button rwd" data-icon="B" aria-label="rewind"></button>
+                                <button class="html5button fwd" data-icon="F" aria-label="fast forward"></button>
+                            </div>
+                        </div>
+                    </div>
 
                     <!----------------------------------- PLAYER AREA ----------------------------------->
                     <!-- <hr> -->
                     <div>
-                        <button onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
+                        <button id="playButton" onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
 
                         <button id="syncbutton" onclick="syncVideo(roomnum);syncAlert()" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-sync"></i> Sync</button>
 
-                        <button onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Random K-pop</button>
+                        <button id="loveButton" onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Random K-pop</button>
                         <!-- <br/> -->
                         <button id="hostbutton" onclick="changeHost(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-users"></i> Make me the host!</button>
                         <!-- Turn off the lights -->
-                        <button style="margin-top:.5rem" class="btn btn-primary switch"><i style="pointer-events:none;" class="fas fa-lightbulb"></i></button>
+                        <button id="lightButton" style="margin-top:.5rem" class="btn btn-primary switch"><i style="pointer-events:none;" class="fas fa-lightbulb"></i></button>
                     </div>
 
                     <!-- Div for lights off! -->
@@ -163,18 +184,19 @@
 
                     <div class="topbotmargins">
                         <input type="Video" style="max-width: 200px; margin-right: .5rem; margin-bottom: .5rem; float: left;" class="form-control" id="inputVideoId" placeholder="Video ID">
-                        <button onclick="enqueueVideo(roomnum)" class="btn btn-primary"><i class="fas fa-plus"></i> Add to Queue</button>
-                        <button onclick="emptyQueue(roomnum)" class="btn btn-primary"><i class="fas fa-trash"></i> Empty Queue</button>
+                        <button id="enqueueButton" onclick="enqueueVideo(roomnum)" class="btn btn-primary"><i class="fas fa-plus"></i> Add to Queue</button>
+                        <button id="emptyButton" onclick="emptyQueue(roomnum)" class="btn btn-primary"><i class="fas fa-trash"></i> Empty Queue</button>
                     </div>
                     <div>
                         <!-- <a class="ghost-button-full-color"><i class="far fa-times-circle"></i></a> -->
-                        <button onclick="changeVideo(roomnum)" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
-                        <button onclick="prevVideo(roomnum)" class="btn btn-primary"><i class="fas fa-step-backward"></i> Previous</button>
-                        <button onclick="playNext(roomnum)" class="btn btn-primary"><i class="fas fa-step-forward"></i> Next</button>
+                        <button id="changeButton" onclick="changeVideo(roomnum)" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
+                        <button id="previousButton" onclick="prevVideo(roomnum)" class="btn btn-primary"><i class="fas fa-step-backward"></i> Previous</button>
+                        <button id="nextButton" onclick="playNext(roomnum)" class="btn btn-primary"><i class="fas fa-step-forward"></i> Next</button>
 
                         <br/>
-                    </div>
 
+                    </div>
+                    <!-- <input type="file" id="html5-input" /> -->
                     <!-- Playlist shit -->
                     <div id="visual-queue" class="vid-list-container">
                         <ul class="vid-list" id="vidlist">
@@ -198,7 +220,12 @@
                         </div>
                     </div>
                     <br/>
-                    <p style="display: none" id="beta-message" class="lead">Queue is currently in beta for DailyMotion/Vimeo</p>
+
+                    <!-- HTML5 player input -->
+                    <input type="file" id="html5-input" />
+
+                    <p style="display: none" id="html5-message" class="lead">HTML5 Player synchronization is not yet supported</p>
+                    <p style="display: none" id="beta-message" class="lead">Queue is currently only supported by YouTube</p>
 
 
 
@@ -692,6 +719,8 @@
     <!-- Vimeo -->
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script src="js/vimeo.js"></script>
+    <!-- HTML5 Player -->
+    <script src="js/html5.js"></script>
 
 </body>
 
