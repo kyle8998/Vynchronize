@@ -36,6 +36,11 @@ socket.on('justPlay', function(data) {
                 console.log("Error: Could not retrieve Vimeo Player state")
             });
             break;
+        case 3:
+            if (media.paused) {
+                media.play();
+            }
+            break;
     }
 });
 
@@ -68,6 +73,9 @@ socket.on('justPause', function(data) {
                 // an error occurred
                 console.log("Error: Could not retrieve Vimeo Player state")
             });
+            break;
+        case 3:
+            media.pause()
             break;
     }
     player.pauseVideo()
@@ -128,6 +136,13 @@ socket.on('justSeek', function(data) {
                 console.log("Error: Could not retrieve Vimeo player current time")
             });
 
+            break;
+        case 3:
+            var clientTime = media.currentTime
+            if (clientTime < currTime - .1 || clientTime > currTime + .1) {
+                media.currentTime = currTime
+            }
+            playOther(roomnum)
             break;
     }
 });

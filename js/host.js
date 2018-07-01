@@ -130,6 +130,17 @@ socket.on('compareHost', function(data) {
             });
 
             break;
+        case 3:
+            var currTime = media.currentTime
+            var state = media.paused
+
+            // If out of sync
+            console.log("curr: " + currTime + " Host: " + hostTime)
+            if (currTime < hostTime - 2 || currTime > hostTime + 2) {
+                disconnected()
+            }
+
+            break;
         default:
             console.log("Error invalid player id")
     }

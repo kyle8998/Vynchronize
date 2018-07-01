@@ -58,6 +58,16 @@ socket.on('getPlayerData', function(data) {
             });
 
             break;
+        case 3:
+            var currTime = media.currentTime
+            var state = media.paused
+            socket.emit('get host data', {
+                room: roomnum,
+                currTime: currTime,
+                state: state,
+                caller: caller
+            });
+            break;
         default:
             console.log("Error invalid player id")
     }
@@ -65,7 +75,6 @@ socket.on('getPlayerData', function(data) {
 
 // Create Youtube Player
 socket.on('createYoutube', function(data) {
-    media.pause()
     if (currPlayer != 0) {
         // var playerIn = document.getElementById("playerArea")
         // console.log(playerIn.innerHTML)
@@ -92,9 +101,10 @@ socket.on('createYoutube', function(data) {
         document.getElementById('enqueueButton').style.display = 'inline-block'
         document.getElementById('emptyButton').style.display = 'inline-block'
         document.getElementById('nextButton').style.display = 'inline-block'
-        document.getElementById('html5-input').style.display = 'none'
-
-        document.getElementById('html5-message').style.display = 'none'
+        document.getElementById('loveButton').style.display = 'inline-block'
+        // document.getElementById('html5-input').style.display = 'none'
+        document.getElementById('inputVideoId').placeholder = 'Video ID / URL'
+        // document.getElementById('html5-message').style.display = 'none'
 
         console.log("Player state: " + playerStatus)
         // If it is -1, there was an error and needs to resync to host
@@ -112,7 +122,6 @@ socket.on('createYoutube', function(data) {
 
 // Create Daily Motion Player
 socket.on('createDaily', function(data) {
-    media.pause()
     console.log("i am in create daily")
     // player.destroy()
     if (currPlayer != 1) {
@@ -140,9 +149,10 @@ socket.on('createDaily', function(data) {
         document.getElementById('enqueueButton').style.display = 'none'
         document.getElementById('emptyButton').style.display = 'none'
         document.getElementById('nextButton').style.display = 'none'
-        document.getElementById('html5-input').style.display = 'none'
-
-        document.getElementById('html5-message').style.display = 'none'
+        document.getElementById('loveButton').style.display = 'none'
+        // document.getElementById('html5-input').style.display = 'none'
+        document.getElementById('inputVideoId').placeholder = 'Video ID / URL'
+        // document.getElementById('html5-message').style.display = 'none'
 
         // Special call to pause youtube player
         // Only have to do on youtube player as it is the default player that autoplays
@@ -152,7 +162,6 @@ socket.on('createDaily', function(data) {
 
 // Create Vimeo Player
 socket.on('createVimeo', function(data) {
-    media.pause()
     if (currPlayer != 2) {
         //     var playerIn = document.getElementById("playerArea")
         //     console.log(playerIn.innerHTML)
@@ -178,9 +187,10 @@ socket.on('createVimeo', function(data) {
         document.getElementById('enqueueButton').style.display = 'none'
         document.getElementById('emptyButton').style.display = 'none'
         document.getElementById('nextButton').style.display = 'none'
-        document.getElementById('html5-input').style.display = 'none'
-
-        document.getElementById('html5-message').style.display = 'none'
+        document.getElementById('loveButton').style.display = 'none'
+        // document.getElementById('html5-input').style.display = 'none'
+        document.getElementById('inputVideoId').placeholder = 'Video ID / URL'
+        // document.getElementById('html5-message').style.display = 'none'
 
         // Special call to pause youtube player
         // Only have to do on youtube player as it is the default player that autoplays
@@ -214,9 +224,10 @@ socket.on('createHTML5', function(data) {
         document.getElementById('enqueueButton').style.display = 'none'
         document.getElementById('emptyButton').style.display = 'none'
         document.getElementById('nextButton').style.display = 'none'
-        document.getElementById('html5-input').style.display = 'block'
-
-        document.getElementById('html5-message').style.display = 'block'
+        document.getElementById('loveButton').style.display = 'none'
+        // document.getElementById('html5-input').style.display = 'block'
+        document.getElementById('inputVideoId').placeholder = 'Direct mp4/webm URL'
+        // document.getElementById('html5-message').style.display = 'block'
 
     }
 });
