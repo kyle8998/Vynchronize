@@ -5,7 +5,7 @@
 
 Vynchronize is a online video synchronization platform where you can watch videos online with friends in real time!
 
-Vynchronize currently supports YouTube, Daily Motion, and Vimeo!
+Vynchronize currently supports YouTube, Daily Motion, Vimeo, and essentially any .mp4/.webm on the internet with the HTML5 Player!
 
 [![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](http://forthebadge.com)
 
@@ -141,6 +141,7 @@ io.sockets.adapter.rooms['room-'+roomnum]
 │   |   .yt
 │   |   .dm
 │   |   .vimeo
+│   |   .html5
 |
 └───.prevVideo
 │   │
@@ -151,6 +152,9 @@ io.sockets.adapter.rooms['room-'+roomnum]
 │   |   |   .id
 │   |   |   .time
 │   └───.vimeo
+│   |   │   .id
+│   |   │   .time
+│   └───.html5
 │       │   .id
 │       │   .time
 |
@@ -173,6 +177,12 @@ io.sockets.adapter.rooms['room-'+roomnum]
 |   |   |   videoId,
 |   |   |   title
 |   |   |   }]
+|   |
+│   └───.html5
+|       └───[{
+|       |   videoId,
+|       |   title
+|       |   }]
 |
 └───.sockets
     │   SOCKET-ID1

@@ -278,6 +278,7 @@ function loveLive(roomnum) {
     // likey, spring love, palette, roller coaster, DNA, I, peekaboo, wee woo
     // rookie, russian roulette, i want you back, TT, whistle, ddu du ddu du, turtle, 24/7
     // something new, #cookie jar, lion heart, i will show you, bubble pop, girl front, love cherry motion, ice cream cake
+    // stay (taeyeon), ordinary love, 11:11, SObeR
     var video_roulette = [
         '97uviVyw0_o', 'tIWpr3tHzII', 'WkdtmT8A2iY', 'U7mPqycQ0tQ',
         'i0p1bmr0EmE', 'FzVR_fymZw4', 'eNmL4JiGxZQ', 'J_CFBjAyPWE',
@@ -286,11 +287,12 @@ function loveLive(roomnum) {
         'J0h8-OTC38I', 'QslJYDX3o8s', 'X3H-4crGD6k', 'ePpPVE-GGJw',
         'dISNgvVpWlo', 'IHNzOHi8sJs', 'sErJjrLswEw', '-j6XPEUKzn0',
         'im1UUY8dQIk', 'rRgTMs_bGuI', 'nVCubhQ454c', 'MCEcWcIww5k',
-        'bw9CALKOvAI', 'tyInv6RWL0Q', 'VBbeuXW8Nko', 'glXgSSOKlls'
+        'bw9CALKOvAI', 'tyInv6RWL0Q', 'VBbeuXW8Nko', 'glXgSSOKlls',
+        'k9_XH1YibcY', 'xGav-z5yRiU', 'WLJyhhNCHi0', 'DgT4CPv_CCE'
     ]
 
-    // Random number between 0 and 31
-    var random = Math.floor(Math.random() * (32))
+    // Random number between 0 and 35 inclusive
+    var random = Math.floor(Math.random() * (36))
     // Only for YouTube testing
     socket.emit('change video', {
         room: roomnum,
@@ -486,8 +488,8 @@ socket.on('syncVideoClient', function(data) {
                 break;
 
             case 3:
-
                 media.currentTime = currTime
+
                 // Sync player state
                 // IF parent player was paused
                 if (state) {
@@ -564,6 +566,7 @@ socket.on('changeVideoClient', function(data) {
 
     // Auto sync with host after 1000ms of changing video
     setTimeout(function() {
+        console.log("resyncing with host after video change")
         socket.emit('sync host', {});
     }, 1000);
 

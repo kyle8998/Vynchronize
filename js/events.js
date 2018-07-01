@@ -142,7 +142,7 @@ socket.on('justSeek', function(data) {
             if (clientTime < currTime - .1 || clientTime > currTime + .1) {
                 media.currentTime = currTime
             }
-            playOther(roomnum)
+            // playOther(roomnum)
             break;
     }
 });
