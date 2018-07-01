@@ -147,21 +147,11 @@
                     </div>
                     <div id='HTML5Area'>
                         <div class="html5player">
-                            <video width="640" height="360" class="video html5video" id="html5src" controls>
+                            <video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" width="640" height="360" class="video html5video" id="html5src" controls>
                             <!-- <source src="video/sintel-short.mp4" type="video/mp4">
                             <source src="video/sintel-short.webm" type="video/webm"> -->
                             <!-- fallback content here -->
                             </video>
-                            <div class="controls">
-                                <button class="html5button play" data-icon="P" aria-label="play pause toggle"></button>
-                                <button class="html5button stop" data-icon="S" aria-label="stop"></button>
-                                <div class="timer">
-                                    <div></div>
-                                    <span aria-label="timer">00:00</span>
-                                </div>
-                                <button class="html5button rwd" data-icon="B" aria-label="rewind"></button>
-                                <button class="html5button fwd" data-icon="F" aria-label="fast forward"></button>
-                            </div>
                         </div>
                     </div>
 
@@ -183,7 +173,7 @@
                     <div id='persoff'></div>
 
                     <div class="topbotmargins">
-                        <input type="Video" style="max-width: 200px; margin-right: .5rem; margin-bottom: .5rem; float: left;" class="form-control" id="inputVideoId" placeholder="Video ID">
+                        <input type="Video" style="max-width: 200px; margin-right: .5rem; margin-bottom: .5rem; float: left;" class="form-control" id="inputVideoId" placeholder="Video ID / URL">
                         <button id="enqueueButton" onclick="enqueueVideo(roomnum)" class="btn btn-primary"><i class="fas fa-plus"></i> Add to Queue</button>
                         <button id="emptyButton" onclick="emptyQueue(roomnum)" class="btn btn-primary"><i class="fas fa-trash"></i> Empty Queue</button>
                     </div>
@@ -222,9 +212,10 @@
                     <br/>
 
                     <!-- HTML5 player input -->
-                    <input type="file" id="html5-input" />
+                    <!-- <input type="file" id="html5-input" /> -->
+                    <!-- <input type="Video" style="max-width: 200px; margin-right: .5rem; margin-bottom: .5rem; float: left;" class="form-control" id="inputVideoURL" placeholder="Direct URL to .mp4/.webm"> -->
 
-                    <p style="display: none" id="html5-message" class="lead">HTML5 Player synchronization is not yet supported</p>
+                    <!-- <p style="display: none" id="html5-message" class="lead">Video File Upload Not Yet Supported</p> -->
                     <p style="display: none" id="beta-message" class="lead">Queue is currently only supported by YouTube</p>
 
 

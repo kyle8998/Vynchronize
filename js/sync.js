@@ -56,6 +56,10 @@ function syncVideo(roomnum) {
                 console.log("Error: Could not retrieve Vimeo player current time")
             });
             break;
+        case 3:
+            currTime = media.currentTime;
+            state = media.paused;
+            break;
         default:
             console.log("Error invalid player id")
     }
@@ -91,6 +95,9 @@ function getTime() {
                 return null
             });
             break;
+        case 3:
+            return media.currentTime;
+            break;
         default:
             console.log("Error invalid player id")
     }
@@ -120,6 +127,10 @@ function seekTo(time) {
                         break;
                 }
             });
+            break;
+        case 3:
+            media.currentTime = currTime
+            media.play()
             break;
     }
 }
@@ -163,7 +174,9 @@ function idParse(videoId) {
                 }
                 videoId = "invalid"
                 break;
-
+            case 3:
+                return videoId
+                break;
             default:
                 console.log("Error invalid videoId")
         }
@@ -350,6 +363,9 @@ socket.on('playVideoClient', function(data) {
         case 2:
             vimeoPlay()
             break;
+        case 3:
+            html5Play()
+            break;
         default:
             console.log("Error invalid player id")
     }
@@ -365,6 +381,9 @@ socket.on('pauseVideoClient', function(data) {
             break;
         case 2:
             vimeoPlayer.pause();
+            break;
+        case 3:
+            media.pause()
             break;
         default:
             console.log("Error invalid player id")
@@ -466,6 +485,18 @@ socket.on('syncVideoClient', function(data) {
                 });
                 break;
 
+            case 3:
+
+                media.currentTime = currTime
+                // Sync player state
+                // IF parent player was paused
+                if (state) {
+                    media.pause()
+                } else {
+                    media.play()
+                }
+                break;
+
             default:
                 console.log("Error invalid player id")
         }
@@ -522,6 +553,9 @@ socket.on('changeVideoClient', function(data) {
                             break;
                     }
                 });
+                break;
+            case 3:
+                htmlLoadVideo(videoId)
                 break;
             default:
                 console.log("Error invalid player id")
