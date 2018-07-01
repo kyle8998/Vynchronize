@@ -3,6 +3,7 @@ var currPlayer = 0
 // 0 - YouTube
 // 1 - Daily Motion
 // 2 - Vimeo
+// 3 - HTML5
 
 // Gets all the player data
 socket.on('getPlayerData', function(data) {
@@ -200,8 +201,6 @@ socket.on('createVimeo', function(data) {
 
 // Create HTML5 Player
 socket.on('createHTML5', function(data) {
-    console.log("55555")
-    console.log(currPlayer)
     if (currPlayer != 3) {
 
         var you = document.getElementById('playerArea');
@@ -229,6 +228,7 @@ socket.on('createHTML5', function(data) {
         document.getElementById('inputVideoId').placeholder = 'Direct mp4/webm URL'
         // document.getElementById('html5-message').style.display = 'block'
 
+        betaAlert()
     }
 });
 

@@ -92,14 +92,14 @@ function seekOther(roomnum, currTime) {
 
 // Weird for YouTube because there is no built in seek event
 // It seeks on an buffer event
-// Only syncs if off by over .1 seconds
+// Only syncs if off by over .2 seconds
 socket.on('justSeek', function(data) {
     console.log("Seeking Event!")
     currTime = data.time
     switch (currPlayer) {
         case 0:
             var clientTime = player.getCurrentTime();
-            if (clientTime < currTime - .1 || clientTime > currTime + .1) {
+            if (clientTime < currTime - .2 || clientTime > currTime + .2) {
                 player.seekTo(currTime);
                 // Forces video to play right after seek
                 player.playVideo()
@@ -107,7 +107,7 @@ socket.on('justSeek', function(data) {
             break;
         case 1:
             var clientTime = dailyPlayer.currentTime;
-            if (clientTime < currTime - .1 || clientTime > currTime + .1) {
+            if (clientTime < currTime - .2 || clientTime > currTime + .2) {
                 dailyPlayer.seek(currTime);
             }
             playOther(roomnum)
@@ -115,7 +115,7 @@ socket.on('justSeek', function(data) {
         case 2:
             vimeoPlayer.getCurrentTime().then(function(seconds) {
                 // seconds = the current playback position
-                if (seconds < currTime - .1 || seconds > currTime + .1) {
+                if (seconds < currTime - .2 || seconds > currTime + .2) {
                     vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
                         // seconds = the actual time that the player seeked to
 
@@ -139,7 +139,7 @@ socket.on('justSeek', function(data) {
             break;
         case 3:
             var clientTime = media.currentTime
-            if (clientTime < currTime - .1 || clientTime > currTime + .1) {
+            if (clientTime < currTime - .2 || clientTime > currTime + .2) {
                 media.currentTime = currTime
             }
             // playOther(roomnum)

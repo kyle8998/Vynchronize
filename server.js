@@ -177,7 +177,7 @@ io.sockets.on('connection', function(socket) {
                 yt: 'M7lc1UVf-VE',
                 dm: 'x26m1j4',
                 vimeo: '76979871',
-                html5: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+                html5: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
             }
             // Previous Video
             io.sockets.adapter.rooms['room-' + socket.roomnum].prevVideo = {
@@ -194,7 +194,7 @@ io.sockets.on('connection', function(socket) {
                     time: 0
                 },
                 html5: {
-                    id: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+                    id: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
                     time: 0
                 }
             }
@@ -238,7 +238,25 @@ io.sockets.on('connection', function(socket) {
         }
         var currYT = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.yt
 
-        // Change the video to current One
+        // Change the video player to current One
+        switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
+            case 0:
+                // YouTube is default so do nothing
+                break;
+            case 1:
+                io.sockets.in("room-" + socket.roomnum).emit('createDaily', {});
+                break;
+            case 2:
+                io.sockets.in("room-" + socket.roomnum).emit('createVimeo', {});
+                break;
+            case 3:
+                io.sockets.in("room-" + socket.roomnum).emit('createHTML5', {});
+                break;
+            default:
+                console.log("Error invalid player id")
+        }
+
+        // Change the video to the current one
         socket.emit('changeVideoClient', {
             videoId: currVideo
         });
@@ -295,20 +313,22 @@ io.sockets.on('connection', function(socket) {
         io.sockets.in("room-" + roomnum).emit('playVideoClient');
     });
 
+    // Event Listener Functions
+    // Broadcast so host doesn't continuously call it on itself!
     socket.on('play other', function(data) {
         var roomnum = data.room
-        io.sockets.in("room-" + roomnum).emit('justPlay');
+        socket.broadcast.to("room-" + roomnum).emit('justPlay');
     });
 
     socket.on('pause other', function(data) {
         var roomnum = data.room
-        io.sockets.in("room-" + roomnum).emit('justPause');
+        socket.broadcast.to("room-" + roomnum).emit('justPause');
     });
 
     socket.on('seek other', function(data) {
         var roomnum = data.room
         var currTime = data.time
-        io.sockets.in("room-" + roomnum).emit('justSeek', {
+        socket.broadcast.to("room-" + roomnum).emit('justSeek', {
             time: currTime
         });
 
@@ -537,7 +557,7 @@ io.sockets.on('connection', function(socket) {
                     io.sockets.adapter.rooms['room-' + socket.roomnum].prevVideo.html5.id = io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.html5
                     io.sockets.adapter.rooms['room-' + socket.roomnum].prevVideo.html5.time = time
                     // Set new video id
-                    io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.html5= videoId
+                    io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo.html5 = videoId
                     break;
                 default:
                     console.log("Error invalid player id")
@@ -653,7 +673,7 @@ io.sockets.on('connection', function(socket) {
 
             // This changes the room variable to the player id
             io.sockets.adapter.rooms['room-' + roomnum].currPlayer = playerId
-            console.log(io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer)
+            // console.log(io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer)
 
             // This syncs the host whenever the player changes
             host = io.sockets.adapter.rooms['room-' + socket.roomnum].host
@@ -802,7 +822,6 @@ io.sockets.on('connection', function(socket) {
     })
 
     // Calls notify functions
-    // NOT YET FINISHED
     socket.on('notify alerts', function(data) {
         var alert = data.alert
         console.log("entered notify alerts")
@@ -834,6 +853,11 @@ io.sockets.on('connection', function(socket) {
                 io.sockets.in("room-" + socket.roomnum).emit('emptyQueueNotify', {
                     user: encodedUser
                 })
+                break;
+                // Beta Message Alert
+            case 3:
+                console.log("yoyoyoyoyo")
+                io.sockets.in("room-" + socket.roomnum).emit('betaNotify', {})
                 break;
             default:
                 console.log("Error alert id")

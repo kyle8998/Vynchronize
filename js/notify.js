@@ -1,6 +1,7 @@
 // 0. Enqueue
 // 1. Host Change
 // 2. Empty Queue
+// 3. Beta Message
 
 // Enqueue Notify (0)
 socket.on('enqueueNotify', function(data) {
@@ -81,6 +82,30 @@ socket.on('emptyQueueNotify', function(data) {
     });
 })
 
+// Beta Message (3)
+socket.on('betaNotify', function(data) {
+    console.log("Beta Notify Alert")
+
+    $.notify({
+        title: '<strong>Warning: </strong>',
+        icon: 'fas fa-trash',
+        message: "HTML5 Player is in beta. It does not work 100% with more than 2 people."
+    }, {
+        type: 'warning',
+        delay: 800,
+        animate: {
+            enter: 'animated fadeInUp',
+            exit: 'animated fadeOutRight'
+        },
+        placement: {
+            from: "bottom",
+            align: "right"
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+    });
+})
 
 //------------------------------------------------------------------------------
 // Not part of the server function
@@ -167,6 +192,28 @@ function invalidURL() {
     }, {
         type: 'danger',
         delay: 400,
+        animate: {
+            enter: 'animated fadeInUp',
+            exit: 'animated fadeOutRight'
+        },
+        placement: {
+            from: "bottom",
+            align: "right"
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+    })
+}
+
+function betaAlert() {
+    $.notify({
+        title: '<strong>Warning: </strong>',
+        icon: 'fas fa-trash',
+        message: "HTML5 Player is in beta. It does not work 100% with long videos"
+    }, {
+        type: 'warning',
+        delay: 3200,
         animate: {
             enter: 'animated fadeInUp',
             exit: 'animated fadeOutRight'
