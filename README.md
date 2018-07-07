@@ -3,7 +3,7 @@
 
 ![Vynchronize Screenshot](https://raw.githubusercontent.com/kyle8998/Vynchronize/master/img/screenshot2.PNG)
 
-Vynchronize is a online video synchronization platform where you can watch videos online with friends in real time!
+Vynchronize is a real-time online video synchronization platform. You can enjoy any video available online with friends who may not be next to you!
 
 Vynchronize currently supports YouTube, Daily Motion, Vimeo, and essentially any .mp4/.webm on the internet with the HTML5 Player!
 
@@ -63,7 +63,7 @@ npm test
 
 The entire functionality of Vynchronize relies on web sockets, specifically
 Socket.IO. When a client connects to the server, a socket is created. The user
-then enters a name and room number. The inputs are sent back to the server, and
+then enters a name and a room number. The inputs are sent back to the server, and
 it creates/joins a room of that name with Socket.IO. Any user can connect to the
 room and interact with the users there.
 
@@ -81,10 +81,10 @@ other socket. It will use that data and bring everyone to the correct time.
 
 ##### Hosts
 
-At first it was fine to have no specific host of a room, but I quickly realized
+At first it was fine to have host-less rooms, but I quickly realized
 that people want to be auto-synced rather than hitting the sync button over
-and over. For example if a client joins a room late, I want them to be synced
-immediately.
+and over. For example if you join an already existing room, you want to jump
+right into the content rather than worrying about syncing!
 
 To do this I created a host socket which would be marked when a room is created.
 This host socket is responsible for sending all the important video information
@@ -197,6 +197,8 @@ consists of objects that hold both the id and title. It was created this way bec
 grabbing the title required extra work, and could not be done continuously on the spot.
 
 ##### In Depth Functionality
+
+**Note**: This was a very brief summary of what goes on behind the scenes.
 
 Please see the [Wiki](https://github.com/kyle8998/Vynchronize/wiki) for more
 information.

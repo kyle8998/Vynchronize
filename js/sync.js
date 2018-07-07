@@ -278,7 +278,8 @@ function loveLive(roomnum) {
     // likey, spring love, palette, roller coaster, DNA, I, peekaboo, wee woo
     // rookie, russian roulette, i want you back, TT, whistle, ddu du ddu du, turtle, 24/7
     // something new, #cookie jar, lion heart, i will show you, bubble pop, girl front, love cherry motion, ice cream cake
-    // stay (taeyeon), ordinary love, 11:11, SObeR
+    // stay (taeyeon), ordinary love, 11:11, SObeR, I'm so sick, heaven, genie, dinosaur
+    // Travel
     var video_roulette = [
         '97uviVyw0_o', 'tIWpr3tHzII', 'WkdtmT8A2iY', 'U7mPqycQ0tQ',
         'i0p1bmr0EmE', 'FzVR_fymZw4', 'eNmL4JiGxZQ', 'J_CFBjAyPWE',
@@ -288,11 +289,13 @@ function loveLive(roomnum) {
         'dISNgvVpWlo', 'IHNzOHi8sJs', 'sErJjrLswEw', '-j6XPEUKzn0',
         'im1UUY8dQIk', 'rRgTMs_bGuI', 'nVCubhQ454c', 'MCEcWcIww5k',
         'bw9CALKOvAI', 'tyInv6RWL0Q', 'VBbeuXW8Nko', 'glXgSSOKlls',
-        'k9_XH1YibcY', 'xGav-z5yRiU', 'WLJyhhNCHi0', 'DgT4CPv_CCE'
+        'k9_XH1YibcY', 'xGav-z5yRiU', 'WLJyhhNCHi0', 'DgT4CPv_CCE',
+        'F4oHuML9U2A', 'L9ro1KjkJMg', '6SwiSpudKWI', '8Oz7DG76ibY',
+        'xRbPAVnqtcs'
     ]
 
-    // Random number between 0 and 35 inclusive
-    var random = Math.floor(Math.random() * (36))
+    // Random number between 0 and 40 inclusive
+    var random = Math.floor(Math.random() * (41))
     // Only for YouTube testing
     socket.emit('change video', {
         room: roomnum,
