@@ -351,7 +351,6 @@ function changeSinglePlayer(playerId) {
 // Client Synchronization Stuff //
 //------------------------------//
 
-var socket = io.connect();
 var roomnum = 1
 var id = "M7lc1UVf-VE"
 

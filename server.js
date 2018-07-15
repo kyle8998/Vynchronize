@@ -55,10 +55,6 @@ io.sockets.on('connection', function(socket) {
     connections.push(socket);
     console.log('Connected: %s sockets connected', connections.length);
 
-    console.log(socket.request.connection.remoteAddress)
-    // console.log(socket.request)
-    console.log(socket.handshake)
-    
     // Set default room, if provided in url
     socket.emit('set id', {
         id: given_room
