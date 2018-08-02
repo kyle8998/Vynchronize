@@ -225,7 +225,7 @@ socket.on('createHTML5', function(data) {
         document.getElementById('nextButton').style.display = 'none'
         document.getElementById('loveButton').style.display = 'none'
         // document.getElementById('html5-input').style.display = 'block'
-        document.getElementById('inputVideoId').placeholder = 'Direct mp4/webm URL'
+        document.getElementById('inputVideoId').placeholder = 'Direct mp4/webm/mkv URL'
         // document.getElementById('html5-message').style.display = 'block'
 
         betaAlert()
