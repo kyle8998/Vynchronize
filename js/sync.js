@@ -220,7 +220,13 @@ function emptyQueue(roomnum) {
 function changeVideo(roomnum) {
     //var videoId = 'sjk7DiH0JhQ';
     var videoId = document.getElementById("inputVideoId").value;
-    videoId = idParse(videoId)
+	if (videoId == '') {
+		var filePicker = document.getElementById('html5-input');
+		var localVideoFileIndicatorText = "!LOCALVIDEOFILE!-";
+		videoId = localVideoFileIndicatorText + filePicker.files.item(0).name;
+	} else {
+		videoId = idParse(videoId);
+	}
 
     if (videoId != "invalid") {
         var time = getTime()

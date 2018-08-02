@@ -185,7 +185,15 @@
                     <div id='persoff'></div>
 
                     <div class="topbotmargins">
-                        <input type="Video" style="max-width: 200px; margin-right: .5rem; margin-bottom: .5rem; float: left;" class="form-control" id="inputVideoId" placeholder="Video ID / URL">
+                        <input type="url" style="max-width: 200px; margin-right: .5rem; margin-bottom: .5rem; float: left;" class="form-control" id="inputVideoId" placeholder="Video ID / URL" oninput="clearHtml5Input()"><label id="html5-input-label" for="html5-input"> or </label><input type="file" accept="video/*, video/x-matroska" id="html5-input" oninput="clearInputVideoId()">
+						<script>
+							function clearInputVideoId() {
+								document.getElementById("inputVideoId").value = '';
+							};
+							function clearHtml5Input() {
+								document.getElementById("html5-input").value = '';
+							};
+						</script>
                         <button id="enqueueButton" onclick="enqueueVideo(roomnum)" class="btn btn-primary"><i class="fas fa-plus"></i> Add to Queue</button>
                         <button id="emptyButton" onclick="emptyQueue(roomnum)" class="btn btn-primary"><i class="fas fa-trash"></i> Empty Queue</button>
                     </div>
@@ -198,7 +206,6 @@
                         <br/>
 
                     </div>
-                    <!-- <input type="file" id="html5-input" /> -->
                     <!-- Playlist shit -->
                     <div id="visual-queue" class="vid-list-container">
                         <ul class="vid-list" id="vidlist">
@@ -223,14 +230,7 @@
                     </div>
                     <br/>
 
-                    <!-- HTML5 player input -->
-                    <!-- <input type="file" id="html5-input" /> -->
-                    <!-- <input type="Video" style="max-width: 200px; margin-right: .5rem; margin-bottom: .5rem; float: left;" class="form-control" id="inputVideoURL" placeholder="Direct URL to .mp4/.webm"> -->
-
-                    <!-- <p style="display: none" id="html5-message" class="lead">Video File Upload Not Yet Supported</p> -->
                     <p style="display: none" id="beta-message" class="lead">Queue is currently only supported by YouTube</p>
-
-
 
                 </div>
 
