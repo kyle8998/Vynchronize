@@ -13,8 +13,9 @@
   "author": "Kyle Lim",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "*",
-    "express": "*"
+    "express": "*",
+    "lodash": "^4.17.11",
+    "socket.io": "*"
   },
   "bugs": {
     "url": "https://github.com/kyle8998/Vynchronize/issues"
