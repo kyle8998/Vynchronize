@@ -6,7 +6,7 @@
     font-style: normal;
 }
 
-#html5-input {
+#html5-input, #html5-input-label {
     display: none;
 }
 

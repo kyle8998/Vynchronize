@@ -103,9 +103,9 @@ socket.on('createYoutube', function(data) {
         document.getElementById('emptyButton').style.display = 'inline-block'
         document.getElementById('nextButton').style.display = 'inline-block'
         document.getElementById('loveButton').style.display = 'inline-block'
-        // document.getElementById('html5-input').style.display = 'none'
+        document.getElementById('html5-input').style.display = 'none'
+        document.getElementById('html5-input-label').style.display = 'none'
         document.getElementById('inputVideoId').placeholder = 'Video ID / URL'
-        // document.getElementById('html5-message').style.display = 'none'
 
         console.log("Player state: " + playerStatus)
         // If it is -1, there was an error and needs to resync to host
@@ -151,9 +151,9 @@ socket.on('createDaily', function(data) {
         document.getElementById('emptyButton').style.display = 'none'
         document.getElementById('nextButton').style.display = 'none'
         document.getElementById('loveButton').style.display = 'none'
-        // document.getElementById('html5-input').style.display = 'none'
+        document.getElementById('html5-input').style.display = 'none'
+        document.getElementById('html5-input-label').style.display = 'none'
         document.getElementById('inputVideoId').placeholder = 'Video ID / URL'
-        // document.getElementById('html5-message').style.display = 'none'
 
         // Special call to pause youtube player
         // Only have to do on youtube player as it is the default player that autoplays
@@ -189,9 +189,9 @@ socket.on('createVimeo', function(data) {
         document.getElementById('emptyButton').style.display = 'none'
         document.getElementById('nextButton').style.display = 'none'
         document.getElementById('loveButton').style.display = 'none'
-        // document.getElementById('html5-input').style.display = 'none'
+        document.getElementById('html5-input').style.display = 'none'
+        document.getElementById('html5-input-label').style.display = 'none'
         document.getElementById('inputVideoId').placeholder = 'Video ID / URL'
-        // document.getElementById('html5-message').style.display = 'none'
 
         // Special call to pause youtube player
         // Only have to do on youtube player as it is the default player that autoplays
@@ -224,9 +224,9 @@ socket.on('createHTML5', function(data) {
         document.getElementById('emptyButton').style.display = 'none'
         document.getElementById('nextButton').style.display = 'none'
         document.getElementById('loveButton').style.display = 'none'
-        // document.getElementById('html5-input').style.display = 'block'
+        document.getElementById('html5-input').style.display = 'block'
+        document.getElementById('html5-input-label').style.display = 'block'
         document.getElementById('inputVideoId').placeholder = 'Direct mp4/webm URL'
-        // document.getElementById('html5-message').style.display = 'block'
 
         betaAlert()
     }
