@@ -444,6 +444,34 @@ io.sockets.on('connection', function(socket) {
         }
     })
 
+    // Enqueue playlist
+    // Gets all of the playlist videos and enqueues them
+    // Only supported for YouTube
+    socket.on('enqueue playlist', function(data) {
+        if (io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined) {
+            var user = data.user
+            var playlistId = data.playlistId
+            switch (io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer) {
+                case 0:
+                    // See yt.js file
+                    socket.emit('get playlist videos', {
+                        playlistId: playlistId,
+                        user: user,
+                        api_key: YT3_API_KEY
+                    })
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    console.log("Error invalid player id")
+            }
+        }
+    })
+
     // Empty the queue
     socket.on('empty queue', function(data) {
         if (io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined) {

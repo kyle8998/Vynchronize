@@ -183,14 +183,52 @@ function idParse(videoId) {
     }
     return videoId
 }
-// QueueVideo
-function enqueueVideo(roomnum) {
-    //var videoId = 'sjk7DiH0JhQ';
-    var videoId = document.getElementById("inputVideoId").value;
-    videoId = idParse(videoId)
 
-    if (videoId != "invalid") {
-        // Actually change the video!
+// This parses the ID out of the video link
+function playlistParse(videoId) {
+    // If user enters a full link
+    if (videoId.includes("https://") || videoId.includes("http://") || videoId.includes(".com/")) {
+        // Do some string processing with regex
+        switch (currPlayer) {
+            case 0:
+                var myRegex = /.+&list=([A-Za-z0-9\-_]+)/g
+                var match = myRegex.exec(videoId)
+                if (match != null) {
+                    return match[1]
+                }
+                break;
+
+            case 1:
+                break;
+
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                console.log("Error invalid player")
+        }
+    }
+    return "invalid"
+}
+
+function enqueueVideoParse(roomnum) {
+  var videoId = document.getElementById("inputVideoId").value;
+  enqueueVideo(roomnum, videoId)
+}
+
+// QueueVideo
+function enqueueVideo(roomnum, rawId) {
+    videoId = idParse(rawId)
+    playlistId = playlistParse(rawId)
+
+    if (playlistId != "invalid") {
+      socket.emit('enqueue playlist', {
+          room: roomnum,
+          playlistId: playlistId,
+          user: username
+      })
+    } else if (videoId != "invalid") {
         socket.emit('enqueue video', {
             room: roomnum,
             videoId: videoId,
@@ -216,11 +254,14 @@ function emptyQueue(roomnum) {
     })
 }
 
+function changeVideoParse(roomnum) {
+  var videoId = document.getElementById("inputVideoId").value
+  changeVideo(roomnum, videoId)
+}
+
 // Change playVideo
-function changeVideo(roomnum) {
-    //var videoId = 'sjk7DiH0JhQ';
-    var videoId = document.getElementById("inputVideoId").value;
-    videoId = idParse(videoId)
+function changeVideo(roomnum, rawId) {
+    var videoId = idParse(rawId)
 
     if (videoId != "invalid") {
         var time = getTime()
@@ -279,7 +320,8 @@ function loveLive(roomnum) {
     // rookie, russian roulette, i want you back, TT, whistle, ddu du ddu du, turtle, 24/7
     // something new, #cookie jar, lion heart, i will show you, bubble pop, girl front, love cherry motion, ice cream cake
     // stay (taeyeon), ordinary love, 11:11, SObeR, I'm so sick, heaven, genie, dinosaur
-    // Travel
+    // Travel, blow your mind, pop/stars, BBIBBI, gotta go, galaxy, my trouble, blue
+    // love scenario, dance the night away, solo, some, yes or yes, when the wind blows, hi high, don't forget
     var video_roulette = [
         '97uviVyw0_o', 'tIWpr3tHzII', 'WkdtmT8A2iY', 'U7mPqycQ0tQ',
         'i0p1bmr0EmE', 'FzVR_fymZw4', 'eNmL4JiGxZQ', 'J_CFBjAyPWE',
@@ -291,11 +333,15 @@ function loveLive(roomnum) {
         'bw9CALKOvAI', 'tyInv6RWL0Q', 'VBbeuXW8Nko', 'glXgSSOKlls',
         'k9_XH1YibcY', 'xGav-z5yRiU', 'WLJyhhNCHi0', 'DgT4CPv_CCE',
         'F4oHuML9U2A', 'L9ro1KjkJMg', '6SwiSpudKWI', '8Oz7DG76ibY',
-        'xRbPAVnqtcs'
+        'xRbPAVnqtcs', '08ATpBqlAIk', 'UOxkGD8qRB4', 'nM0xDI5R50E',
+        'HlN2BXNJzxA', '9U8uA702xrE', 'JRdcPhDkNYw', 'F34e6LYro-4',
+        'vecSVX1QYbQ', 'Fm5iP0S1z9w', 'b73BI9eUkjM', 'hZmoMyFXDoI',
+        'mAKsZ26SabQ', 'o3pOzegB-7w', '846cjX0ZTrk', 'TcytstV1_XE'
+
     ]
 
-    // Random number between 0 and 40 inclusive
-    var random = Math.floor(Math.random() * (41))
+    // Random number between 0 and 56 inclusive
+    var random = Math.floor(Math.random() * (56))
     // Only for YouTube testing
     socket.emit('change video', {
         room: roomnum,
@@ -324,7 +370,6 @@ socket.on('getData', function(data) {
 
 function changePlayer(roomnum, playerId) {
     if (playerId != currPlayer) {
-        console.log("I changed!")
         socket.emit('change player', {
             room: roomnum,
             playerId: playerId
@@ -336,7 +381,6 @@ function changePlayer(roomnum, playerId) {
 function changeSinglePlayer(playerId) {
     return new Promise((resolve, reject) => {
         if (playerId != currPlayer) {
-            console.log("I changed!")
             socket.emit('change single player', {
                 playerId: playerId
             });
