@@ -142,15 +142,21 @@ function idParse(videoId) {
         // Do some string processing with regex
         switch (currPlayer) {
             case 0:
-                var myRegex = /.+watch\?v=([A-Za-z0-9\-_]+)/g
-                var match = myRegex.exec(videoId)
-                if (match != null) {
-                    console.log("You entered a link, but you really meant " + match[1])
-                    return match[1]
+                if (videoId.includes("youtu.be")) {
+                    var myRegex = /.+youtu\.be\/([A-Za-z0-9\-_]+)/g
+                    var match = myRegex.exec(videoId)
+                    if (match != null) {
+                        return match[1]
+                    }
+                } else {
+                  var myRegex = /.+watch\?v=([A-Za-z0-9\-_]+)/g
+                  var match = myRegex.exec(videoId)
+                  if (match != null) {
+                      return match[1]
+                  }
                 }
                 videoId = "invalid"
-                break;
-
+                break
             case 1:
                 var myRegex = /.+\/(.+)/g
                 if (videoId.includes("playlist")) {
@@ -163,8 +169,7 @@ function idParse(videoId) {
                     return match[1]
                 }
                 videoId = "invalid"
-                break;
-
+                break
             case 2:
                 var myRegex = /.+\/(.+)/g
                 var match = myRegex.exec(videoId)
@@ -173,10 +178,10 @@ function idParse(videoId) {
                     return match[1]
                 }
                 videoId = "invalid"
-                break;
+                break
             case 3:
                 return videoId
-                break;
+                break
             default:
                 console.log("Error invalid videoId")
         }
