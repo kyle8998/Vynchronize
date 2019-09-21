@@ -326,7 +326,8 @@ function loveLive(roomnum) {
     // something new, #cookie jar, lion heart, i will show you, bubble pop, girl front, love cherry motion, ice cream cake
     // stay (taeyeon), ordinary love, 11:11, SObeR, I'm so sick, heaven, genie, dinosaur
     // Travel, blow your mind, pop/stars, BBIBBI, gotta go, galaxy, my trouble, blue
-    // love scenario, dance the night away, solo, some, yes or yes, when the wind blows, hi high, don't forget
+    // love scenario, dance the night away, solo, some, yes or yes, when the wind blows, hi high, don't forget,
+    // Uh Oh!, Workaholic, 25, through the night, four seasons, bom, runaway, don't
     var video_roulette = [
         '97uviVyw0_o', 'tIWpr3tHzII', 'WkdtmT8A2iY', 'U7mPqycQ0tQ',
         'i0p1bmr0EmE', 'FzVR_fymZw4', 'eNmL4JiGxZQ', 'J_CFBjAyPWE',
@@ -341,12 +342,13 @@ function loveLive(roomnum) {
         'xRbPAVnqtcs', '08ATpBqlAIk', 'UOxkGD8qRB4', 'nM0xDI5R50E',
         'HlN2BXNJzxA', '9U8uA702xrE', 'JRdcPhDkNYw', 'F34e6LYro-4',
         'vecSVX1QYbQ', 'Fm5iP0S1z9w', 'b73BI9eUkjM', 'hZmoMyFXDoI',
-        'mAKsZ26SabQ', 'o3pOzegB-7w', '846cjX0ZTrk', 'TcytstV1_XE'
-
+        'mAKsZ26SabQ', 'o3pOzegB-7w', '846cjX0ZTrk', 'TcytstV1_XE',
+        'ycYLPbtxU1Q', 'mrAIqeULUL0', 'SNS2tOGGGRk', 'BzYnNdJhZQw',
+        '4HG_CJzyX6A', 'AsXxuIdpkWM', 'rloIUIKLFfY', 'IB6kViGA3rY'
     ]
 
     // Random number between 0 and 56 inclusive
-    var random = Math.floor(Math.random() * (56))
+    var random = Math.floor(Math.random() * (64))
     // Only for YouTube testing
     socket.emit('change video', {
         room: roomnum,
