@@ -13,6 +13,7 @@
   "author": "Kyle Lim",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "8.1.0",
     "express": "*",
     "lodash": "^4.17.11",
     "socket.io": "*"

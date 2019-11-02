@@ -39,8 +39,7 @@ Install Dependencies
 npm install
 ```
 
-Obtain API keys for YouTube Data API V3 and Dailymotion SDK (Optional) and
-source it to your path as YT3_API_KEY and DM_API_KEY respectively
+Create a `.env` file and add API keys for YouTube Data API V3 and Dailymotion SDK (Optional) as YT3_API_KEY and DM_API_KEY
 
 Run the server
 ```
