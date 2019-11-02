@@ -541,6 +541,8 @@
                             // Sets the invite link (roomnum)
                             // document.getElementById('invite').innerHTML = "vynchronize.herokuapp.com/" + roomnum
                             document.getElementById("inv_input").value = "vynchronize.herokuapp.com/" + roomnum
+                            history.pushState('', 'Vynchronize', roomnum);
+
                         }
                     });
                     // Join room
