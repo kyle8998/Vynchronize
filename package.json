@@ -16,7 +16,8 @@
     "dotenv": "8.1.0",
     "express": "*",
     "lodash": "^4.17.13",
-    "socket.io": "*"
+    "socket.io": "*",
+    "ws": ">=3.3.1"
   },
   "bugs": {
     "url": "https://github.com/kyle8998/Vynchronize/issues"
