@@ -1,0 +1,26 @@
+version: '3'
+services:
+  vynchronize:
+    #image: vynchronize
+    build: .
+    container_name: vynchronize
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    environment:
+      - YT3_API_KEY
+      - DM_API_KEY
+    ports:
+      - 3000:3000
+    healthcheck:
+      interval: 1m30s
+      retries: 3
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost
+      timeout: 10s
+    
+
