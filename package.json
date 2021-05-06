@@ -15,7 +15,7 @@
   "dependencies": {
     "dotenv": "8.1.0",
     "express": "*",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.21",
     "socket.io": "*",
     "ws": ">=3.3.1"
   },
