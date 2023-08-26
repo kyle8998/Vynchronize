@@ -5,7 +5,7 @@
   "main": "server.js",
   "engines": {
     "node": "18.x"
-  }
+  },
   "scripts": {
     "start": "node server.js",
     "test": "jshint test.js"
