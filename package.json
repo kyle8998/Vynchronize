@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Video synchronization app",
   "main": "server.js",
+  "engines": {
+    "node": "18.x"
+  }
   "scripts": {
+    "start": "node server.js",
     "test": "jshint test.js"
   },
   "repository": {
