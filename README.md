@@ -5,7 +5,7 @@
 
 Vynchronize is a real-time online video synchronization platform. You can enjoy any video available online with friends who may not be next to you!
 
-Vynchronize currently supports YouTube, Daily Motion, Vimeo, and essentially any .mp4/.webm on the internet with the HTML5 Player!
+Vynchronize currently supports YouTube, Daily Motion, Vimeo, and essentially any .mp4/.webm on the internet with the HTML5 Player! In fact, when using Google Chrome, you can also play H.264-encoded .mkv's (experimental)!
 
 [![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](http://forthebadge.com)
 
