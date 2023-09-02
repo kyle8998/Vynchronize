@@ -176,6 +176,12 @@
      border-radius: 6px;
  }
 
+ .contactButton:hover{
+    text-decoration: none;
+	color: #E6FC07 ;
+	background-color: #0A0808;
+ }
+
  .well-sm {
      padding: 9px;
      border-radius: 3px;
@@ -417,7 +423,17 @@
      position: absolute;
      bottom: 0;
      width: 100%;
+     padding: 30px 5px;
+     margin-top: 50%;
  }
+ .copyrightSection{
+	background-color: #000;
+	color: #fff;
+	padding: 30px 5px;
+}
+.copyrightSection p{
+	margin: 0;
+}
 
  .hide {
      display: none;
