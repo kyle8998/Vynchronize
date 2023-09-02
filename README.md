@@ -54,6 +54,21 @@ Access the page by going to localhost:3000
 npm test
 ```
 
+### How to run the server in Docker / Docker-compose
+
+Build the container
+```
+docker-compose build
+```
+
+Run the application in Docker.
+
+```
+docker-compose up -d
+```
+The container will expose port 3000 
+
+
 ---
 
 ### How it works
