@@ -584,8 +584,17 @@
                 var html = ''
                 if (yt.length > 0) {
                     for (i = 0; i < yt.length; i++) {
-                        html += '<li class="vid-item"><div class="thumb"><a href="javascript: removeAt(' + i + ')" class="ghost-button-full-color"><i class="far fa-times-circle"></i></a><a href="javascript: playAt(' + i +
-                            ')"><img src="http://img.youtube.com/vi/' + yt[i].videoId + '/0.jpg"></a></div><a href="javascript: playAt(' + i + ')" class="desc">' + yt[i].title + '</a></li>'
+                        html += '<li class="vid-item">'+
+                            '<div class="thumb">'+
+                                '<a href="javascript: removeAt(' + i + ')" class="ghost-button-full-color"><i class="far fa-times-circle"></i></a>'+
+                                '<a href="javascript: swapQueue(' + (i + 1) + ',' + i + ')" class="ghost-button-full-color" style="margin-right: 8px;"><i class="fas fa-arrow-right"></i></a>'+
+                                '<a href="javascript: swapQueue(' + (i - 1) + ',' + i + ')" class="ghost-button-full-color"><i class="fas fa-arrow-left"></i></a>'+
+                                '<a href="javascript: playAt(' + i + ')">'+
+                                    '<img src="http://img.youtube.com/vi/' + yt[i].videoId + '/0.jpg">'+
+                                '</a>'+
+                            '</div>'+
+                            '<a href="javascript: playAt(' + i + ')" class="desc">' + yt[i].title + '</a>'+
+                            '</li>'
                     }
                 } else {
                     html += '<li class="vid-item"></li>'
@@ -641,6 +650,13 @@
                     time: 0
                 })
             })
+        }
+
+        function swapQueue(prevIdx, nextIdx) {
+            socket.emit("swap queue", {
+                prev: prevIdx,
+                next: nextIdx
+            });
         }
 
 
