@@ -925,6 +925,37 @@ io.sockets.on('connection', function(socket) {
         );
     });
 
+    //Swap queue
+    socket.on("swap queue", function(data) {
+        if (io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined) {
+            //Queue is only supported YouTube
+            if(io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer == 0) {
+                var prevIndex = data.prev;
+                var nextIndex = data.next;
+
+                console.log("swap queue (prev: " + prevIndex + ", next: " + nextIndex + ")");
+
+                //Return when array index out of bounds
+                var queueCount = io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt.length;
+                if(prevIndex == -1 || nextIndex == -1) {
+                    return;
+                } else if (prevIndex >= queueCount || nextIndex >= queueCount) {
+                    return;
+                }
+
+                //Get swap objects
+                var prevObject = io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt[prevIndex];
+                var nextObject = io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt[nextIndex];
+
+                //Swap
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt[prevIndex] = nextObject;
+                io.sockets.adapter.rooms['room-' + socket.roomnum].queue.yt[nextIndex] = prevObject;
+
+                updateQueueVideos();
+            }
+        }
+    });
+
 
     // Some update functions --------------------------------------------------
     // Update all users
