@@ -133,10 +133,12 @@ socket.on('get playlist videos', function(data) {
             key: data.api_key
         },
         function(data) {
-          // Iterate through all of the playlist videos
-          for (let video of data.items) {
-            enqueueVideo(roomnum, video.contentDetails.videoId)
-          }
+            // Iterate through all of the playlist videos, sorted by position
+            for (let video of data.items.sort((a, b) => {
+                a.position < b.position;
+            })) {
+                enqueueVideo(roomnum, video.contentDetails.videoId);
+            }
         }
     )
 })
