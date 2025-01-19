@@ -178,13 +178,13 @@
                     <!----------------------------------- PLAYER AREA ----------------------------------->
                     <!-- <hr> -->
                     <div>
-                        <button id="playButton" onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
+                        <button id="playButton" onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary contactButton"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
 
-                        <button id="syncbutton" onclick="syncVideo(roomnum);syncAlert()" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-sync"></i> Sync</button>
+                        <button id="syncbutton" onclick="syncVideo(roomnum);syncAlert()" style="margin-top:.5rem" class="btn btn-primary contactButton"><i class="fa fa-sync"></i> Sync</button>
 
-                        <button id="loveButton" onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="far fa-heart"></i> Random K-pop</button>
+                        <button id="loveButton" onclick="loveLive(roomnum)" style="margin-top:.5rem" class="btn btn-primary contactButton"><i class="far fa-heart"></i> Random K-pop</button>
                         <!-- <br/> -->
-                        <button id="hostbutton" onclick="changeHost(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fas fa-users"></i> Make me the host!</button>
+                        <button id="hostbutton" onclick="changeHost(roomnum)" style="margin-top:.5rem" class="btn btn-primary contactButton"><i class="fas fa-users"></i> Make me the host!</button>
                         <!-- Turn off the lights -->
                         <button id="lightButton" style="margin-top:.5rem" class="btn btn-primary switch"><i style="pointer-events:none;" class="fas fa-lightbulb"></i></button>
                     </div>
@@ -194,14 +194,14 @@
 
                     <div class="topbotmargins">
                         <input type="Video" style="max-width: 200px; margin-right: .5rem; margin-bottom: .5rem; float: left;" class="form-control" id="inputVideoId" placeholder="Video ID / URL">
-                        <button id="enqueueButton" onclick="enqueueVideoParse(roomnum)" class="btn btn-primary"><i class="fas fa-plus"></i> Add to Queue</button>
-                        <button id="emptyButton" onclick="emptyQueue(roomnum)" class="btn btn-primary"><i class="fas fa-trash"></i> Empty Queue</button>
+                        <button id="enqueueButton" onclick="enqueueVideoParse(roomnum)" class="btn btn-primary contactButton"><i class="fas fa-plus"></i> Add to Queue</button>
+                        <button id="emptyButton" onclick="emptyQueue(roomnum)" class="btn btn-primary contactButton"><i class="fas fa-trash"></i> Empty Queue</button>
                     </div>
                     <div>
                         <!-- <a class="ghost-button-full-color"><i class="far fa-times-circle"></i></a> -->
-                        <button id="changeButton" onclick="changeVideoParse(roomnum)" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
-                        <button id="previousButton" onclick="prevVideo(roomnum)" class="btn btn-primary"><i class="fas fa-step-backward"></i> Previous</button>
-                        <button id="nextButton" onclick="playNext(roomnum)" class="btn btn-primary"><i class="fas fa-step-forward"></i> Next</button>
+                        <button id="changeButton" onclick="changeVideoParse(roomnum)" class="btn btn-primary contactButton"><i class="fas fa-exchange-alt"></i> Change Video</button>
+                        <button id="previousButton" onclick="prevVideo(roomnum)" class="btn btn-primary contactButton"><i class="fas fa-step-backward"></i> Previous</button>
+                        <button id="nextButton" onclick="playNext(roomnum)" class="btn btn-primary contactButton"><i class="fas fa-step-forward"></i> Next</button>
 
                         <br/>
 
@@ -407,13 +407,11 @@
     </div>
     <!-- /.container -->
 
-    <!-- Footer -->
-    <footer id="footer" class="py-5 bg-dark footer">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Vynchronize 2018</p>
-        </div>
-        <!-- /.container -->
-    </footer>
+    <div class="copyrightSection">
+		<div class="col-md-12 text-center">
+			<p>Copyright &copy; Vynchronize 2018</p>
+		</div>
+	</div>
 
     <script>
         var socket = io.connect();
